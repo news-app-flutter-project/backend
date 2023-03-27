@@ -37,7 +37,7 @@
     "@/utils": "dist/utils",
     "@/controllers": "dist/controllers",
     "@/middlewares": "dist/middlewares",
-    "@/api": "dist/api",
+    "@/apis": "dist/apis",
     "@/swagger": "dist/swagger"
   }
 }
