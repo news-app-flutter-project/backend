@@ -1,2 +1,0 @@
-# backend
-built with nodejs
