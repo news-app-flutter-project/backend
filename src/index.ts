@@ -6,8 +6,8 @@ import App from "./app";
 
 const app = new App({ port: Number(process.env.PORT), apiFn: useNewsApi });
 
-paramsArr.forEach(async (params) => {
-  console.log(await app.test_api(params));
-});
+// paramsArr.forEach(async (params) => {
+//   console.log(await app.test_api(params));
+// });
 
-app.listen();
+app.bootstrap();

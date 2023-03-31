@@ -1,3 +1,5 @@
+import db from "@/database/db";
+
 interface Paramters {
   port: number;
   apiFn: (params: any) => Promise<any>;
@@ -18,6 +20,12 @@ class App {
 
   public listen(): void {
     console.log(`app is listening to port ${this.port}`);
+  }
+  public bootstrap() {
+    db.sequelize
+      .sync({ force: false })
+      .then(() => this.listen())
+      .catch((error) => console.log(error));
   }
 }
 
