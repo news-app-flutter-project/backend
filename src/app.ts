@@ -13,7 +13,7 @@ class App {
   }
 
   public async test_api(params: any): Promise<any> {
-    console.log(await this.apiFn(params));
+    return await this.apiFn(params);
   }
 
   public listen(): void {
