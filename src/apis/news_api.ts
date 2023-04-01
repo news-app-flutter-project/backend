@@ -1,4 +1,5 @@
 import axios from "axios";
+import convertKorean from "@/utils/convertUtf";
 
 interface NewsApi {
   country?: string;
@@ -14,6 +15,7 @@ const useNewsApi = async ({
   page,
 }: NewsApi = {}) => {
   try {
+    console.log("line 18", category);
     let url = `https://newsdata.io/api/1/news?apikey=${process.env.NEWS_DATA_API_KEY}`;
     if (country) url += `&country=${country}`;
     if (category) url += `&category=${category}`;
@@ -25,7 +27,22 @@ const useNewsApi = async ({
       url,
     });
 
-    return response.data;
+    const { data } = response;
+
+    if (data.results.length !== 0) {
+      const convertedData = data.results.map((newsItem: any) => {
+        if (newsItem.content !== null) {
+          const convertedContent = convertKorean(newsItem.content);
+          return { ...newsItem, content: convertedContent };
+        } else {
+          return { ...newsItem };
+        }
+      });
+      // console.log({ ...data, results: convertedData });
+      return { ...data, results: convertedData };
+    } else {
+      return data;
+    }
   } catch (error) {
     return error;
   }
