@@ -14,8 +14,7 @@
     "migrate:dev": "npx sequelize-cli db:migrate --env development",
     "migrate:test": "npx sequelize-cli db:migrate --env test",
     "migrate:prod": "npx sequelize-cli db:migrate --env production",
-    "migrate": "npm run migrate:dev && npm run migrate:test && npm run migrate:prod",
-    "switch-node-env": "bash -c 'if [ \"$1\" == \"test\" ]; then export NODE_ENV=test; echo \"NODE_ENV switched to test\"; elif [ \"$1\" == \"prod\" ]; then export NODE_ENV=production; echo \"NODE_ENV switched to production\"; else export NODE_ENV=development; echo \"NODE_ENV switched to development\"; fi;' --"
+    "migrate": "npm run migrate:dev && npm run migrate:test && npm run migrate:prod"
   },
   "keywords": [],
   "author": "",
