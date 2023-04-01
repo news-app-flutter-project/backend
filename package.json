@@ -9,7 +9,13 @@
     "dev": "tsc-watch --onSuccess \"node ./dist/index.js\"",
     "build": "tsc",
     "postinstall": "npm run build",
-    "api-docs": "swagger-cli bundle ./src/swagger/openapi.yaml --outfile build/swagger.yaml --type yaml"
+    "api-docs": "swagger-cli bundle ./src/swagger/openapi.yaml --outfile build/swagger.yaml --type yaml",
+    "migrate:generate": "npx sequelize-cli migration:generate --name add-new-field-to-users",
+    "migrate:dev": "npx sequelize-cli db:migrate --env development",
+    "migrate:test": "npx sequelize-cli db:migrate --env test",
+    "migrate:prod": "npx sequelize-cli db:migrate --env production",
+    "migrate": "npm run migrate:dev && npm run migrate:test && npm run migrate:prod",
+    "switch-node-env": "bash -c 'if [ \"$1\" == \"test\" ]; then export NODE_ENV=test; echo \"NODE_ENV switched to test\"; elif [ \"$1\" == \"prod\" ]; then export NODE_ENV=production; echo \"NODE_ENV switched to production\"; else export NODE_ENV=development; echo \"NODE_ENV switched to development\"; fi;' --"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +28,7 @@
     "eslint": "^8.36.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "sequelize-cli": "^6.6.0",
     "tsc-watch": "^6.0.0",
     "typescript": "^5.0.2"
   },
