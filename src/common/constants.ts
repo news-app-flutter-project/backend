@@ -17,6 +17,8 @@ export const SEQUELIZE_CONFIGS: Options = {
   logging: (msg) => {
     if (msg.startsWith("Executing (default): SELECT 1+1 AS result")) {
       console.log("Successfully connected to database");
+    } else if (msg.includes("error")) {
+      console.error(msg);
     } else {
       console.log(msg);
     }
