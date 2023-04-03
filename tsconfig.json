@@ -12,7 +12,8 @@
       "@/apis/*": ["apis/*"],
       "@/swagger/*": ["swagger/*"],
       "@/common/*": ["common/*"],
-      "@/database/*": ["database/*"]
+      "@/database/*": ["database/*"],
+      "@/cron/*": ["cron/*"]
     },
     "esModuleInterop": true,
 
