@@ -15,7 +15,6 @@ const useNewsApi = async ({
   page,
 }: NewsApi = {}) => {
   try {
-    console.log("line 18", category);
     let url = `https://newsdata.io/api/1/news?apikey=${process.env.NEWS_DATA_API_KEY}`;
     if (country) url += `&country=${country}`;
     if (category) url += `&category=${category}`;
