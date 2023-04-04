@@ -21,6 +21,7 @@ class App {
   public listen(): void {
     console.log(`app is listening to port ${this.port}`);
   }
+
   public bootstrap() {
     db.sequelize
       .sync({ force: false })
