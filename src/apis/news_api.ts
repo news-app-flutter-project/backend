@@ -37,7 +37,6 @@ const useNewsApi = async ({
           return { ...newsItem };
         }
       });
-      // console.log({ ...data, results: convertedData });
       return { ...data, results: convertedData };
     } else {
       return data;

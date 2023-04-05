@@ -12,7 +12,6 @@ export const validateNews = async (news: NewsCreateInterface) => {
     category: Joi.array().items(Joi.string()),
 
     keywords: Joi.alternatives().try(
-      Joi.string().max(20),
       Joi.array().items(Joi.string().max(20)),
       Joi.allow(null)
     ),
@@ -23,7 +22,11 @@ export const validateNews = async (news: NewsCreateInterface) => {
 
     content: Joi.string().required(),
 
-    creator: Joi.array().items(Joi.string()),
+    creator: Joi.alternatives().try(
+      Joi.string(),
+      Joi.array().items(Joi.string().max(20)),
+      Joi.allow(null)
+    ),
 
     pubDate: Joi.date().required(),
 
