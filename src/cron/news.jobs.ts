@@ -1,4 +1,3 @@
-import cron from "node-cron";
 import useNewsApi from "@/apis/news_api";
 import paramsArr from "@/apis/news_api_params";
 import { newsRepository } from "@/database/repositories/news.repository";
