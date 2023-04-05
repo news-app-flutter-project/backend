@@ -2,7 +2,7 @@ import "dotenv/config";
 import "module-alias/register";
 import useNewsApi from "@/apis/news_api";
 import paramsArr from "./apis/news_api_params";
-import { scheduleNewsUpdate } from "@/cron/news.jobs";
+import { ScheduleNewsUpdate } from "@/cron/news.jobs";
 import App from "./app";
 
 const app = new App({ port: Number(process.env.PORT), apiFn: useNewsApi });
@@ -12,6 +12,6 @@ const app = new App({ port: Number(process.env.PORT), apiFn: useNewsApi });
 // });
 
 // cron job
-scheduleNewsUpdate();
+app.schedule_run();
 
 app.bootstrap();
