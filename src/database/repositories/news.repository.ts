@@ -1,4 +1,7 @@
 import db from "@/database/db";
+import useChatGPT from "@/apis/gpt/keywords.gen";
+import { removeBrackets } from "@/utils/removeBrackets";
+import { gptToString } from "@/utils/gptToString";
 
 export const newsRepository = {
   // find last news item
@@ -29,6 +32,49 @@ export const newsRepository = {
       return await db.News.create(newsCreateData);
     } catch (error) {
       console.log("error", error);
+    }
+  },
+
+  // update gpt_keywords column for a news item
+  async updateGptKeywords(newsId: number) {
+    try {
+      // get the news item to update
+      const newsItem = await db.News.findByPk(newsId);
+      if (!newsItem) throw new Error("News item not found");
+
+      // split content into chunks based on sentence boundaries
+      const desciption = newsItem.dataValues.description;
+      const title = newsItem.dataValues.title;
+
+      // remove brackets from the text
+      const fixedTitle = removeBrackets(title);
+      const fixedDesc = removeBrackets(desciption);
+
+      // use key gen with chatgpt
+      const generateKeywords = new useChatGPT(process.env.OPENAI_API_KEY || "");
+      const titleKeywords = await generateKeywords.getKeywords({
+        title: fixedTitle,
+      });
+      const descKeywords = await generateKeywords.getKeywords({
+        desc: fixedDesc,
+      });
+
+      // string to arr
+      const [titleArr, descArr] = [
+        gptToString(titleKeywords || ""),
+        gptToString(descKeywords || ""),
+      ];
+
+      // filter out duplicate keywords
+      const uniqueKeywords = Array.from(new Set([...titleArr, ...descArr]));
+
+      // update gpt_keywords column with the generated keywords
+      await db.News.update(
+        { gpt_keywords: uniqueKeywords },
+        { where: { id: newsId } }
+      );
+    } catch (error) {
+      console.log("Error updating gpt_keywords column:", error);
     }
   },
 };
