@@ -1,16 +1,15 @@
+import "source-map-support/register";
 import "dotenv/config";
 import "module-alias/register";
-import useNewsApi from "@/apis/news_api";
-import paramsArr from "./apis/news_api_params";
-import { ScheduleNewsUpdate } from "@/cron/news.jobs";
-import { newsRepository } from "@/database/repositories/news.repository";
+import validateEnv from "./utils/validateEnv";
 import App from "./app";
+import { AddKeywordsController } from "@/controllers/index";
 
-const app = new App({ port: Number(process.env.PORT) });
-
-// paramsArr.forEach(async (params) => {
-//   console.log(await app.test_api(params));
-// });
+validateEnv();
+const app = new App({
+  controllers: [new AddKeywordsController()],
+  port: Number(process.env.PORT),
+});
 
 // cron job
 // app.schedule_run();
