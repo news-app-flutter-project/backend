@@ -1,19 +1,72 @@
+import express, { Application, Router } from "express";
+import helmet from "helmet";
+import cors from "cors";
+import morgan from "morgan";
 import db from "@/database/db";
 import cron from "node-cron";
+const xss = require("xss-clean");
+import rateLimit from "express-rate-limit";
+import compression from "compression";
+import { errorMiddleware } from "@/middlewares/index";
 import moment from "moment";
+import { Controller } from "./controllers/controller.interface";
 import { ScheduleNewsUpdate } from "@/cron/news.jobs";
 import useNewsApi from "@/apis/news_api";
 import paramsArr from "@/apis/news_api_params";
+import { StatusCodes } from "http-status-codes";
 
 interface Paramters {
   port: number;
+  controllers: Controller[];
 }
 
 class App {
+  public express: Application;
   public port: number;
 
-  constructor({ port }: Paramters) {
+  constructor({ port, controllers }: Paramters) {
+    this.express = express();
     this.port = port;
+
+    this.initializeMiddleware();
+    this.initializeHome();
+    this.initializeControllers(controllers);
+    this.initializeErrorHandling();
+  }
+
+  private initializeMiddleware() {
+    this.express.use(helmet());
+    this.express.use(cors());
+    this.express.use(xss());
+    this.express.use(morgan("dev"));
+    this.express.use(express.json());
+    this.express.use(express.urlencoded({ extended: false }));
+    this.express.set("trust proxy", 1);
+    this.express.use(
+      rateLimit({
+        windowMs: 15 * 60 * 1000, // 15 minutes
+        max: 100, // limit each IP to 100 requests per windowMs
+      })
+    );
+    this.express.use(compression()); // makes api request super fast (268.75 faster)
+  }
+
+  private initializeHome(): void {
+    this.express.get("/", (req, res) => {
+      console.log(req);
+      res.json({ message: true });
+      // res.redirect("/api-docs");
+    });
+  }
+
+  private initializeControllers(controllers: Controller[]): void {
+    controllers.forEach((controller: Controller) => {
+      this.express.use("/api", controller.router);
+    });
+  }
+
+  private initializeErrorHandling(): void {
+    this.express.use(errorMiddleware);
   }
 
   public async schedule_run(): Promise<any> {
@@ -25,28 +78,31 @@ class App {
       await schedule.insertNewsData(newsArr);
     }
 
-    cron.schedule("0 12 * * *", async () => {
-      const schedule = new ScheduleNewsUpdate();
-      const lastNewsItem = await schedule.findLastNewsItem();
-      console.log("Last news item:", lastNewsItem?.dataValues);
+    // cron.schedule("0 12 * * *", async () => {
+    //   const schedule = new ScheduleNewsUpdate();
+    //   const lastNewsItem = await schedule.findLastNewsItem();
+    //   console.log("Last news item:", lastNewsItem?.dataValues);
 
-      const lastNewsItemDate = moment(lastNewsItem?.dataValues.createdAt);
-      const currentDate = moment();
-      const isLastNewsItemDateBeforeCurrentDate = lastNewsItemDate.isBefore(
-        currentDate.subtract(1, "day")
-      );
-      if (isLastNewsItemDateBeforeCurrentDate) {
-        for (const param of paramsArr) {
-          const { results: newsArr } = await useNewsApi(param);
+    //   const lastNewsItemDate = moment(lastNewsItem?.dataValues.createdAt);
+    //   const currentDate = moment();
+    //   const isLastNewsItemDateBeforeCurrentDate = lastNewsItemDate.isBefore(
+    //     currentDate.subtract(1, "day")
+    //   );
+    //   if (isLastNewsItemDateBeforeCurrentDate) {
+    //     for (const param of paramsArr) {
+    //       const { results: newsArr } = await useNewsApi(param);
 
-          await schedule.insertNewsData(newsArr);
-        }
-      }
-    });
+    //       await schedule.insertNewsData(newsArr);
+    //     }
+    //   }
+    // });
   }
 
   public listen(): void {
-    console.log(`app is listening to port ${this.port}`);
+    this.express.listen(this.port, () => {
+      console.log(`App listening on port ${this.port}`);
+    });
+    console.log(`API is available at http://localhost:${this.port}`);
   }
 
   public bootstrap() {
