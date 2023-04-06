@@ -7,30 +7,23 @@ import paramsArr from "@/apis/news_api_params";
 
 interface Paramters {
   port: number;
-  apiFn: (params: any) => Promise<any>;
 }
 
 class App {
   public port: number;
-  private apiFn: (params: any) => Promise<any>;
 
-  constructor({ port, apiFn }: Paramters) {
+  constructor({ port }: Paramters) {
     this.port = port;
-    this.apiFn = apiFn;
-  }
-
-  public async test_api(params: any): Promise<any> {
-    return await this.apiFn(params);
   }
 
   public async schedule_run(): Promise<any> {
-    // const schedule = new ScheduleNewsUpdate();
+    const schedule = new ScheduleNewsUpdate();
 
-    // for (const param of paramsArr) {
-    //   const { results: newsArr } = await useNewsApi(param);
+    for (const param of paramsArr) {
+      const { results: newsArr } = await useNewsApi(param);
 
-    //   await schedule.insertNewsData(newsArr);
-    // }
+      await schedule.insertNewsData(newsArr);
+    }
 
     cron.schedule("0 12 * * *", async () => {
       const schedule = new ScheduleNewsUpdate();
