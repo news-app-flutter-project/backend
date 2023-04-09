@@ -3,15 +3,16 @@ import "dotenv/config";
 import "module-alias/register";
 import validateEnv from "./utils/validateEnv";
 import App from "./app";
-import { AddKeywordsController } from "@/controllers/index";
+import { AddKeywordsController, NewsListController } from "@/controllers/index";
+import { newsRepository } from "@/database/repositories/news.repository";
 
 validateEnv();
 const app = new App({
-  controllers: [new AddKeywordsController()],
+  controllers: [new AddKeywordsController(), new NewsListController()],
   port: Number(process.env.PORT),
 });
 
-// cron job
+// // cron job
 // app.schedule_run();
 
 // newsRepository.updateGptKeywords(1);

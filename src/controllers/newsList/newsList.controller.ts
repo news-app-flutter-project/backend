@@ -1,12 +1,12 @@
 import { Router } from "express";
 import { Controller } from "@/controllers/controller.interface";
-import validate from "./addKeywords.validation";
+import validate from "./newsList.validation";
 import { StatusCodes } from "http-status-codes";
 import { asyncWrapper, validationMiddleware } from "@/middlewares/index";
 import { newsRepository } from "@/database/repositories/news.repository";
 
-class AddKeywordsController implements Controller {
-  public path = "/addkeywords";
+class NewsListController implements Controller {
+  public path = "/newsList";
   public router = Router();
 
   constructor() {
@@ -16,15 +16,15 @@ class AddKeywordsController implements Controller {
   private initializeRoutes(): void {
     this.router
       .route(this.path)
-      .post(validationMiddleware(validate.create), this.addKeywords);
+      .post(validationMiddleware(validate.create), this.listByCategory);
   }
 
-  private addKeywords = asyncWrapper(async (req, res) => {
+  private listByCategory = asyncWrapper(async (req, res) => {
     try {
-      const { newsId } = req.body;
-      console.log(newsId);
-      const allnews = await newsRepository.findAllNews();
-      // console.log(allnews);
+      const { category } = req.body;
+      console.log(category);
+      const allnews = await newsRepository.findByCategory(category);
+      console.log(allnews);
       return res.status(StatusCodes.OK).json({ result: true });
     } catch (err) {
       res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
@@ -35,4 +35,4 @@ class AddKeywordsController implements Controller {
   });
 }
 
-export default AddKeywordsController;
+export default NewsListController;

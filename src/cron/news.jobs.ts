@@ -1,5 +1,5 @@
-import useNewsApi from "@/apis/news_api";
-import paramsArr from "@/apis/news_api_params";
+import useNewsApi from "@/apis/newsData/news_api";
+import paramsArr from "@/apis/newsData/news_api_params";
 import { newsRepository } from "@/database/repositories/news.repository";
 import { validateNews } from "@/database/validations/news.validation";
 import { UniqueConstraintError } from "sequelize";
