@@ -7,7 +7,7 @@ import { asyncWrapper, validationMiddleware } from "@/middlewares/index";
 import { newsRepository } from "@/database/repositories/news.repository";
 
 class NewsController implements Controller {
-  public path = "/newsList";
+  public path = "/news";
   public router = Router();
 
   constructor() {
