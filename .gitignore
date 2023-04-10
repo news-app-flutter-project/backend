@@ -1,6 +1,5 @@
 dist
 config
-models
 seeders
 node_modules
 .env

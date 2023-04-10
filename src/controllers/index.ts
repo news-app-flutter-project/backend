@@ -1,3 +1,3 @@
-import AddKeywordsController from "./addKeywords/addKeywords.controller";
+import NewsController from "./news/news.controller";
 
-export { AddKeywordsController };
+export { NewsController };

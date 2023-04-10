@@ -1,3 +1,4 @@
+import { Sequelize } from "sequelize";
 import db from "@/database/db";
 import useChatGPT from "@/apis/gpt/keywords.gen";
 import { removeBrackets } from "@/utils/removeBrackets";
@@ -14,6 +15,13 @@ export const newsRepository = {
   // find all news items
   async findAllNews() {
     return await db.News.findAll();
+  },
+
+  // find all news based on category
+  async findByCategory(category: string) {
+    return await db.News.findAll({
+      where: Sequelize.literal(`JSON_CONTAINS(category, '["${category}"]')`),
+    });
   },
 
   // insert news article into news table
@@ -42,7 +50,6 @@ export const newsRepository = {
       const newsItem = await db.News.findByPk(newsId);
       if (!newsItem) throw new Error("News item not found");
 
-      // split content into chunks based on sentence boundaries
       const desciption = newsItem.dataValues.description;
       const title = newsItem.dataValues.title;
 

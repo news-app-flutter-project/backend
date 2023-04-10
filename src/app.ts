@@ -11,8 +11,8 @@ import { errorMiddleware } from "@/middlewares/index";
 import moment from "moment";
 import { Controller } from "./controllers/controller.interface";
 import { ScheduleNewsUpdate } from "@/cron/news.jobs";
-import useNewsApi from "@/apis/news_api";
-import paramsArr from "@/apis/news_api_params";
+import useNewsApi from "@/apis/newsData/news_api";
+import paramsArr from "@/apis/newsData/news_api_params";
 import { StatusCodes } from "http-status-codes";
 
 interface Paramters {
@@ -30,6 +30,7 @@ class App {
 
     this.initializeMiddleware();
     this.initializeHome();
+    this.initializeKakaoRedirect();
     this.initializeControllers(controllers);
     this.initializeErrorHandling();
   }
@@ -53,7 +54,13 @@ class App {
 
   private initializeHome(): void {
     this.express.get("/", (req, res) => {
-      console.log(req);
+      res.json({ message: true });
+      // res.redirect("/api-docs");
+    });
+  }
+
+  private initializeKakaoRedirect(): void {
+    this.express.get("/kakao", (req, res) => {
       res.json({ message: true });
       // res.redirect("/api-docs");
     });
