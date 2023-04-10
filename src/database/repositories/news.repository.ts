@@ -1,4 +1,4 @@
-import { Op } from "sequelize";
+import { Sequelize } from "sequelize";
 import db from "@/database/db";
 import useChatGPT from "@/apis/gpt/keywords.gen";
 import { removeBrackets } from "@/utils/removeBrackets";
@@ -20,11 +20,7 @@ export const newsRepository = {
   // find all news based on category
   async findByCategory(category: string) {
     return await db.News.findAll({
-      where: {
-        category: {
-          [Op.contains]: [category],
-        },
-      },
+      where: Sequelize.literal(`JSON_CONTAINS(category, '["${category}"]')`),
     });
   },
 
