@@ -14,6 +14,8 @@ const validateEnv = (): void => {
     DB_USER: str(),
     DB_PASSWORD: str(),
     OPENAI_API_KEY: str(),
+    KAKAO_REDIRECT_URI: str(),
+    KAKAO_CLIENT_ID: str(),
   });
 };
 
