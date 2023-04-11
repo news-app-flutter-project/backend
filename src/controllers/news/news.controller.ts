@@ -17,8 +17,11 @@ class NewsController implements Controller {
   private initializeRoutes(): void {
     this.router
       .route(this.path)
-      .post(validationMiddleware(validateCategory.create), this.listByCategory)
-      .get(validationMiddleware(validateAddsKeywords.create), this.addKeywords);
+      .get(validationMiddleware(validateCategory.create), this.listByCategory)
+      .post(
+        validationMiddleware(validateAddsKeywords.create),
+        this.addKeywords
+      );
   }
 
   private listByCategory = asyncWrapper(async (req, res) => {
@@ -40,9 +43,8 @@ class NewsController implements Controller {
     try {
       const { newsId } = req.body;
       console.log(newsId);
-      const allnews = await newsRepository.findAllNews();
-      // console.log(allnews);
-      return res.status(StatusCodes.OK).json({ result: true, data: allnews });
+      const keywords = await newsRepository.updateGptKeywords(newsId);
+      return res.status(StatusCodes.OK).json({ result: true, data: keywords });
     } catch (err) {
       console.log(err);
       res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({

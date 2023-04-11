@@ -80,6 +80,7 @@ export const newsRepository = {
         { gpt_keywords: uniqueKeywords },
         { where: { id: newsId } }
       );
+      return uniqueKeywords;
     } catch (error) {
       console.log("Error updating gpt_keywords column:", error);
     }
