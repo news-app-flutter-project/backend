@@ -3,12 +3,18 @@ import { Sequelize, DataTypes, Model } from "sequelize";
 declare global {
   interface UserAuth extends TimeStampModel {
     id: number;
-    username: string;
-    kakao_Id: number;
-    kakao_accessToken: string | null;
-    kakao_refreshToken: string | null;
-    app_accessToken: string | null;
-    app_refreshToken: string | null;
+    username: string | null;
+    kakao_id: number;
+    kakao_access_token: string | null;
+    kakao_access_token_expires_in: number | null;
+    kakao_access_token_date: Date | null;
+    kakao_refresh_token: string | null;
+    kakao_refresh_token_expires_in: number | null;
+    kakao_refresh_token_date: Date | null;
+    app_access_token: string | null;
+    app_access_token_date: Date | null;
+    app_refresh_token: string | null;
+    app_refresh_token_date: Date | null;
   }
 }
 
@@ -16,8 +22,11 @@ declare global {
 export type UserAuthCreateInterface = Omit<
   UserAuth,
   | "id"
-  | "app_accessToken"
-  | "app_refreshToken"
+  | "username"
+  | "app_access_token"
+  | "app_access_token_date"
+  | "app_refresh_token_date"
+  | "app_refresh_token"
   | "createdAt"
   | "updatedAt"
   | "deletedAt"
@@ -28,12 +37,18 @@ export class UserAuthModel
   implements UserAuth
 {
   public id!: number;
-  public username!: string;
-  public kakao_Id!: number;
-  public kakao_accessToken!: string | null;
-  public kakao_refreshToken!: string | null;
-  public app_accessToken!: string | null;
-  public app_refreshToken!: string | null;
+  public username!: string | null;
+  public kakao_id!: number;
+  public kakao_access_token!: string | null;
+  public kakao_access_token_expires_in!: number | null;
+  public kakao_access_token_date!: Date | null;
+  public kakao_refresh_token!: string | null;
+  public kakao_refresh_token_expires_in!: number | null;
+  public kakao_refresh_token_date!: Date | null;
+  public app_access_token!: string | null;
+  public app_access_token_date!: Date | null;
+  public app_refresh_token!: string | null;
+  public app_refresh_token_date!: Date | null;
   public createdAt: Date | undefined;
   public updatedAt: Date | undefined;
   public deletedAt: Date | null | undefined;
@@ -51,26 +66,51 @@ export const UserAuthGenerator = (
       },
       username: {
         type: DataTypes.STRING(255),
-        allowNull: false,
+        allowNull: true,
       },
-      kakao_Id: {
+      kakao_id: {
         type: DataTypes.BIGINT.UNSIGNED,
         allowNull: false,
+        unique: true,
       },
-      kakao_accessToken: {
+      kakao_access_token: {
         type: DataTypes.STRING(255),
         allowNull: true,
       },
-      kakao_refreshToken: {
+      kakao_access_token_expires_in: {
+        type: DataTypes.BIGINT.UNSIGNED,
+        allowNull: true,
+      },
+      kakao_access_token_date: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
+      kakao_refresh_token: {
         type: DataTypes.STRING(255),
         allowNull: true,
       },
-      app_accessToken: {
+      kakao_refresh_token_expires_in: {
+        type: DataTypes.BIGINT.UNSIGNED,
+        allowNull: true,
+      },
+      kakao_refresh_token_date: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
+      app_access_token: {
         type: DataTypes.STRING(255),
         allowNull: true,
       },
-      app_refreshToken: {
+      app_access_token_date: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
+      app_refresh_token: {
         type: DataTypes.STRING(255),
+        allowNull: true,
+      },
+      app_refresh_token_date: {
+        type: DataTypes.DATE,
         allowNull: true,
       },
     },
