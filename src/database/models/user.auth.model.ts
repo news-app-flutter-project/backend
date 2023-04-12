@@ -6,8 +6,10 @@ declare global {
     username: string;
     kakao_id: number;
     kakao_access_token: string | null;
+    kakao_access_token_expires_in: number | null;
     kakao_access_token_date: Date | null;
     kakao_refresh_token: string | null;
+    kakao_refresh_token_expires_in: number | null;
     kakao_refresh_token_date: Date | null;
     app_access_token: string | null;
     app_access_token_date: Date | null;
@@ -20,6 +22,7 @@ declare global {
 export type UserAuthCreateInterface = Omit<
   UserAuth,
   | "id"
+  | "username"
   | "app_access_token"
   | "app_access_token_date"
   | "app_refresh_token_date"
@@ -37,8 +40,10 @@ export class UserAuthModel
   public username!: string;
   public kakao_id!: number;
   public kakao_access_token!: string | null;
+  public kakao_access_token_expires_in!: number | null;
   public kakao_access_token_date!: Date | null;
   public kakao_refresh_token!: string | null;
+  public kakao_refresh_token_expires_in!: number | null;
   public kakao_refresh_token_date!: Date | null;
   public app_access_token!: string | null;
   public app_access_token_date!: Date | null;
@@ -71,12 +76,20 @@ export const UserAuthGenerator = (
         type: DataTypes.STRING(255),
         allowNull: true,
       },
+      kakao_access_token_expires_in: {
+        type: DataTypes.BIGINT.UNSIGNED,
+        allowNull: true,
+      },
       kakao_access_token_date: {
         type: DataTypes.DATE,
         allowNull: true,
       },
       kakao_refresh_token: {
         type: DataTypes.STRING(255),
+        allowNull: true,
+      },
+      kakao_refresh_token_expires_in: {
+        type: DataTypes.BIGINT.UNSIGNED,
         allowNull: true,
       },
       kakao_refresh_token_date: {
