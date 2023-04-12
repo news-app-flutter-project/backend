@@ -1,17 +1,28 @@
 import axios from "axios";
 
+export interface IKakaoIdRes {
+  expiresInMillis: number;
+  id: number;
+  expires_in: number;
+  app_id: number;
+  appId: number;
+}
+
 /** get new access + refresh token */
-const kakaoLogin = async (code: string) => {
+const kakaoId = async (accessToken: string) => {
   try {
     const response = await axios({
       method: "get",
-      url: `https://kauth.kakao.com/oauth/token?code=${code}&redirect_uri=${process.env.KAKAO_REDIRECT_URI}&client_id=${process.env.KAKAO_CLIENT_ID}&grant_type=authorization_code`,
+      url: "https://kapi.kakao.com/v1/user/access_token_info",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
     });
     return response;
-  } catch (err) {
+  } catch (err: any) {
     console.log(err);
     return err;
   }
 };
 
-export default kakaoLogin;
+export default kakaoId;
