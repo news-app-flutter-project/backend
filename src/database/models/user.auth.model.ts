@@ -3,7 +3,7 @@ import { Sequelize, DataTypes, Model } from "sequelize";
 declare global {
   interface UserAuth extends TimeStampModel {
     id: number;
-    username: string;
+    username: string | null;
     kakao_id: number;
     kakao_access_token: string | null;
     kakao_access_token_expires_in: number | null;
@@ -37,7 +37,7 @@ export class UserAuthModel
   implements UserAuth
 {
   public id!: number;
-  public username!: string;
+  public username!: string | null;
   public kakao_id!: number;
   public kakao_access_token!: string | null;
   public kakao_access_token_expires_in!: number | null;
@@ -66,11 +66,12 @@ export const UserAuthGenerator = (
       },
       username: {
         type: DataTypes.STRING(255),
-        allowNull: false,
+        allowNull: true,
       },
       kakao_id: {
         type: DataTypes.BIGINT.UNSIGNED,
         allowNull: false,
+        unique: true,
       },
       kakao_access_token: {
         type: DataTypes.STRING(255),
