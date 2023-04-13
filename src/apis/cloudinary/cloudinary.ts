@@ -1,15 +1,22 @@
 import { v2 as cloudinary } from "cloudinary";
+import { cloudinaryException } from "@/common/exceptions";
 
-const uploadImageCloud = async (img: string) => {
+export interface ICloudinaryRes {
+  secure_url: string;
+}
+
+const uploadImageCloud = async (img: string): Promise<ICloudinaryRes> => {
   try {
     return await cloudinary.uploader.upload(img, {
       use_filename: true,
       folder: "file-upload",
     });
   } catch (err: any) {
-    console.log("hi");
-    return err;
+    cloudinaryException(err);
   }
+  return {
+    secure_url: "",
+  };
 };
 
 export default uploadImageCloud;
