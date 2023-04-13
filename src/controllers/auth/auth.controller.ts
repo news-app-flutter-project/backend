@@ -2,13 +2,14 @@ import { Router } from "express";
 import { Controller } from "@/controllers/controller.interface";
 import { asyncWrapper, validationMiddleware } from "@/middlewares/index";
 import { StatusCodes } from "http-status-codes";
-import validateKakaoLogin from "./kakao.login.validation";
-import kakaoLogin, { IKakaoRegisterRes } from "@/apis/kakao/kakaoLogin";
-import kakaoId, { IKakaoIdRes } from "@/apis/kakao/kakaoId";
+import validateRegistration from "./registration.validation";
+import kakaoLogin from "@/apis/kakao/kakaoLogin";
+import kakaoId from "@/apis/kakao/kakaoId";
 import { userAuthRepository } from "@/database/repositories/user.auth.repository";
 import { dbException } from "@/common/exceptions";
+import { registerParams } from "./registerParams.utils";
 
-class UserAuthController implements Controller {
+class AuthController implements Controller {
   public path = "/kakao";
   public router = Router();
 
@@ -19,34 +20,19 @@ class UserAuthController implements Controller {
   private initializeRoutes(): void {
     this.router
       .route(this.path)
-      .get(validationMiddleware(validateKakaoLogin.create), this.kakaoLogin);
+      .get(validationMiddleware(validateRegistration.create), this.kakaoLogin);
   }
 
   private kakaoLogin = asyncWrapper(async (req, res) => {
     const { code } = req.body;
     const kakao_login_response = await kakaoLogin(code);
     if (kakao_login_response.status === 200) {
-      const tokenInfo: IKakaoRegisterRes = kakao_login_response.data;
-      const kakao_info = await kakaoId(tokenInfo.access_token);
+      const kakao_info = await kakaoId(kakao_login_response.access_token);
       if (kakao_info.status === 200) {
-        const kakao_info_data: IKakaoIdRes = kakao_info.data;
-        const {
-          access_token,
-          refresh_token,
-          expires_in,
-          refresh_token_expires_in,
-        } = tokenInfo;
-        const { id } = kakao_info_data;
-        const currentDate = new Date();
-        const kakaoData = {
-          kakao_id: id,
-          kakao_access_token: access_token,
-          kakao_access_token_expires_in: expires_in,
-          kakao_access_token_date: currentDate,
-          kakao_refresh_token: refresh_token,
-          kakao_refresh_token_expires_in: refresh_token_expires_in,
-          kakao_refresh_token_date: currentDate,
-        };
+        const kakaoData = registerParams(
+          kakao_info.data,
+          kakao_login_response.data
+        );
         try {
           const newUser = await userAuthRepository.registerUser(kakaoData);
           return res
@@ -65,4 +51,4 @@ class UserAuthController implements Controller {
   });
 }
 
-export default UserAuthController;
+export default AuthController;
