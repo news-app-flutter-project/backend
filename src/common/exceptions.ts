@@ -27,3 +27,11 @@ export const kakaoIdException = (error: any) => {
     error: "invalid accessToken",
   };
 };
+
+export const cloudinaryException = (error: any) => {
+  throw {
+    code: StatusCodes.BAD_REQUEST,
+    message: "something wrong with cloudinary",
+    error: "invalid file",
+  };
+};
