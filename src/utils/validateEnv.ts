@@ -16,6 +16,9 @@ const validateEnv = (): void => {
     OPENAI_API_KEY: str(),
     KAKAO_REDIRECT_URI: str(),
     KAKAO_CLIENT_ID: str(),
+    CLOUD_NAME: str(),
+    CLOUD_API_KEY: str(),
+    CLOUD_API_SECRET: str(),
   });
 };
 

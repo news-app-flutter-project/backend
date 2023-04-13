@@ -3,10 +3,6 @@ import { Controller } from "@/controllers/controller.interface";
 import { asyncWrapper, validationMiddleware } from "@/middlewares/index";
 import { StatusCodes } from "http-status-codes";
 import validateRegistration from "./registration.validation";
-import kakaoLogin from "@/apis/kakao/kakaoLogin";
-import kakaoId from "@/apis/kakao/kakaoId";
-import { authRepository } from "@/database/repositories/auth.repository";
-import { registerParams } from "@/utils/kakaoRegisterParams";
 import { customResponse } from "@/common/response";
 import { authService } from "./auth.service";
 

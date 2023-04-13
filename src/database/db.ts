@@ -1,11 +1,9 @@
 import { Sequelize } from "sequelize";
 import { SEQUELIZE_CONFIGS } from "@/common/constants";
-import { NewsModel, NewsModelGenerator } from "@/database/models/news.models";
-import {
-  UserAuthModel,
-  UserAuthGenerator,
-} from "@/database/models/user.auth.model";
-import { TestModel, initTestModel } from "./models/user.profile.models";
+import { NewsModel, NewsGenerator } from "@/database/models/news.models";
+import { AuthModel, AuthGenerator } from "@/database/models/auth.model";
+import { ProfileModel, ProfileGenerator } from "./models/profile.models";
+import { relations } from "./relations";
 const sequelize = new Sequelize(SEQUELIZE_CONFIGS);
 
 declare global {
@@ -19,17 +17,19 @@ declare global {
     Sequelize: typeof Sequelize;
     sequelize: Sequelize;
     News: typeof NewsModel;
-    UserAuth: typeof UserAuthModel;
-    Test: typeof TestModel;
+    Auth: typeof AuthModel;
+    Profile: typeof ProfileModel;
   }
 }
 
 const db: DB = {
   Sequelize,
   sequelize,
-  News: NewsModelGenerator(sequelize),
-  UserAuth: UserAuthGenerator(sequelize),
-  Test: initTestModel(sequelize),
+  News: NewsGenerator(sequelize),
+  Auth: AuthGenerator(sequelize),
+  Profile: ProfileGenerator(sequelize),
 };
+
+relations(db);
 
 export default db;
