@@ -1,7 +1,7 @@
 import { Sequelize, DataTypes, Model } from "sequelize";
 
 declare global {
-  interface UserAuth extends TimeStampModel {
+  interface Auth extends TimeStampModel {
     id: number;
     username: string | null;
     kakao_id: number;
@@ -20,7 +20,7 @@ declare global {
 
 // creator type that is required to create the instance of NewsModel class
 export type UserAuthCreateInterface = Omit<
-  UserAuth,
+  Auth,
   | "id"
   | "username"
   | "app_access_token"
@@ -32,9 +32,9 @@ export type UserAuthCreateInterface = Omit<
   | "deletedAt"
 >;
 
-export class UserAuthModel
-  extends Model<UserAuth, UserAuthCreateInterface>
-  implements UserAuth
+export class AuthModel
+  extends Model<Auth, UserAuthCreateInterface>
+  implements Auth
 {
   public id!: number;
   public username!: string | null;
@@ -54,10 +54,8 @@ export class UserAuthModel
   public deletedAt: Date | null | undefined;
 }
 
-export const UserAuthGenerator = (
-  sequelize: Sequelize
-): typeof UserAuthModel => {
-  UserAuthModel.init(
+export const AuthGenerator = (sequelize: Sequelize): typeof AuthModel => {
+  AuthModel.init(
     {
       id: {
         type: DataTypes.INTEGER.UNSIGNED,
@@ -125,5 +123,5 @@ export const UserAuthGenerator = (
       tableName: "user_auth",
     }
   );
-  return UserAuthModel;
+  return AuthModel;
 };

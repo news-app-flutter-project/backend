@@ -49,7 +49,7 @@ export class NewsModel
   public deletedAt: Date | null | undefined;
 }
 
-export const NewsModelGenerator = (sequelize: Sequelize): typeof NewsModel => {
+export const NewsGenerator = (sequelize: Sequelize): typeof NewsModel => {
   NewsModel.init(
     {
       id: {
