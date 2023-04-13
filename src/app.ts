@@ -13,7 +13,8 @@ import { Controller } from "./controllers/controller.interface";
 import { ScheduleNewsUpdate } from "@/cron/news.jobs";
 import useNewsApi from "@/apis/newsData/news_api";
 import paramsArr from "@/apis/newsData/news_api_params";
-import { StatusCodes } from "http-status-codes";
+import { v2 as cloudinary } from "cloudinary";
+import fileUpload from "express-fileupload";
 
 interface Paramters {
   port: number;
@@ -29,6 +30,7 @@ class App {
     this.port = port;
 
     this.initializeMiddleware();
+    this.initializeCloudinary();
     this.initializeHome();
     this.initializeKakaoRedirect();
     this.initializeControllers(controllers);
@@ -50,6 +52,7 @@ class App {
       })
     );
     this.express.use(compression()); // makes api request super fast (268.75 faster)
+    this.express.use(fileUpload({ useTempFiles: true }));
   }
 
   private initializeHome(): void {
@@ -61,8 +64,8 @@ class App {
 
   private initializeKakaoRedirect(): void {
     this.express.get("/kakao", (req, res) => {
-      res.json({ message: true });
-      // res.redirect("/api-docs");
+      const { code } = req.query;
+      res.json({ message: true, data: code });
     });
   }
 
@@ -74,6 +77,14 @@ class App {
 
   private initializeErrorHandling(): void {
     this.express.use(errorMiddleware);
+  }
+
+  private initializeCloudinary(): void {
+    cloudinary.config({
+      cloud_name: process.env.CLOUD_NAME,
+      api_key: process.env.CLOUD_API_KEY,
+      api_secret: process.env.CLOUD_API_SECRET,
+    });
   }
 
   public async schedule_run(): Promise<any> {
