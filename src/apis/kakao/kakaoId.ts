@@ -1,4 +1,5 @@
 import axios from "axios";
+import { kakaoIdException } from "@/common/exceptions";
 
 export interface IKakaoIdRes {
   expiresInMillis: number;
@@ -9,7 +10,7 @@ export interface IKakaoIdRes {
 }
 
 /** get new access + refresh token */
-const kakaoId = async (accessToken: string) => {
+const kakaoId = async (accessToken: string): Promise<IKakaoIdRes> => {
   try {
     const response = await axios({
       method: "get",
@@ -18,11 +19,17 @@ const kakaoId = async (accessToken: string) => {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    return response;
+    return response.data;
   } catch (err: any) {
-    console.log(err);
-    return err;
+    kakaoIdException(err);
   }
+  return {
+    expiresInMillis: 0,
+    id: 0,
+    expires_in: 0,
+    app_id: 0,
+    appId: 0,
+  };
 };
 
 export default kakaoId;

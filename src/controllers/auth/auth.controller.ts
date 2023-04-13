@@ -5,12 +5,13 @@ import { StatusCodes } from "http-status-codes";
 import validateRegistration from "./registration.validation";
 import kakaoLogin from "@/apis/kakao/kakaoLogin";
 import kakaoId from "@/apis/kakao/kakaoId";
-import { userAuthRepository } from "@/database/repositories/user.auth.repository";
-import { dbException } from "@/common/exceptions";
-import { registerParams } from "./registerParams.utils";
+import { authRepository } from "@/database/repositories/auth.repository";
+import { registerParams } from "@/utils/kakaoRegisterParams";
+import { customResponse } from "@/common/response";
+import { authService } from "./auth.service";
 
 class AuthController implements Controller {
-  public path = "/kakao";
+  public path = "/auth";
   public router = Router();
 
   constructor() {
@@ -19,34 +20,17 @@ class AuthController implements Controller {
 
   private initializeRoutes(): void {
     this.router
-      .route(this.path)
+      .route(`${this.path}/register`)
       .get(validationMiddleware(validateRegistration.create), this.kakaoLogin);
   }
 
   private kakaoLogin = asyncWrapper(async (req, res) => {
-    const { code } = req.body;
-    const kakao_login_response = await kakaoLogin(code);
-    if (kakao_login_response.status === 200) {
-      const kakao_info = await kakaoId(kakao_login_response.access_token);
-      if (kakao_info.status === 200) {
-        const kakaoData = registerParams(
-          kakao_info.data,
-          kakao_login_response.data
-        );
-        try {
-          const newUser = await userAuthRepository.registerUser(kakaoData);
-          return res
-            .status(StatusCodes.OK)
-            .json({ result: true, data: newUser });
-        } catch (err: any) {
-          dbException(res, err);
-        }
-      }
-    } else {
-      res.status(StatusCodes.BAD_REQUEST).json({
-        result: false,
-        message: "code already used",
-      });
+    const response = customResponse(res);
+    try {
+      const newUser = await authService.registerUser(req.body);
+      response.success({ code: StatusCodes.CREATED, data: newUser });
+    } catch (err: any) {
+      response.error(err as ErrorData);
     }
   });
 }

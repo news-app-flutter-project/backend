@@ -1,4 +1,5 @@
 import axios from "axios";
+import { kakaoRegisterException } from "@/common/exceptions";
 
 export interface IKakaoRegisterRes {
   access_token: string;
@@ -9,16 +10,23 @@ export interface IKakaoRegisterRes {
 }
 
 /** get new access + refresh token */
-const kakaoLogin = async (code: string) => {
+const kakaoLogin = async (code: string): Promise<IKakaoRegisterRes> => {
   try {
     const response = await axios({
       method: "get",
       url: `https://kauth.kakao.com/oauth/token?code=${code}&redirect_uri=${process.env.KAKAO_REDIRECT_URI}&client_id=${process.env.KAKAO_CLIENT_ID}&grant_type=authorization_code`,
     });
-    return response;
+    return response.data;
   } catch (err: any) {
-    return err;
+    kakaoRegisterException(err);
   }
+  return {
+    access_token: "",
+    token_type: "",
+    refresh_token: "",
+    expires_in: 0,
+    refresh_token_expires_in: 0,
+  };
 };
 
 export default kakaoLogin;
