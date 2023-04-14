@@ -7,7 +7,7 @@ export const dbException = (error: any) => {
   throw {
     code: StatusCodes.INTERNAL_SERVER_ERROR,
     message: "something wrong with the server",
-    error: error.errors.map(({ message }: { message: string }) => message),
+    error,
   };
 };
 
