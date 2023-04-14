@@ -16,7 +16,7 @@ declare global {
     id: number;
     profile_img: string;
     name: string;
-    birthday: Date;
+    birthday: string;
     sex: Sex;
     category:
       | [Category]
@@ -36,7 +36,7 @@ export class ProfileModel
   public id!: number;
   public profile_img!: string;
   public name!: string;
-  public birthday!: Date;
+  public birthday!: string;
   public sex!: "male" | "female";
   public category!:
     | [Category]
@@ -45,6 +45,7 @@ export class ProfileModel
   public age!: Age;
   public createdAt?: Date;
   public updatedAt?: Date;
+  public deletedAt?: Date;
 }
 
 export const ProfileGenerator = (sequelize: Sequelize): typeof ProfileModel => {

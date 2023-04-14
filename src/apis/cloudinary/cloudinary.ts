@@ -7,11 +7,13 @@ export interface ICloudinaryRes {
 
 const uploadImageCloud = async (img: string): Promise<ICloudinaryRes> => {
   try {
-    return await cloudinary.uploader.upload(img, {
+    const { secure_url } = await cloudinary.uploader.upload(img, {
       use_filename: true,
       folder: "file-upload",
     });
+    return { secure_url };
   } catch (err: any) {
+    console.log("cloud error");
     cloudinaryException(err);
   }
   return {

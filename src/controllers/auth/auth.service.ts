@@ -3,6 +3,8 @@ import kakaoLogin from "@/apis/kakao/kakaoLogin";
 import kakaoId from "@/apis/kakao/kakaoId";
 import uploadImageCloud from "@/apis/cloudinary/cloudinary";
 import { registerParams } from "@/utils/kakaoRegisterParams";
+import { toMySQLDate } from "@/utils/index";
+import fs from "fs";
 
 declare global {
   interface KakaoRegisterData {
@@ -34,7 +36,15 @@ export const authService = {
     return newUser;
   },
 
-  async registerApp(data: AppRegisterData) {
-    console.log(await uploadImageCloud("asdf"));
+  async registerApp(req_data: AppRegisterData) {
+    const { secure_url } = await uploadImageCloud(req_data.profile_img);
+    fs.unlinkSync(req_data.profile_img);
+    const date = toMySQLDate(req_data.birthday);
+    const newUser = await this.repository.registerApp({
+      ...req_data,
+      profile_img: secure_url,
+      birthday: date,
+    });
+    return newUser;
   },
 };

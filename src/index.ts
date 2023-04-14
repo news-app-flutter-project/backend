@@ -3,12 +3,12 @@ import "dotenv/config";
 import "module-alias/register";
 import validateEnv from "./utils/validateEnv";
 import App from "./app";
-import { NewsController, UserAuthController } from "@/controllers/index";
+import { NewsController, AuthController } from "@/controllers/index";
 import { newsRepository } from "@/database/repositories/news.repository";
 
 validateEnv();
 const app = new App({
-  controllers: [new NewsController(), new UserAuthController()],
+  controllers: [new NewsController(), new AuthController()],
   port: Number(process.env.PORT),
 });
 
