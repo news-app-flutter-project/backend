@@ -11,30 +11,37 @@ declare global {
     | "world"
     | "lifestyle";
   type Age = "10" | "20" | "30" | "40" | "50" | "60" | "70";
+  type Sex = "male" | "female";
   interface Profile extends TimeStampModel {
     id: number;
-    profile_img?: string;
+    profile_img: string;
     name: string;
-    birthday: string;
-    sex: "male" | "female";
-    category: Category;
+    birthday: Date;
+    sex: Sex;
+    category:
+      | [Category]
+      | [Category, Category]
+      | [Category, Category, Category];
     age: Age;
     auth_id?: number;
   }
 }
 
-type ProfileCreateInterface = Omit<Profile, "id">;
+export type ProfileCreateInterface = Omit<Profile, "id">;
 
 export class ProfileModel
   extends Model<Profile, ProfileCreateInterface>
   implements Profile
 {
   public id!: number;
-  public profile_img?: string;
+  public profile_img!: string;
   public name!: string;
-  public birthday!: string;
+  public birthday!: Date;
   public sex!: "male" | "female";
-  public category!: Category;
+  public category!:
+    | [Category]
+    | [Category, Category]
+    | [Category, Category, Category];
   public age!: Age;
   public createdAt?: Date;
   public updatedAt?: Date;
@@ -50,14 +57,14 @@ export const ProfileGenerator = (sequelize: Sequelize): typeof ProfileModel => {
       },
       profile_img: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       name: {
         type: DataTypes.STRING,
         allowNull: false,
       },
       birthday: {
-        type: DataTypes.DATEONLY,
+        type: DataTypes.DATE,
         allowNull: false,
       },
       sex: {
@@ -65,17 +72,31 @@ export const ProfileGenerator = (sequelize: Sequelize): typeof ProfileModel => {
         allowNull: false,
       },
       category: {
-        type: DataTypes.ENUM(
-          "business",
-          "entertainment",
-          "politics",
-          "science",
-          "sports",
-          "technology",
-          "world",
-          "lifestyle"
-        ),
+        type: DataTypes.JSON,
         allowNull: false,
+        validate: {
+          isCategoryArray(value: Category[]) {
+            if (value.length < 1 || value.length > 3) {
+              throw new Error("Category should have 1-3 items");
+            }
+            for (const item of value) {
+              if (
+                ![
+                  "business",
+                  "entertainment",
+                  "politics",
+                  "science",
+                  "sports",
+                  "technology",
+                  "world",
+                  "lifestyle",
+                ].includes(item)
+              ) {
+                throw new Error(`Invalid category value: ${item}`);
+              }
+            }
+          },
+        },
       },
       age: {
         type: DataTypes.ENUM("10", "20", "30", "40", "50", "60", "70"),
