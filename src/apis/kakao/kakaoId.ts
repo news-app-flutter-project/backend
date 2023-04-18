@@ -9,7 +9,7 @@ export interface IKakaoIdRes {
   appId: number;
 }
 
-/** get new access + refresh token */
+/** acess token으로 카카오 유저 정보 (id) 가져오기 */
 const kakaoId = async (accessToken: string): Promise<IKakaoIdRes> => {
   try {
     const response = await axios({
