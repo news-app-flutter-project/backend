@@ -9,7 +9,7 @@ export interface IKakaoRegisterRes {
   refresh_token_expires_in: number;
 }
 
-/** get new access + refresh token */
+/** 아예 새로운 acess + refresh token 발급*/
 const kakaoLogin = async (code: string): Promise<IKakaoRegisterRes> => {
   try {
     const response = await axios({
