@@ -24,7 +24,7 @@ export const kakaoIdException = (error: any) => {
   throw {
     code: StatusCodes.UNAUTHORIZED,
     message: "something wrong with kakao api",
-    error: "invalid accessToken",
+    error: "invalid token",
   };
 };
 
