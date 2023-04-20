@@ -63,48 +63,48 @@ export const authService = {
     return user_info;
   },
 
-  async refresh_tokens(id: number, refresh_token: string) {
-    const {
-      access_token,
-      expires_in,
-      refresh_token: ref_token,
-      refresh_token_expires_in,
-    } = await kakaoRefresh(refresh_token);
-    const currentDate = new Date();
-    if (ref_token) {
-      await this.repository.updateRefreshToken(
-        id,
-        ref_token,
-        refresh_token_expires_in!,
-        currentDate
-      );
-      await this.repository.updateAccessToken(
-        id,
-        access_token,
-        expires_in!,
-        currentDate
-      );
-      return {
-        id,
-        access_token,
-        access_token_expires_in: expires_in,
-        refresh_token: ref_token,
-        refresh_token_expires_in,
-      };
-    } else {
-      await this.repository.updateAccessToken(
-        id,
-        access_token,
-        expires_in!,
-        currentDate
-      );
-      return {
-        id,
-        access_token,
-        access_token_expires_in: expires_in,
-      };
-    }
-  },
+  // async refresh_tokens(id: number, refresh_token: string) {
+  //   const {
+  //     access_token,
+  //     expires_in,
+  //     refresh_token: ref_token,
+  //     refresh_token_expires_in,
+  //   } = await kakaoRefresh(refresh_token);
+  //   const currentDate = new Date();
+  //   if (ref_token) {
+  //     await this.repository.updateRefreshToken(
+  //       id,
+  //       ref_token,
+  //       refresh_token_expires_in!,
+  //       currentDate
+  //     );
+  //     await this.repository.updateAccessToken(
+  //       id,
+  //       access_token,
+  //       expires_in!,
+  //       currentDate
+  //     );
+  //     return {
+  //       id,
+  //       access_token,
+  //       access_token_expires_in: expires_in,
+  //       refresh_token: ref_token,
+  //       refresh_token_expires_in,
+  //     };
+  //   } else {
+  //     await this.repository.updateAccessToken(
+  //       id,
+  //       access_token,
+  //       expires_in!,
+  //       currentDate
+  //     );
+  //     return {
+  //       id,
+  //       access_token,
+  //       access_token_expires_in: expires_in,
+  //     };
+  //   }
+  // },
 
   async logout(id: number, access_token: string) {
     await kakaoLogout(access_token);

@@ -11,6 +11,13 @@ export const dbException = (error: any) => {
   };
 };
 
+export const notFoundAccountException = (id?: number) => {
+  throw {
+    code: 404,
+    message: `user does not exist with id ${id}`,
+  };
+};
+
 /***************** external api related exceptions **********************/
 export const kakaoRegisterException = (error: any) => {
   throw {

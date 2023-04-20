@@ -9,7 +9,6 @@ import rateLimit from "express-rate-limit";
 import compression from "compression";
 import { errorMiddleware } from "@/middlewares/index";
 import moment from "moment";
-import { Controller } from "./controllers/controller.interface";
 import { ScheduleNewsUpdate } from "@/cron/news.jobs";
 import useNewsApi from "@/apis/newsData/news_api";
 import paramsArr from "@/apis/newsData/news_api_params";
@@ -125,7 +124,10 @@ class App {
 
   public bootstrap() {
     db.sequelize
-      .sync({ force: false })
+      .authenticate()
+      .then(() => {
+        return db.sequelize.sync({ force: false });
+      })
       .then(() => this.listen())
       .catch((error) => console.log(error));
   }

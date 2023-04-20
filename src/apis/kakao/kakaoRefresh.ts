@@ -2,13 +2,15 @@ import axios from "axios";
 import qs from "qs";
 import { kakaoIdException } from "@/common/exceptions";
 
-interface IKakaoRefreshRes {
-  token_type: string;
-  access_token: string;
-  expires_in: number;
-  refresh_token?: string;
-  refresh_token_expires_in?: number;
-  id_token?: string;
+declare global {
+  interface IKakaoRefreshRes {
+    kakao_access_token: string;
+    kakao_access_token_expires_in: number;
+    kakao_access_token_date: Date;
+    kakao_refresh_token?: string | undefined;
+    kakao_refresh_token_expires_in?: number | undefined;
+    kakao_refresh_token_date?: Date | undefined;
+  }
 }
 
 // A new refresh token that has been refreshed.
@@ -18,6 +20,7 @@ const refreshTokens = async (
   refreshToken: string
 ): Promise<IKakaoRefreshRes> => {
   try {
+    const currentDate = new Date();
     const response = await axios.post(
       "https://kauth.kakao.com/oauth/token",
       qs.stringify({
@@ -31,17 +34,28 @@ const refreshTokens = async (
         },
       }
     );
-    return response.data;
+    return {
+      kakao_access_token: response.data.access_token,
+      kakao_access_token_expires_in: response.data.expires_in,
+      kakao_access_token_date: currentDate,
+      kakao_refresh_token: response.data.refresh_token
+        ? response.data.refresh_token
+        : undefined,
+      kakao_refresh_token_expires_in: response.data.refresh_token_expires_in,
+      kakao_refresh_token_date: response.data.refresh_token
+        ? currentDate
+        : undefined,
+    };
   } catch (err) {
     kakaoIdException(err);
   }
   return {
-    token_type: "",
-    access_token: "",
-    expires_in: 1,
-    refresh_token: "",
-    refresh_token_expires_in: 1,
-    id_token: "",
+    kakao_access_token: "",
+    kakao_access_token_expires_in: 0,
+    kakao_access_token_date: new Date(),
+    kakao_refresh_token: "",
+    kakao_refresh_token_expires_in: 0,
+    kakao_refresh_token_date: new Date(),
   };
 };
 
