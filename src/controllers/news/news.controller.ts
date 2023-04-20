@@ -1,5 +1,4 @@
 import { Router } from "express";
-import { Controller } from "@/controllers/controller.interface";
 import validateCategory from "./category.validation";
 import validateAddsKeywords from "./addKeywords.validation";
 import { StatusCodes } from "http-status-codes";
