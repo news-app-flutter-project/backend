@@ -1,7 +1,7 @@
 import { Sequelize, DataTypes, Model } from "sequelize";
 
 declare global {
-  interface AuthFinal extends TimeStampModel {
+  interface Auth extends TimeStampModel {
     id: number;
     kakao_id: number;
     kakao_access_token: string | null;
@@ -12,15 +12,15 @@ declare global {
     kakao_refresh_token_date: Date | null;
   }
   // creator type that is required to create the instance of NewsModel class
-  type UserAuthCreateInterfaceFinal = Omit<
-    AuthFinal,
+  type UserAuthCreateInterface = Omit<
+    Auth,
     "id" | "createdAt" | "updatedAt" | "deletedAt"
   >;
 }
 
-export class AuthModelFinal
-  extends Model<AuthFinal, UserAuthCreateInterfaceFinal>
-  implements AuthFinal
+export class AuthModel
+  extends Model<Auth, UserAuthCreateInterface>
+  implements Auth
 {
   public id!: number;
   public kakao_id!: number;
@@ -35,10 +35,8 @@ export class AuthModelFinal
   public deletedAt: Date | null | undefined;
 }
 
-export const AuthGeneratorFinal = (
-  sequelize: Sequelize
-): typeof AuthModelFinal => {
-  AuthModelFinal.init(
+export const AuthGenerator = (sequelize: Sequelize): typeof AuthModel => {
+  AuthModel.init(
     {
       id: {
         type: DataTypes.INTEGER.UNSIGNED,
@@ -79,9 +77,9 @@ export const AuthGeneratorFinal = (
       sequelize,
       timestamps: true,
       paranoid: true,
-      modelName: "authFinal",
-      tableName: "authFinal",
+      modelName: "auth",
+      tableName: "auth",
     }
   );
-  return AuthModelFinal;
+  return AuthModel;
 };

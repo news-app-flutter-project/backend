@@ -1,10 +1,7 @@
 import { Sequelize } from "sequelize";
 import { SEQUELIZE_CONFIGS } from "@/common/constants";
 import { NewsModel, NewsGenerator } from "@/database/models/news.models";
-import {
-  AuthModelFinal,
-  AuthGeneratorFinal,
-} from "@/database/models/authFinal.model";
+import { AuthModel, AuthGenerator } from "@/database/models/auth.model";
 import { ProfileModel, ProfileGenerator } from "./models/profile.models";
 import { relations } from "./relations";
 const sequelize = new Sequelize(SEQUELIZE_CONFIGS);
@@ -20,7 +17,7 @@ declare global {
     Sequelize: typeof Sequelize;
     sequelize: Sequelize;
     News: typeof NewsModel;
-    AuthFinal: typeof AuthModelFinal;
+    AuthFinal: typeof AuthModel;
     Profile: typeof ProfileModel;
   }
 }
@@ -29,7 +26,7 @@ const db: DB = {
   Sequelize,
   sequelize,
   News: NewsGenerator(sequelize),
-  AuthFinal: AuthGeneratorFinal(sequelize),
+  AuthFinal: AuthGenerator(sequelize),
   Profile: ProfileGenerator(sequelize),
 };
 

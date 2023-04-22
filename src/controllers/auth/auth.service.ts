@@ -1,4 +1,4 @@
-import { authRepositoryFinal } from "@/database/repositories/auth.repository";
+import { authRepository } from "@/database/repositories/auth.repository";
 import {
   kakaoLogin,
   kakaoId,
@@ -8,8 +8,8 @@ import {
 import { registerParams } from "@/utils/kakaoRegisterParams";
 import { notFoundAccountException } from "@/common/exceptions";
 
-export const authServiceFinal = {
-  repository: authRepositoryFinal,
+export const authService = {
+  repository: authRepository,
 
   async login(code: string) {
     const kakao_login_response = await kakaoLogin(code);

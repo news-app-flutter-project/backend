@@ -2,7 +2,7 @@ import db from "@/database/db";
 import { dbException, notFoundAccountException } from "@/common/exceptions";
 import { defaultOptions } from "../options";
 
-export const authRepositoryFinal = {
+export const authRepository = {
   async findbyKakaoId(kakao_id: number) {
     try {
       const user = await db.AuthFinal.findOne({
@@ -45,7 +45,7 @@ export const authRepositoryFinal = {
     }
   },
 
-  async createUser(kakaoData: UserAuthCreateInterfaceFinal) {
+  async createUser(kakaoData: UserAuthCreateInterface) {
     try {
       return await db.AuthFinal.create(kakaoData);
     } catch (err) {

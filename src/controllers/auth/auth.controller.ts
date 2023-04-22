@@ -3,11 +3,11 @@ import { asyncWrapper } from "@/middlewares/index";
 import { StatusCodes } from "http-status-codes";
 import { createAuthRoutes } from "./auth.routes";
 import { customResponse } from "@/common/response";
-import { authServiceFinal } from "./auth.service";
+import { authService } from "./auth.service";
 import { createRoutes } from "@/common/createRouter";
 
-class AuthControllerFinal implements Controller {
-  public path = "/authFinal";
+class AuthController implements Controller {
+  public path = "/auth";
   public router = Router();
 
   constructor() {
@@ -30,7 +30,7 @@ class AuthControllerFinal implements Controller {
     const response = customResponse(res);
     const { code } = req.body;
     try {
-      const res = await authServiceFinal.login(code);
+      const res = await authService.login(code);
       response.success({ code: StatusCodes.CREATED, data: res });
     } catch (err) {
       response.error(err as ErrorData);
@@ -42,7 +42,7 @@ class AuthControllerFinal implements Controller {
     const { id } = req.body;
     const access_token = req.token;
     try {
-      await authServiceFinal.logout(id, access_token!);
+      await authService.logout(id, access_token!);
       response.success({ code: StatusCodes.CREATED });
     } catch (err) {
       response.error(err as ErrorData);
@@ -54,7 +54,7 @@ class AuthControllerFinal implements Controller {
     const access_token = req.token;
 
     try {
-      const res = await authServiceFinal.token_login(access_token!);
+      const res = await authService.token_login(access_token!);
       response.success({ code: StatusCodes.CREATED, data: res });
     } catch (err) {
       response.error(err as ErrorData);
@@ -66,7 +66,7 @@ class AuthControllerFinal implements Controller {
     const refresh_token = req.token;
 
     try {
-      const res = await authServiceFinal.refresh_tokens(refresh_token!);
+      const res = await authService.refresh_tokens(refresh_token!);
       response.success({ code: StatusCodes.CREATED, data: res });
     } catch (err) {
       response.error(err as ErrorData);
@@ -74,4 +74,4 @@ class AuthControllerFinal implements Controller {
   });
 }
 
-export default AuthControllerFinal;
+export default AuthController;
