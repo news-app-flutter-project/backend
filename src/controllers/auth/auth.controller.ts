@@ -1,9 +1,9 @@
 import { Router } from "express";
 import {
   asyncWrapper,
-  validationMiddleware,
-  validationPayload,
-  checkAuthHeaders,
+  bodyValidation,
+  payloadValidation,
+  headersValidation,
 } from "@/middlewares/index";
 import { StatusCodes } from "http-status-codes";
 import { kakao_registration, app_registration } from "./auth.validation";
@@ -21,14 +21,14 @@ class AuthController implements Controller {
   private initializeRoutes(): void {
     this.router
       .route(`${this.path}/register`)
-      .post(validationMiddleware(kakao_registration), this.kakao_register);
+      .post(bodyValidation(kakao_registration), this.kakao_register);
     this.router.route(`${this.path}/auto_login`).post(this.test_access_token);
     this.router
       .route(`${this.path}/register_profile_img`)
-      .post(validationPayload(app_registration), this.app_register);
+      .post(payloadValidation(app_registration), this.app_register);
     this.router
       .route(`${this.path}/logout`)
-      .post(checkAuthHeaders(), this.logout);
+      .post(headersValidation(), this.logout);
     // this.router
     //   .route(`${this.path}/refresh_tokens`)
     //   .post(checkAuthHeaders(), this.refresh_tokens);
@@ -105,8 +105,8 @@ class AuthController implements Controller {
       ...JSON.parse(req.body.payload),
     };
     try {
-      const data = await authService.registerApp(req_data);
-      return res.status(StatusCodes.OK).json({ result: true, data });
+      // const data = await authService.registerApp(req_data);
+      return res.status(StatusCodes.OK).json({ result: true });
     } catch (err: any) {
       response.error(err as ErrorData);
     }

@@ -1,7 +1,7 @@
 import {
-  validationMiddleware,
-  checkAuthHeaders,
-  validationPayload,
+  bodyValidation,
+  payloadValidation,
+  headersValidation,
 } from "@/middlewares/index";
 
 export function createAuthRoutes(

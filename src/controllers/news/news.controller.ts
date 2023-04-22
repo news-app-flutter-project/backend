@@ -2,7 +2,7 @@ import { Router } from "express";
 import validateCategory from "./category.validation";
 import validateAddsKeywords from "./addKeywords.validation";
 import { StatusCodes } from "http-status-codes";
-import { asyncWrapper, validationMiddleware } from "@/middlewares/index";
+import { asyncWrapper, bodyValidation } from "@/middlewares/index";
 import { newsRepository } from "@/database/repositories/news.repository";
 
 class NewsController implements Controller {
@@ -16,11 +16,8 @@ class NewsController implements Controller {
   private initializeRoutes(): void {
     this.router
       .route(this.path)
-      .get(validationMiddleware(validateCategory.create), this.listByCategory)
-      .post(
-        validationMiddleware(validateAddsKeywords.create),
-        this.addKeywords
-      );
+      .get(bodyValidation(validateCategory.create), this.listByCategory)
+      .post(bodyValidation(validateAddsKeywords.create), this.addKeywords);
   }
 
   private listByCategory = asyncWrapper(async (req, res) => {

@@ -111,16 +111,16 @@ export const authService = {
     await this.repository.logout(id);
   },
 
-  async registerApp(req_data: AppRegisterData) {
-    const { secure_url } = await uploadImageCloud(req_data.profile_img);
-    fs.unlinkSync(req_data.profile_img);
-    const date = toMySQLDate(req_data.birthday);
-    const newUser = await this.repository.registerApp({
-      ...req_data,
-      profile_img: secure_url,
-      birthday: date,
-    });
-    // 토큰 발급
-    return newUser;
-  },
+  // async registerApp(req_data: AppRegisterData) {
+  //   const { secure_url } = await uploadImageCloud(req_data.profile_img);
+  //   fs.unlinkSync(req_data.profile_img);
+  //   const date = toMySQLDate(req_data.birthday);
+  //   const newUser = await this.repository.registerApp({
+  //     ...req_data,
+  //     profile_img: secure_url,
+  //     birthday: date,
+  //   });
+  //   // 토큰 발급
+  //   return newUser;
+  // },
 };

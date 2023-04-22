@@ -1,17 +1,16 @@
 import asyncWrapper from "./async";
-import {
-  validationMiddleware,
-  validationPayload,
-  checkAuthHeaders,
-} from "./validation";
+
+import bodyValidation from "./bodyValidation";
+import payloadValidation from "./payloadValidation";
+import headersValidation from "./headersValidation";
 import HttpException from "./http-exception";
 import errorMiddleware from "./error-middleware";
 
 export {
   asyncWrapper,
-  validationMiddleware,
   HttpException,
   errorMiddleware,
-  validationPayload,
-  checkAuthHeaders,
+  bodyValidation,
+  payloadValidation,
+  headersValidation,
 };
