@@ -1,5 +1,5 @@
 import { bodyValidation, headersValidation } from "@/middlewares/index";
-import { login } from "./authFinal.validation";
+import { login } from "./auth.validation";
 
 declare global {
   type AuthRoutes = {

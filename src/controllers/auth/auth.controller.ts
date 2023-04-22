@@ -3,7 +3,7 @@ import { asyncWrapper } from "@/middlewares/index";
 import { StatusCodes } from "http-status-codes";
 import { createAuthRoutes } from "./auth.routes";
 import { customResponse } from "@/common/response";
-import { authServiceFinal } from "./authFinal.service";
+import { authServiceFinal } from "./auth.service";
 import { createRoutes } from "@/common/createRouter";
 
 class AuthControllerFinal implements Controller {
