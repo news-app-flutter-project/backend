@@ -32,4 +32,16 @@ export const profileService = {
     const profile = await this.repository.findProfilebyId(auth_id);
     return profile;
   },
+
+  async updateProfileImg(profile_img: string, auth_id: number) {
+    const { secure_url } = await uploadImageCloud(profile_img);
+    fs.unlinkSync(profile_img);
+    const data = await this.repository.updateProfileImg(secure_url, auth_id);
+    return data;
+  },
+
+  async updateScreenMode(mode: Screen_Mode, auth_id: number) {
+    const data = await this.repository.updateScreenMode(mode, auth_id);
+    return { screen_mode: data };
+  },
 };

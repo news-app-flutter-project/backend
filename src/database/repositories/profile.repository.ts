@@ -23,4 +23,28 @@ export const profileRepository = {
       return dbException(err);
     }
   },
+
+  async updateProfileImg(profile_img: string, auth_id: number) {
+    try {
+      await db.Profile.update(
+        { profile_img: profile_img },
+        { where: { auth_id: auth_id } }
+      );
+      return profile_img;
+    } catch (err) {
+      return dbException(err);
+    }
+  },
+
+  async updateScreenMode(mode: Screen_Mode, auth_id: number) {
+    try {
+      await db.Profile.update(
+        { screen_mode: mode },
+        { where: { auth_id: auth_id } }
+      );
+      return mode;
+    } catch (err) {
+      return dbException(err);
+    }
+  },
 };
