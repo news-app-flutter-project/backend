@@ -1,5 +1,5 @@
 import NewsController from "./news/news.controller";
-import AuthControllerFinal from "./auth/authFinal.controller";
+import AuthController from "./auth/auth.controller";
 import ProfileController from "./profile/profile.controller";
 
-export { NewsController, AuthControllerFinal, ProfileController };
+export { NewsController, AuthController, ProfileController };
