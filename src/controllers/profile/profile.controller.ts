@@ -24,7 +24,7 @@ class ProfileController implements Controller {
     createRoutes(authRoutes, this.router);
   }
 
-  private createProfile = asyncWrapper(async (req, res) => {
+  private createProfile = asyncWrapper(async (req: CustomRequest, res) => {
     const response = customResponse(res);
     const files: any = req.files;
     const req_data = {

@@ -1,8 +1,9 @@
 import { Request, Response, NextFunction, RequestHandler } from "express";
 import BadRequest from "./bad-request";
 import { kakaoId } from "@/apis/kakao/index";
+import { customResponse } from "@/common/response";
 
-export const validateAccessToken = (): RequestHandler => {
+const tokenValidation = (): RequestHandler => {
   return async (
     req: CustomRequest,
     res: Response,
@@ -26,9 +27,16 @@ export const validateAccessToken = (): RequestHandler => {
         message: badRequest.message,
       });
     } else {
-      const { id } = await kakaoId(access_token);
+      const response = customResponse(res);
+      try {
+        await kakaoId(access_token);
+        req.token = access_token;
+        next();
+      } catch (err) {
+        response.error(err as ErrorData);
+      }
     }
-    req.token = access_token;
-    next();
   };
 };
+
+export default tokenValidation;

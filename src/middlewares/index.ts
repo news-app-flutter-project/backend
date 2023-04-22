@@ -1,5 +1,5 @@
 import asyncWrapper from "./async";
-
+import tokenValidation from "./tokenAuth";
 import bodyValidation from "./bodyValidation";
 import payloadValidation from "./payloadValidation";
 import headersValidation from "./headersValidation";
@@ -13,4 +13,5 @@ export {
   bodyValidation,
   payloadValidation,
   headersValidation,
+  tokenValidation,
 };

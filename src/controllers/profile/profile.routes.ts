@@ -1,8 +1,9 @@
 import {
   bodyValidation,
   payloadValidation,
-  headersValidation,
+  tokenValidation,
 } from "@/middlewares/index";
+import { create_profile } from "./profile.validation";
 
 export function createAuthRoutes(
   path: string,
@@ -14,7 +15,7 @@ export function createAuthRoutes(
     createProfile: {
       method: "post",
       path: `${path}/create_profile`,
-      middleware: [],
+      middleware: [tokenValidation(), payloadValidation(create_profile)],
       handler: createProfileHandler,
     },
 
