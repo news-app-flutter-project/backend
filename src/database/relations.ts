@@ -1,10 +1,10 @@
 export const relations = (db: DB) => {
   // Auth:Profile = 1:1
-  db.AuthFinal.hasOne(db.Profile, {
+  db.Auth.hasOne(db.Profile, {
     foreignKey: { name: "auth_id", allowNull: false },
     as: "profile",
   });
-  db.Profile.belongsTo(db.AuthFinal, {
+  db.Profile.belongsTo(db.Auth, {
     foreignKey: { name: "auth_id", allowNull: false },
     as: "auth",
   });

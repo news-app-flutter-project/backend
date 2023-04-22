@@ -17,7 +17,7 @@ declare global {
     Sequelize: typeof Sequelize;
     sequelize: Sequelize;
     News: typeof NewsModel;
-    AuthFinal: typeof AuthModel;
+    Auth: typeof AuthModel;
     Profile: typeof ProfileModel;
   }
 }
@@ -26,7 +26,7 @@ const db: DB = {
   Sequelize,
   sequelize,
   News: NewsGenerator(sequelize),
-  AuthFinal: AuthGenerator(sequelize),
+  Auth: AuthGenerator(sequelize),
   Profile: ProfileGenerator(sequelize),
 };
 
