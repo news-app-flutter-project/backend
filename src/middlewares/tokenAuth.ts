@@ -18,6 +18,7 @@ const tokenValidation = (): RequestHandler => {
         result: false,
         message: badRequest.errors,
       });
+      return;
     }
     const access_token = authHeader?.split(" ")[1];
     if (!access_token) {
@@ -26,6 +27,7 @@ const tokenValidation = (): RequestHandler => {
         result: false,
         message: badRequest.message,
       });
+      return;
     } else {
       const response = customResponse(res);
       try {

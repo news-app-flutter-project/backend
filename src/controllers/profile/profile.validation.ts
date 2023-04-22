@@ -1,5 +1,9 @@
 import Joi from "joi";
 
+export const get_profile = Joi.object({
+  id: Joi.number().required(),
+});
+
 export const create_profile = Joi.object({
   name: Joi.string().required(),
   birthday: Joi.string()

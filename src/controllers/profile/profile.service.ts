@@ -25,11 +25,11 @@ export const profileService = {
       profile_img: secure_url,
       birthday: date,
     });
-    // 토큰 발급
     return newUser;
   },
 
   async getProfile(auth_id: number) {
-    await this.repository.findProfilebyId(auth_id);
+    const profile = await this.repository.findProfilebyId(auth_id);
+    return profile;
   },
 };

@@ -3,7 +3,7 @@ import {
   payloadValidation,
   tokenValidation,
 } from "@/middlewares/index";
-import { create_profile } from "./profile.validation";
+import { create_profile, get_profile } from "./profile.validation";
 
 export function createAuthRoutes(
   path: string,
@@ -22,8 +22,15 @@ export function createAuthRoutes(
     getProfile: {
       method: "get",
       path: `${path}/get_profile`,
-      middleware: [],
+      middleware: [tokenValidation(), bodyValidation(get_profile)],
       handler: getProfileHandler,
+    },
+
+    updateImage: {
+      method: "put",
+      path: `${path}/create_profile`,
+      middleware: [tokenValidation(), payloadValidation(create_profile)],
+      handler: updateImageHandler,
     },
   };
 }

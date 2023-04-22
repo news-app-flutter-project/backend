@@ -41,10 +41,12 @@ class ProfileController implements Controller {
 
   private getProfile = asyncWrapper(async (req, res) => {
     const response = customResponse(res);
+    const { id } = req.body;
     try {
-      const data = await profileService.getProfile(1);
+      const data = await profileService.getProfile(id);
       response.success({
         code: StatusCodes.CREATED,
+        data,
       });
     } catch (err: any) {
       response.error(err as ErrorData);
