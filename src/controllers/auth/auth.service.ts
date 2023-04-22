@@ -1,4 +1,4 @@
-import { authRepositoryFinal } from "@/database/repositories/authFinal.repository";
+import { authRepositoryFinal } from "@/database/repositories/auth.repository";
 import {
   kakaoLogin,
   kakaoId,
