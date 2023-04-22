@@ -5,7 +5,7 @@ import { defaultOptions } from "../options";
 export const authRepository = {
   async findbyKakaoId(kakao_id: number) {
     try {
-      const user = await db.AuthFinal.findOne({
+      const user = await db.Auth.findOne({
         ...defaultOptions,
         where: { kakao_id: kakao_id },
       });
@@ -17,7 +17,7 @@ export const authRepository = {
 
   async findByUserId(id: number) {
     try {
-      const user = await db.AuthFinal.findOne({
+      const user = await db.Auth.findOne({
         ...defaultOptions,
         where: { id: id },
       });
@@ -32,7 +32,7 @@ export const authRepository = {
 
   async findKakaoIdByRefreshToken(refresh_token: string) {
     try {
-      const user = await db.AuthFinal.findOne({
+      const user = await db.Auth.findOne({
         ...defaultOptions,
         where: { kakao_refresh_token: refresh_token },
       });
@@ -47,7 +47,7 @@ export const authRepository = {
 
   async createUser(kakaoData: UserAuthCreateInterface) {
     try {
-      return await db.AuthFinal.create(kakaoData);
+      return await db.Auth.create(kakaoData);
     } catch (err) {
       return dbException(err);
     }
@@ -57,7 +57,7 @@ export const authRepository = {
   async updateAllTokens(newTokens: IUpdateParams) {
     const { kakao_id, ...otherInfo } = newTokens;
     try {
-      await db.AuthFinal.update(
+      await db.Auth.update(
         {
           ...otherInfo,
         },
@@ -75,7 +75,7 @@ export const authRepository = {
 
   async refreshTokens(kakao_id: number, newTokens: IKakaoRefreshRes) {
     try {
-      await db.AuthFinal.update(
+      await db.Auth.update(
         {
           ...newTokens,
         },
@@ -93,7 +93,7 @@ export const authRepository = {
 
   async logout(id: number) {
     try {
-      await db.AuthFinal.update(
+      await db.Auth.update(
         {
           kakao_access_token: null,
           kakao_access_token_expires_in: null,

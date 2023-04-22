@@ -5,6 +5,7 @@ import BadRequest from "./bad-request";
 declare global {
   interface CustomRequest extends Request {
     token?: string;
+    auth_id?: number;
   }
 }
 

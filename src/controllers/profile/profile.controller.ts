@@ -19,17 +19,20 @@ class ProfileController implements Controller {
       this.path,
       this.createProfile,
       this.getProfile,
-      this.updateImage
+      this.updateImage,
+      this.updateScreenMode
     );
     createRoutes(authRoutes, this.router);
   }
 
   private createProfile = asyncWrapper(async (req: CustomRequest, res) => {
     const response = customResponse(res);
+    const auth_id = req.auth_id;
     const files: any = req.files;
     const req_data = {
       profile_img: files.image.tempFilePath,
       ...JSON.parse(req.body.payload),
+      auth_id,
     };
     try {
       const data = await profileService.createProfile(req_data);
@@ -39,25 +42,47 @@ class ProfileController implements Controller {
     }
   });
 
-  private getProfile = asyncWrapper(async (req, res) => {
+  private getProfile = asyncWrapper(async (req: CustomRequest, res) => {
     const response = customResponse(res);
+    const auth_id = req.auth_id;
     try {
-      const data = await profileService.getProfile(1);
+      const data = await profileService.getProfile(auth_id!);
       response.success({
         code: StatusCodes.CREATED,
+        data,
       });
     } catch (err: any) {
       response.error(err as ErrorData);
     }
   });
 
-  private updateImage = asyncWrapper(async (req, res) => {
+  private updateImage = asyncWrapper(async (req: CustomRequest, res) => {
     const response = customResponse(res);
     const files: any = req.files;
-    console.log(files);
+    const auth_id = req.auth_id;
     try {
+      const data = await profileService.updateProfileImg(
+        files.image.tempFilePath,
+        auth_id!
+      );
       response.success({
         code: StatusCodes.CREATED,
+        data,
+      });
+    } catch (err: any) {
+      response.error(err as ErrorData);
+    }
+  });
+
+  private updateScreenMode = asyncWrapper(async (req: CustomRequest, res) => {
+    const response = customResponse(res);
+    const auth_id = req.auth_id;
+    const { mode } = req.body;
+    try {
+      const data = await profileService.updateScreenMode(mode, auth_id!);
+      response.success({
+        code: StatusCodes.CREATED,
+        data,
       });
     } catch (err: any) {
       response.error(err as ErrorData);
