@@ -2,6 +2,12 @@ import { Request, Response, NextFunction, RequestHandler } from "express";
 import Joi from "joi";
 import BadRequest from "./bad-request";
 
+declare global {
+  interface CustomRequest extends Request {
+    token?: string;
+  }
+}
+
 const checkAuthHeaders = (): RequestHandler => {
   return (req: CustomRequest, res: Response, next: NextFunction): void => {
     const authHeader = req.headers.authorization;
