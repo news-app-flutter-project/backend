@@ -1,10 +1,6 @@
 import Joi from "joi";
 
-export const kakao_registration = Joi.object({
-  code: Joi.string().required(),
-});
-
-export const app_registration = Joi.object({
+export const create_profile = Joi.object({
   name: Joi.string().required(),
   birthday: Joi.string()
     .pattern(/^\d{4}-\d{2}-\d{2}$/)

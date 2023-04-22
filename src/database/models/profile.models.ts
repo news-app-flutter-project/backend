@@ -23,7 +23,7 @@ declare global {
       | [Category, Category]
       | [Category, Category, Category];
     age: Age;
-    auth_id?: number;
+    auth_id: number;
   }
 }
 
@@ -43,6 +43,7 @@ export class ProfileModel
     | [Category, Category]
     | [Category, Category, Category];
   public age!: Age;
+  public auth_id!: number;
   public createdAt?: Date;
   public updatedAt?: Date;
   public deletedAt?: Date;
@@ -102,6 +103,11 @@ export const ProfileGenerator = (sequelize: Sequelize): typeof ProfileModel => {
       age: {
         type: DataTypes.ENUM("10", "20", "30", "40", "50", "60", "70"),
         allowNull: false,
+      },
+      auth_id: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false,
+        unique: true,
       },
     },
     {
