@@ -29,7 +29,10 @@ declare global {
   }
 }
 
-export type ProfileCreateInterface = Omit<Profile, "id" | "screen_mode">;
+export type ProfileCreateInterface = Omit<
+  Profile,
+  "id" | "screen_mode" | "createdAt" | "updatedAt" | "deletedAt"
+>;
 
 export class ProfileModel
   extends Model<Profile, ProfileCreateInterface>
@@ -39,7 +42,7 @@ export class ProfileModel
   public profile_img!: string;
   public name!: string;
   public birthday!: string;
-  public sex!: "male" | "female";
+  public sex!: Sex;
   public category!:
     | [Category]
     | [Category, Category]
