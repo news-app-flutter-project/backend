@@ -16,7 +16,7 @@ export const find_news_by_category = Joi.object({
 });
 
 export const add_keywords = Joi.object({
-  newsId: Joi.number().required(),
+  news_id: Joi.number().required(),
 });
 
 export const read_news = Joi.object({

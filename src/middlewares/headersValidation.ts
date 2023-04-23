@@ -1,12 +1,11 @@
 import { Request, Response, NextFunction, RequestHandler } from "express";
 import BadRequest from "./bad-request";
-import { NewsModel } from "@/database/models/news.models";
 
 declare global {
   interface CustomRequest extends Request {
     token?: string;
     auth_id?: number;
-    news?: NewsModel;
+    news?: News;
   }
 }
 

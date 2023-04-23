@@ -4,7 +4,11 @@ import {
   bodyValidation,
   newsIdValidation,
 } from "@/middlewares/index";
-import { find_news_by_category, read_news } from "./news.validation";
+import {
+  find_news_by_category,
+  read_news,
+  add_keywords,
+} from "./news.validation";
 
 export function createNewsRoutes(
   path: string,
@@ -42,7 +46,11 @@ export function createNewsRoutes(
     addKeywords: {
       method: "put",
       path: `${path}/addKeywords`,
-      middleware: [tokenValidation()],
+      middleware: [
+        tokenValidation(),
+        bodyValidation(add_keywords),
+        newsIdValidation(),
+      ],
       handler: readNewsHandler,
     },
   };

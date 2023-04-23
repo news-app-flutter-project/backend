@@ -1,17 +1,15 @@
-import useNewsApi from "@/apis/newsData/news_api";
-import paramsArr from "@/apis/newsData/news_api_params";
-import { newsRepository } from "@/database/repositories/news.repository";
+import { newsFinalRepository } from "@/database/repositories/newsFinal.repository";
 import { validateNews } from "@/database/validations/news.validation";
 import { UniqueConstraintError } from "sequelize";
 
 export class ScheduleNewsUpdate {
   async findLastNewsItem() {
-    return await newsRepository.findLastNewsItem();
+    return await newsFinalRepository.findLastNewsItem();
   }
 
   async allNewsItems() {
     let newsArr: any = [];
-    const allNewsItem = await newsRepository.findAllNews();
+    const allNewsItem = await newsFinalRepository.findAllNews();
     for (const newsItem of allNewsItem) {
       newsArr.push(newsItem.dataValues);
     }
@@ -48,7 +46,7 @@ export class ScheduleNewsUpdate {
       }
 
       try {
-        await newsRepository.createSingleNews(singleNewsData);
+        await newsFinalRepository.createSingleNews(singleNewsData);
       } catch (error) {
         if (error instanceof UniqueConstraintError) {
           console.error(`Error inserting news: ${error.message}`);
