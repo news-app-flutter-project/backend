@@ -3,6 +3,7 @@ import tokenValidation from "./tokenAuth";
 import bodyValidation from "./bodyValidation";
 import payloadValidation from "./payloadValidation";
 import headersValidation from "./headersValidation";
+import newsIdValidation from "./newsIdValidation";
 import HttpException from "./http-exception";
 import errorMiddleware from "./error-middleware";
 
@@ -14,4 +15,5 @@ export {
   payloadValidation,
   headersValidation,
   tokenValidation,
+  newsIdValidation,
 };
