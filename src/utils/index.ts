@@ -4,6 +4,7 @@ import { gptToString } from "./gptToString";
 import { registerParams } from "./kakaoRegisterParams";
 import { removeBrackets } from "./removeBrackets";
 import validateEnv from "./validateEnv";
+import { lifeStyleConvert } from "./lifeStyleConvert";
 
 export {
   toMySQLDate,
@@ -12,4 +13,5 @@ export {
   gptToString,
   removeBrackets,
   validateEnv,
+  lifeStyleConvert,
 };
