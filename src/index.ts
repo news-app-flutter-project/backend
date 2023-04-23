@@ -4,6 +4,7 @@ import "module-alias/register";
 import validateEnv from "./utils/validateEnv";
 import App from "./app";
 import {
+  NewsFinalController,
   NewsController,
   AuthController,
   ProfileController,
@@ -12,6 +13,7 @@ import {
 validateEnv();
 const app = new App({
   controllers: [
+    new NewsFinalController(),
     new NewsController(),
     new AuthController(),
     new ProfileController(),
