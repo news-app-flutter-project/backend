@@ -18,6 +18,13 @@ export const notFoundAccountException = (id?: number) => {
   };
 };
 
+export const notFoundNews = (news_id?: number) => {
+  throw {
+    code: 404,
+    message: `news does not exist with id ${news_id}`,
+  };
+};
+
 /***************** external api related exceptions **********************/
 export const kakaoRegisterException = (error: any) => {
   throw {
