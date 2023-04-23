@@ -1,4 +1,5 @@
 import { Configuration, OpenAIApi } from "openai";
+import { chatGptException } from "@/common/exceptions";
 
 interface useChatGPTParam {
   title?: string;
@@ -7,10 +8,14 @@ interface useChatGPTParam {
 }
 
 class UseChatGPT {
-  private openai: OpenAIApi;
+  private openai: OpenAIApi | null = null;
+  private apiKey = process.env.OPENAI_API_KEY || "";
+  constructor() {
+    this.initializeChatGpt();
+  }
 
-  constructor(apiKey: string) {
-    const configuration = new Configuration({ apiKey });
+  private initializeChatGpt(): void {
+    const configuration = new Configuration({ apiKey: this.apiKey });
     this.openai = new OpenAIApi(configuration);
   }
 
@@ -26,6 +31,13 @@ class UseChatGPT {
       throw new Error("No input provided");
     }
 
+    if (!this.openai) {
+      throw new Error("OpenAI API not initialized");
+    }
+    try {
+    } catch (err) {
+      chatGptException(err);
+    }
     const { data } = await this.openai.createCompletion({
       model: "text-davinci-003",
       prompt,
