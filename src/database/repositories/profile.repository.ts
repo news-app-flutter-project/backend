@@ -2,6 +2,7 @@ import db from "@/database/db";
 import { dbException, notFoundAccountException } from "@/common/exceptions";
 import { ProfileCreateInterface } from "@/database/models/profile.models";
 import { defaultOptions } from "../options";
+import { ProfileModel } from "@/database/models/profile.models";
 
 export const profileRepository = {
   async createProfile(profileData: ProfileCreateInterface) {
@@ -12,13 +13,13 @@ export const profileRepository = {
     }
   },
 
-  async findProfilebyId(auth_id: number) {
+  async findProfilebyId(auth_id: number): Promise<ProfileModel> {
     try {
       const profile = await db.Profile.findOne({
         ...defaultOptions,
         where: { auth_id: auth_id },
       });
-      return profile;
+      return profile!;
     } catch (err) {
       return dbException(err);
     }
