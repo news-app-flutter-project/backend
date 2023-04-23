@@ -49,3 +49,11 @@ export const cloudinaryException = (error: any) => {
     error: "invalid file",
   };
 };
+
+export const chatGptException = (error: any) => {
+  throw {
+    code: StatusCodes.BAD_REQUEST,
+    message: "something wrong with gpt",
+    error: error,
+  };
+};
