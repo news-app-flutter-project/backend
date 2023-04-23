@@ -53,21 +53,22 @@ class NewsFinalController implements Controller {
     const response = customResponse(res);
     const auth_id = req.auth_id;
     const news = req.news;
-    const { news_id } = req.body;
-    console.log(news);
+    const { id: news_id } = news!;
+
     try {
-      const data = await newsFinalService.readNews(auth_id!, news_id);
+      await newsFinalService.readNews(auth_id!, news_id);
       return res.status(StatusCodes.OK).json({ result: true, news });
     } catch (err) {
       response.error(err as ErrorData);
     }
   });
 
-  private addKeywords = asyncWrapper(async (req, res) => {
+  private addKeywords = asyncWrapper(async (req: CustomRequest, res) => {
     const response = customResponse(res);
-
+    const news = req.news;
     try {
-      return res.status(StatusCodes.OK).json({ result: true });
+      const data = await newsFinalService.addKeywords(news!);
+      return res.status(StatusCodes.OK).json({ result: true, data });
     } catch (err) {
       response.error(err as ErrorData);
     }

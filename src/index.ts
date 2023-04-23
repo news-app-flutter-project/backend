@@ -5,7 +5,6 @@ import validateEnv from "./utils/validateEnv";
 import App from "./app";
 import {
   NewsFinalController,
-  NewsController,
   AuthController,
   ProfileController,
 } from "@/controllers/index";
@@ -14,7 +13,6 @@ validateEnv();
 const app = new App({
   controllers: [
     new NewsFinalController(),
-    new NewsController(),
     new AuthController(),
     new ProfileController(),
   ],

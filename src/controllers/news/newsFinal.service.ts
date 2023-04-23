@@ -2,6 +2,9 @@ import { newsFinalRepository } from "@/database/repositories/newsFinal.repositor
 import { profileRepository } from "@/database/repositories/profile.repository";
 import { readsRepository } from "@/database/repositories/reads.repository";
 import { lifeStyleConvert } from "@/utils/index";
+import useChatGPT from "@/apis/gpt/keywords.generator";
+import { removeBrackets } from "@/utils/removeBrackets";
+import { gptToString } from "@/utils/gptToString";
 
 export const newsFinalService = {
   repository: newsFinalRepository,
@@ -20,6 +23,31 @@ export const newsFinalService = {
       convertedCategories
     );
     return news;
+  },
+
+  async addKeywords(news: News) {
+    const { id: news_id, gpt_keywords, description, title } = news;
+    if (!gpt_keywords) {
+      return gpt_keywords;
+    }
+    const fixedTitle = removeBrackets(title);
+    const fixedDesc = removeBrackets(description);
+
+    const generateKeywords = new useChatGPT();
+    const titleKeywords = await generateKeywords.getKeywords({
+      title: fixedTitle,
+    });
+    const descKeywords = await generateKeywords.getKeywords({
+      desc: fixedDesc,
+    });
+
+    const [titleArr, descArr] = [
+      gptToString(titleKeywords || ""),
+      gptToString(descKeywords || ""),
+    ];
+    const uniqueKeywords = Array.from(new Set([...titleArr, ...descArr]));
+    await this.repository.updateGptKeywords(uniqueKeywords, news_id);
+    return uniqueKeywords;
   },
 
   async readNews(auth_id: number, news_id: number) {
