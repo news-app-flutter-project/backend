@@ -7,6 +7,7 @@ import {
   NewsFinalController,
   AuthController,
   ProfileController,
+  ReaderController,
 } from "@/controllers/index";
 
 validateEnv();
@@ -15,13 +16,12 @@ const app = new App({
     new NewsFinalController(),
     new AuthController(),
     new ProfileController(),
+    new ReaderController(),
   ],
   port: Number(process.env.PORT),
 });
 
 // cron job
 // app.schedule_run();
-
-// newsRepository.updateGptKeywords(1);
 
 app.bootstrap();

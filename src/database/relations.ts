@@ -8,4 +8,23 @@ export const relations = (db: DB) => {
     foreignKey: { name: "auth_id", allowNull: false },
     as: "auth",
   });
+  // Reads:Profile = M:1
+  db.Reader.belongsTo(db.Profile, {
+    foreignKey: { name: "profile_id", allowNull: false },
+    as: "profile",
+  });
+  db.Profile.hasMany(db.Reader, {
+    foreignKey: { name: "profile_id", allowNull: false },
+    as: "reads",
+  });
+
+  // Reads:News = M:1
+  db.Reader.belongsTo(db.News, {
+    foreignKey: { name: "news_id", allowNull: false },
+    as: "news",
+  });
+  db.News.hasMany(db.Reader, {
+    foreignKey: { name: "news_id", allowNull: false },
+    as: "reads",
+  });
 };

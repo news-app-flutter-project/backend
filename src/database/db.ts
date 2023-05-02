@@ -3,7 +3,7 @@ import { SEQUELIZE_CONFIGS } from "@/common/constants";
 import { NewsModel, NewsGenerator } from "@/database/models/news.models";
 import { AuthModel, AuthGenerator } from "@/database/models/auth.model";
 import { ProfileModel, ProfileGenerator } from "./models/profile.models";
-import { ReadsModel, ReadsGenerator } from "./models/reads.model";
+import { ReaderModel, ReaderGenerator } from "./models/reader.model";
 import { relations } from "./relations";
 const sequelize = new Sequelize(SEQUELIZE_CONFIGS);
 
@@ -20,7 +20,7 @@ declare global {
     News: typeof NewsModel;
     Auth: typeof AuthModel;
     Profile: typeof ProfileModel;
-    Reads: typeof ReadsModel;
+    Reader: typeof ReaderModel;
   }
 }
 
@@ -30,7 +30,7 @@ const db: DB = {
   News: NewsGenerator(sequelize),
   Auth: AuthGenerator(sequelize),
   Profile: ProfileGenerator(sequelize),
-  Reads: ReadsGenerator(sequelize),
+  Reader: ReaderGenerator(sequelize),
 };
 
 relations(db);

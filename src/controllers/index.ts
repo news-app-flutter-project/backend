@@ -1,5 +1,11 @@
-import NewsFinalController from "./news/newsFinal.controller";
+import NewsFinalController from "./news/news.controller";
 import AuthController from "./auth/auth.controller";
 import ProfileController from "./profile/profile.controller";
+import ReaderController from "./reads/reader.controller";
 
-export { NewsFinalController, AuthController, ProfileController };
+export {
+  NewsFinalController,
+  AuthController,
+  ProfileController,
+  ReaderController,
+};

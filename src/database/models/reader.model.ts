@@ -1,7 +1,7 @@
 import { Sequelize, DataTypes, Model } from "sequelize";
 
 declare global {
-  interface Reads extends TimeStampModel {
+  interface Reader extends TimeStampModel {
     id: number;
     profile_id: number;
     news_id: number;
@@ -10,14 +10,14 @@ declare global {
   }
 }
 
-export type ReadsCreateInterface = Omit<
-  Reads,
+export type ReaderCreateInterface = Omit<
+  Reader,
   "id" | "createdAt" | "updatedAt" | "deletedAt"
 >;
 
-export class ReadsModel
-  extends Model<Reads, ReadsCreateInterface>
-  implements Reads
+export class ReaderModel
+  extends Model<Reader, ReaderCreateInterface>
+  implements Reader
 {
   public id!: number;
   public profile_id!: number;
@@ -26,8 +26,8 @@ export class ReadsModel
   public sex!: Sex;
 }
 
-export const ReadsGenerator = (sequelize: Sequelize): typeof ReadsModel => {
-  ReadsModel.init(
+export const ReaderGenerator = (sequelize: Sequelize): typeof ReaderModel => {
+  ReaderModel.init(
     {
       id: {
         type: DataTypes.INTEGER.UNSIGNED,
@@ -63,8 +63,8 @@ export const ReadsGenerator = (sequelize: Sequelize): typeof ReadsModel => {
       sequelize,
       timestamps: true,
       paranoid: true,
-      modelName: "reads_table",
-      tableName: "reads_table",
+      modelName: "reader",
+      tableName: "reader",
       indexes: [
         {
           unique: true,
@@ -73,5 +73,5 @@ export const ReadsGenerator = (sequelize: Sequelize): typeof ReadsModel => {
       ],
     }
   );
-  return ReadsModel;
+  return ReaderModel;
 };

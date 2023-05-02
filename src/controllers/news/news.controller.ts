@@ -4,10 +4,10 @@ import { StatusCodes } from "http-status-codes";
 import { createNewsRoutes } from "./news.routes";
 import { customResponse } from "@/common/response";
 import { createRoutes } from "@/common/createRouter";
-import { newsFinalService } from "./newsFinal.service";
+import { newsService } from "./news.service";
 
-class NewsFinalController implements Controller {
-  public path = "/newsFinal";
+class NewsController implements Controller {
+  public path = "/news";
   public router = Router();
 
   constructor() {
@@ -29,7 +29,7 @@ class NewsFinalController implements Controller {
     const response = customResponse(res);
     const { category } = req.body;
     try {
-      const data = await newsFinalService.findByCategory(category);
+      const data = await newsService.findByCategory(category);
       return res.status(StatusCodes.OK).json({ result: true, data });
     } catch (err) {
       response.error(err as ErrorData);
@@ -41,7 +41,7 @@ class NewsFinalController implements Controller {
       const response = customResponse(res);
       const auth_id = req.auth_id;
       try {
-        const data = await newsFinalService.findByUserCategories(auth_id!);
+        const data = await newsService.findByUserCategories(auth_id!);
         return res.status(StatusCodes.OK).json({ result: true, data });
       } catch (err) {
         response.error(err as ErrorData);
@@ -56,7 +56,7 @@ class NewsFinalController implements Controller {
     const { id: news_id } = news!;
 
     try {
-      await newsFinalService.readNews(auth_id!, news_id);
+      await newsService.readNews(auth_id!, news_id);
       return res.status(StatusCodes.OK).json({ result: true, news });
     } catch (err) {
       response.error(err as ErrorData);
@@ -67,7 +67,7 @@ class NewsFinalController implements Controller {
     const response = customResponse(res);
     const news = req.news;
     try {
-      const data = await newsFinalService.addKeywords(news!);
+      const data = await newsService.addKeywords(news!);
       return res.status(StatusCodes.OK).json({ result: true, data });
     } catch (err) {
       response.error(err as ErrorData);
@@ -75,4 +75,4 @@ class NewsFinalController implements Controller {
   });
 }
 
-export default NewsFinalController;
+export default NewsController;

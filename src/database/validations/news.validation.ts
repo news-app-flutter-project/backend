@@ -9,7 +9,7 @@ export const validateNews = async (news: NewsCreateInterface) => {
   };
 
   const schema = Joi.object({
-    category: Joi.array().items(Joi.string()),
+    category: Joi.string(),
 
     keywords: Joi.alternatives().try(
       Joi.array().items(Joi.string().max(20)),

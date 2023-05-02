@@ -1,15 +1,16 @@
-import { newsFinalRepository } from "@/database/repositories/newsFinal.repository";
+import { newsRepository } from "@/database/repositories/news.repository";
 import { validateNews } from "@/database/validations/news.validation";
 import { UniqueConstraintError } from "sequelize";
+import { removeApostrophe } from "@/utils/index";
 
 export class ScheduleNewsUpdate {
   async findLastNewsItem() {
-    return await newsFinalRepository.findLastNewsItem();
+    return await newsRepository.findLastNewsItem();
   }
 
   async allNewsItems() {
     let newsArr: any = [];
-    const allNewsItem = await newsFinalRepository.findAllNews();
+    const allNewsItem = await newsRepository.findAllNews();
     for (const newsItem of allNewsItem) {
       newsArr.push(newsItem.dataValues);
     }
@@ -26,7 +27,7 @@ export class ScheduleNewsUpdate {
       }
 
       const singleNewsData = {
-        category: news.category,
+        category: removeApostrophe(news.category[0]),
         keywords: keywords,
         title: news.title,
         description: news.description,
@@ -46,7 +47,7 @@ export class ScheduleNewsUpdate {
       }
 
       try {
-        await newsFinalRepository.createSingleNews(singleNewsData);
+        await newsRepository.createSingleNews(singleNewsData);
       } catch (error) {
         if (error instanceof UniqueConstraintError) {
           console.error(`Error inserting news: ${error.message}`);
