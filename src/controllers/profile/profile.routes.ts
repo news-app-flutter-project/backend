@@ -28,13 +28,13 @@ export function createAuthRoutes(
     updateImage: {
       method: "put",
       path: `${path}/update_img`,
-      middleware: [tokenValidation(), bodyValidation(screen_mode)],
+      middleware: [tokenValidation()],
       handler: updateImageHandler,
     },
     updateScreen: {
       method: "put",
       path: `${path}/update_screen`,
-      middleware: [tokenValidation()],
+      middleware: [tokenValidation(), bodyValidation(screen_mode)],
       handler: updateScreenModeHandler,
     },
   };
