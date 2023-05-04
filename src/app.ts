@@ -62,7 +62,7 @@ class App {
     private initializeHome(): void {
         this.express.get('/', (req, res) => {
             // res.json({ message: true });
-            res.redirect('/api-docs');
+            res.redirect('https://newsapp-swagger.onrender.com/api-docs/');
         });
     }
 
