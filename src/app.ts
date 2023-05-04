@@ -61,7 +61,8 @@ class App {
 
   private initializeHome(): void {
     this.express.get("/", (req, res) => {
-      res.json({ message: true });
+      // res.json({ message: true });
+      res.redirect("https://dapper-gumption-20af31.netlify.app/");
     });
   }
 
