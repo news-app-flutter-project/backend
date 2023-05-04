@@ -1,15 +1,15 @@
-import { newsFinalRepository } from "@/database/repositories/newsFinal.repository";
+import { newsRepository } from "@/database/repositories/news.repository";
 import { profileRepository } from "@/database/repositories/profile.repository";
-import { readsRepository } from "@/database/repositories/reads.repository";
+import { readerRepository } from "@/database/repositories/reader.repository";
 import { lifeStyleConvert } from "@/utils/index";
 import useChatGPT from "@/apis/gpt/keywords.generator";
 import { removeBrackets } from "@/utils/removeBrackets";
 import { gptToString } from "@/utils/gptToString";
 
-export const newsFinalService = {
-  repository: newsFinalRepository,
+export const newsService = {
+  repository: newsRepository,
   profile_repository: profileRepository,
-  reads_repository: readsRepository,
+  reads_repository: readerRepository,
 
   async findByCategory(category: string) {
     const news = await this.repository.findByCategory(category);

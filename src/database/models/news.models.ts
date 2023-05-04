@@ -4,7 +4,7 @@ declare global {
   // rows for the news table
   interface News extends TimeStampModel {
     id: number;
-    category: string[] | null;
+    category: string | null;
     keywords: string[] | null;
     title: string;
     description: string;
@@ -32,7 +32,7 @@ export class NewsModel
   implements News
 {
   public id!: number;
-  public category!: string[] | null;
+  public category!: string;
   public keywords!: string[] | null;
   public title!: string;
   public description!: string;
@@ -54,11 +54,12 @@ export const NewsGenerator = (sequelize: Sequelize): typeof NewsModel => {
     {
       id: {
         type: DataTypes.INTEGER.UNSIGNED,
+        autoIncrement: true,
         primaryKey: true,
       },
       category: {
-        type: DataTypes.JSON,
-        allowNull: true,
+        type: DataTypes.STRING(20),
+        allowNull: false,
       },
       keywords: {
         type: DataTypes.JSON,

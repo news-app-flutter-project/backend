@@ -4,7 +4,7 @@ import { dbException } from "@/common/exceptions";
 import { defaultOptions } from "../options";
 import { NewsModel } from "@/database/models/news.models";
 
-export const newsFinalRepository = {
+export const newsRepository = {
   async findByCategory(category: string) {
     try {
       return await db.News.findAll({

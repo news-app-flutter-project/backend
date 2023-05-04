@@ -5,6 +5,7 @@ import { registerParams } from "./kakaoRegisterParams";
 import { removeBrackets } from "./removeBrackets";
 import validateEnv from "./validateEnv";
 import { lifeStyleConvert } from "./lifeStyleConvert";
+import { removeApostrophe } from "./removeApostrophe";
 
 export {
   toMySQLDate,
@@ -14,4 +15,5 @@ export {
   removeBrackets,
   validateEnv,
   lifeStyleConvert,
+  removeApostrophe,
 };

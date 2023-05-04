@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction, RequestHandler } from "express";
 import BadRequest from "./bad-request";
-import { newsFinalRepository } from "@/database/repositories/newsFinal.repository";
+import { newsRepository } from "@/database/repositories/news.repository";
 import { customResponse } from "@/common/response";
 import { notFoundNews } from "@/common/exceptions";
 
@@ -13,7 +13,7 @@ const newsIdValidation = (): RequestHandler => {
     const response = customResponse(res);
     const { news_id } = req.body;
     try {
-      const news = await newsFinalRepository.findNewsbyId(news_id);
+      const news = await newsRepository.findNewsbyId(news_id);
       if (!news) {
         return notFoundNews();
       }
