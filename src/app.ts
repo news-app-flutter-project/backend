@@ -14,6 +14,10 @@ import useNewsApi from "@/apis/newsData/news_api";
 import paramsArr from "@/apis/newsData/news_api_params";
 import { v2 as cloudinary } from "cloudinary";
 import fileUpload from "express-fileupload";
+import swaggerUI from "swagger-ui-express";
+import YAML from "yamljs";
+import * as path from "path";
+const swaggerDoc = YAML.load(path.join(__dirname, "../build/swagger.yaml"));
 
 interface Paramters {
   port: number;
@@ -34,6 +38,7 @@ class App {
     this.initializeKakaoRedirect();
     this.initializeControllers(controllers);
     this.initializeErrorHandling();
+    this.initializeSwagger();
   }
 
   private initializeMiddleware() {
@@ -57,8 +62,11 @@ class App {
   private initializeHome(): void {
     this.express.get("/", (req, res) => {
       res.json({ message: true });
-      // res.redirect("/api-docs");
     });
+  }
+
+  private initializeSwagger(): void {
+    this.express.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDoc));
   }
 
   private initializeKakaoRedirect(): void {
