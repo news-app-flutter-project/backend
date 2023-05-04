@@ -24,3 +24,7 @@ export const create_profile = Joi.object({
     .required(),
   age: Joi.string().valid("10", "20", "30", "40", "50", "60", "70").required(),
 });
+
+export const screen_mode = Joi.object({
+  mode: Joi.string().valid("light", "dark").required(),
+});

@@ -1,5 +1,9 @@
-import { payloadValidation, tokenValidation } from "@/middlewares/index";
-import { create_profile } from "./profile.validation";
+import {
+  payloadValidation,
+  tokenValidation,
+  bodyValidation,
+} from "@/middlewares/index";
+import { create_profile, screen_mode } from "./profile.validation";
 
 export function createAuthRoutes(
   path: string,
@@ -24,7 +28,7 @@ export function createAuthRoutes(
     updateImage: {
       method: "put",
       path: `${path}/update_img`,
-      middleware: [tokenValidation()],
+      middleware: [tokenValidation(), bodyValidation(screen_mode)],
       handler: updateImageHandler,
     },
     updateScreen: {
