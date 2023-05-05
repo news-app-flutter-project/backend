@@ -1,239 +1,266 @@
 openapi: 3.0.0
 info:
-  title: jobs-api
-  contact: {}
-  version: "1.0"
+    title: NEWSAPP APIs
+    contact: {}
+    version: '1.0'
 servers:
-  - url: https://render-first-project.onrender.com/api/v1
-    variables: {}
+    - url: https://newsapp-cf64.onrender.com/api
+      variables: {}
 paths:
-  /auth/register:
-    post:
-      tags:
-        - Auth
-      summary: register
-      operationId: register
-      parameters: []
-      requestBody:
-        description: ""
-        content:
-          application/json:
-            schema:
-              allOf:
-                - $ref: "#/components/schemas/registerrequest"
-                - example:
-                    name: new
-                    email: nsdfsdf@e.com
-                    password: nesdfsdfs
-            example:
-              name: new
-              email: nsdfsdf@e.com
-              password: nesdfsdfs
-        required: true
-      responses:
-        "200":
-          description: ""
-          headers: {}
-      deprecated: false
-      security: []
-  /auth/login:
-    post:
-      tags:
-        - Auth
-      summary: login
-      operationId: login
-      parameters: []
-      requestBody:
-        description: ""
-        content:
-          application/json:
-            schema:
-              allOf:
-                - $ref: "#/components/schemas/loginrequest"
-                - example:
-                    email: nsdfsdf@e.com
-                    password: nesdfsdfs
-            example:
-              email: nsdfsdf@e.com
-              password: nesdfsdfs
-        required: true
-      responses:
-        "200":
-          description: ""
-          headers: {}
-      deprecated: false
-      security: []
-  /jobs:
-    post:
-      tags:
-        - jobs
-      summary: create job
-      operationId: createjob
-      parameters: []
-      requestBody:
-        description: ""
-        content:
-          application/json:
-            schema:
-              allOf:
-                - $ref: "#/components/schemas/createjobrequest"
-                - example:
-                    company: netflix
-                    positions: backend
-            example:
-              company: netflix
-              positions: backend
-        required: true
-      responses:
-        "200":
-          description: ""
-          headers: {}
-      deprecated: false
-      security:
-        - bearer: []
-    get:
-      tags:
-        - jobs
-      summary: get all jobs
-      operationId: getalljobs
-      parameters: []
-      responses:
-        "200":
-          description: ""
-          headers: {}
-      deprecated: false
-      security:
-        - bearer: []
-  /jobs/{id}:
-    parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-        required: true
-        description: The job ID
-    get:
-      tags:
-        - jobs
-      summary: get single jobs
-      operationId: getsinglejobs
-      parameters: []
-      responses:
-        "200":
-          description: ""
-          headers: {}
-      deprecated: false
-      security:
-        - bearer: []
-    patch:
-      tags:
-        - jobs
-      summary: update job
-      operationId: updatejob
-      parameters: []
-      requestBody:
-        description: ""
-        content:
-          application/json:
-            schema:
-              allOf:
-                - $ref: "#/components/schemas/updatejobrequest"
-                - example:
-                    company: change
-                    positions: change
-            example:
-              company: change
-              positions: change
-        required: true
-      responses:
-        "200":
-          description: ""
-          headers: {}
-      deprecated: false
-      security:
-        - bearer: []
-    delete:
-      tags:
-        - jobs
-      summary: delete
-      operationId: delete
-      parameters: []
-      responses:
-        "200":
-          description: ""
-          headers: {}
-      deprecated: false
-      security:
-        - bearer: []
+    /auth/login:
+        post:
+            tags:
+                - auth
+            summary: login
+            operationId: login
+            parameters: []
+            requestBody:
+                description: ''
+                content:
+                    application/json:
+                        schema:
+                            allOf:
+                                - $ref: '#/components/schemas/loginrequest'
+                                - example:
+                                      code: EhAh3mr-0GJtyPd1pzPVJ_d11EJhQ-chYDLsNilDJouShgUg7I6BGpSM6KUL8iw2h3gPxAoqJQ8AAAGH6HDgWQ
+                        example:
+                            code: EhAh3mr-0GJtyPd1pzPVJ_d11EJhQ-chYDLsNilDJouShgUg7I6BGpSM6KUL8iw2h3gPxAoqJQ8AAAGH6HDgWQ
+                required: true
+            responses:
+                '200':
+                    description: ''
+                    headers: {}
+            deprecated: false
+            security: []
+    /auth/token_login:
+        post:
+            tags:
+                - auth
+            summary: token_login
+            operationId: token_login
+            parameters: []
+            responses:
+                '200':
+                    description: ''
+                    headers: {}
+            deprecated: false
+            security:
+                - bearer: []
+    /auth/refresh_tokens:
+        post:
+            tags:
+                - auth
+            summary: refresh_tokens
+            operationId: refresh_tokens
+            parameters: []
+            responses:
+                '200':
+                    description: ''
+                    headers: {}
+            deprecated: false
+            security:
+                - bearer: []
+    /auth/logout:
+        post:
+            tags:
+                - auth
+            summary: logout
+            operationId: logout
+            parameters: []
+            requestBody:
+                description: ''
+                content:
+                    application/json:
+                        schema:
+                            allOf:
+                                - $ref: '#/components/schemas/logoutrequest'
+                                - example:
+                                      id: 1
+                        example:
+                            id: 1
+                required: true
+            responses:
+                '200':
+                    description: ''
+                    headers: {}
+            deprecated: false
+            security:
+                - bearer: []
+    /profile/create_profile:
+        post:
+            tags:
+                - profile
+            summary: create_profile
+            operationId: create_profile
+            parameters: []
+            requestBody:
+                content:
+                    multipart/form-data:
+                        encoding: {}
+                        schema:
+                            required:
+                                - image
+                                - payload
+                            type: object
+                            properties:
+                                image:
+                                    type: string
+                                    format: binary
+                                payload:
+                                    allOf:
+                                        - $ref: '#/components/schemas/payload'
+                                        - example:
+                                              name: a
+                                              birthday: 1996-04-02
+                                              sex: male
+                                              category:
+                                                  - politics
+                                                  - lifestyle
+                                              age: '10'
+                required: false
+            responses:
+                '200':
+                    description: ''
+                    headers: {}
+            deprecated: false
+            security:
+                - bearer: []
+    /profile/update_img:
+        put:
+            tags:
+                - profile
+            summary: update_img
+            operationId: update_img
+            parameters: []
+            requestBody:
+                content:
+                    multipart/form-data:
+                        encoding: {}
+                        schema:
+                            required:
+                                - image
+                            type: object
+                            properties:
+                                image:
+                                    type: string
+                                    format: binary
+                required: false
+            responses:
+                '200':
+                    description: ''
+                    headers: {}
+            deprecated: false
+            security:
+                - bearer: []
+    /profile/update_screen:
+        put:
+            tags:
+                - profile
+            summary: update_screen
+            operationId: update_screen
+            parameters: []
+            requestBody:
+                description: ''
+                content:
+                    application/json:
+                        schema:
+                            allOf:
+                                - $ref: '#/components/schemas/update_screen_request'
+                                - example:
+                                      mode: light
+                        example:
+                            mode: light
+                required: true
+            responses:
+                '200':
+                    description: ''
+                    headers: {}
+            deprecated: false
+            security:
+                - bearer: []
+    /profile/get_profile:
+        get:
+            tags:
+                - profile
+            summary: get_profile
+            operationId: get_profile
+            parameters: []
+            responses:
+                '200':
+                    description: ''
+                    headers: {}
+            deprecated: false
+            security:
+                - bearer: []
 components:
-  schemas:
-    registerrequest:
-      title: registerrequest
-      required:
-        - name
-        - email
-        - password
-      type: object
-      properties:
-        name:
-          type: string
-        email:
-          type: string
-        password:
-          type: string
-      example:
-        name: new
-        email: nsdfsdf@e.com
-        password: nesdfsdfs
-    loginrequest:
-      title: loginrequest
-      required:
-        - email
-        - password
-      type: object
-      properties:
-        email:
-          type: string
-        password:
-          type: string
-      example:
-        email: nsdfsdf@e.com
-        password: nesdfsdfs
-    createjobrequest:
-      title: createjobrequest
-      required:
-        - company
-        - positions
-      type: object
-      properties:
-        company:
-          type: string
-        positions:
-          type: string
-      example:
-        company: netflix
-        positions: backend
-    updatejobrequest:
-      title: updatejobrequest
-      required:
-        - company
-        - positions
-      type: object
-      properties:
-        company:
-          type: string
-        positions:
-          type: string
-      example:
-        company: change
-        positions: change
-  securitySchemes:
-    bearer:
-      type: http
-      scheme: bearer
+    schemas:
+        loginrequest:
+            title: loginrequest
+            required:
+                - code
+            type: object
+            properties:
+                code:
+                    type: string
+            example:
+                code: EhAh3mr-0GJtyPd1pzPVJ_d11EJhQ-chYDLsNilDJouShgUg7I6BGpSM6KUL8iw2h3gPxAoqJQ8AAAGH6HDgWQ
+        logoutrequest:
+            title: logoutrequest
+            required:
+                - id
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: int32
+            example:
+                id: 1
+        payload:
+            title: payload
+            required:
+                - name
+                - birthday
+                - sex
+                - category
+                - age
+            type: object
+            properties:
+                name:
+                    type: string
+                birthday:
+                    type: string
+                sex:
+                    type: string
+                category:
+                    type: array
+                    items:
+                        type: string
+                    description: ''
+                age:
+                    type: string
+            example:
+                name: a
+                birthday: 1996-04-02
+                sex: male
+                category:
+                    - politics
+                    - lifestyle
+                age: '10'
+        update_screen_request:
+            title: update_screen_request
+            required:
+                - mode
+            type: object
+            properties:
+                mode:
+                    type: string
+            example:
+                mode: light
+    securitySchemes:
+        bearer:
+            type: http
+            scheme: bearer
 security: []
 tags:
-  - name: Auth
-    description: ""
-  - name: jobs
-    description: ""
+    - name: auth
+    - name: profile
