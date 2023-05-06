@@ -53,13 +53,13 @@ export const newsService = {
     },
 
     async readNews(auth_id: number, news_id: number) {
-        const news = this.repository.findNewsbyId(news_id);
-        console.log(news);
+        const news = await this.repository.findNewsbyId(news_id);
         const {
             id: profile_id,
             age,
             sex,
         } = await this.profile_repository.findProfilebyId(auth_id);
+        console.log(profile_id, news_id);
         const isExist = await this.reads_repository.checkDuplicateReads(
             profile_id,
             news_id
@@ -72,9 +72,7 @@ export const newsService = {
                 sex,
                 category: 'business',
             });
-            return;
-        } else {
-            return;
         }
+        return news;
     },
 };

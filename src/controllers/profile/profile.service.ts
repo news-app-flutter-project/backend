@@ -1,5 +1,6 @@
 import { profileRepository } from '@/database/repositories/profile.repository';
 import uploadImageCloud from '@/apis/cloudinary/cloudinary';
+import { notFoundAccountException } from '@/common/exceptions';
 import { toMySQLDate } from '@/utils/index';
 import fs from 'fs';
 
@@ -33,7 +34,11 @@ export const profileService = {
 
     async getProfile(auth_id: number) {
         const profile = await this.repository.findProfilebyId(auth_id);
-        return profile;
+        if (!profile) {
+            return notFoundAccountException(auth_id);
+        } else {
+            return profile;
+        }
     },
 
     async updateProfileImg(profile_img: string, auth_id: number) {

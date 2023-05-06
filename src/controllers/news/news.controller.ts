@@ -54,7 +54,7 @@ class NewsController implements Controller {
         const auth_id = req.auth_id;
         const news = req.news;
         const { id: news_id } = news!;
-
+        console.log(auth_id, news_id);
         try {
             await newsService.readNews(auth_id!, news_id);
             return res.status(StatusCodes.OK).json({ result: true, news });

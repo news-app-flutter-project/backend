@@ -9,7 +9,7 @@ export const profileRepository = {
         try {
             return await db.Profile.create(profileData);
         } catch (err) {
-            dbException(err);
+            return dbException(err);
         }
     },
 
@@ -21,7 +21,7 @@ export const profileRepository = {
             });
             return profile!;
         } catch (err) {
-            return dbException(err);
+            return notFoundAccountException(auth_id);
         }
     },
 
