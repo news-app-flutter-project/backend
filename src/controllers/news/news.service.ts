@@ -53,6 +53,8 @@ export const newsService = {
     },
 
     async readNews(auth_id: number, news_id: number) {
+        const news = this.repository.findNewsbyId(news_id);
+        console.log(news);
         const {
             id: profile_id,
             age,
@@ -68,6 +70,7 @@ export const newsService = {
                 news_id,
                 profile_id,
                 sex,
+                category: 'business',
             });
             return;
         } else {

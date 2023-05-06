@@ -1,4 +1,8 @@
-import { bodyValidation, headersValidation } from '@/middlewares/index';
+import {
+    bodyValidation,
+    headersValidation,
+    tokenValidation,
+} from '@/middlewares/index';
 import { login } from './auth.validation';
 
 declare global {
@@ -24,13 +28,13 @@ export function createAuthRoutes(
         logout: {
             method: 'post',
             path: `${path}/logout`,
-            middleware: [headersValidation()],
+            middleware: [tokenValidation()],
             handler: logoutHandler,
         },
         token_login: {
             method: 'post',
             path: `${path}/token_login`,
-            middleware: [headersValidation()],
+            middleware: [tokenValidation()],
             handler: tokenLoginHandler,
         },
         refresh_tokens: {

@@ -30,43 +30,20 @@ export const readerRepository = {
     },
 
     async mostPopularForCategory(category: Category) {
-        // Find all news articles in the specified category created today
-        const newsArticles = await db.News.findAll({
-            where: {
-                category: category,
-                createdAt: {
-                    [Op.gte]: new Date(new Date().setUTCHours(0, 0, 0, 0)), // Today's start time in UTC
-                    [Op.lte]: new Date(new Date().setUTCHours(23, 59, 59, 999)), // Today's end time in UTC
-                },
-            },
-        });
-
-        // Count the number of times each news article has been read by all readers
-        const newsArticleCounts = new Map<number, number>();
         const readers = await db.Reader.findAll({
-            where: {
-                news_id: newsArticles.map((news) => news.id),
-            },
+            where: {},
+            include: [
+                {
+                    model: db.News,
+                    where: { category },
+                    attributes: [],
+                },
+            ],
+            group: ['news_id'],
+            order: [[Sequelize.fn('COUNT', Sequelize.col('news.id')), 'DESC']],
+            limit: 10,
         });
-
-        readers.forEach((reader) => {
-            const newsId = reader.news_id;
-
-            const count = newsArticleCounts.get(newsId) ?? 0;
-            newsArticleCounts.set(newsId, count + 1);
-        });
-
-        // Sort the news articles by popularity (descending order)
-        const sortedNewsIds = [...newsArticleCounts.entries()]
-            .sort((a, b) => b[1] - a[1])
-            .map(([newsId]) => newsId);
-
-        // Fetch the news articles in the order of popularity
-        const sortedNewsArticles = sortedNewsIds.map(
-            (newsId) => newsArticles.find((news) => news.id === newsId)!
-        );
-
-        return sortedNewsArticles;
+        return readers;
     },
 
     async mostPopularForCategoryAndAge(category: Category, age: Age) {

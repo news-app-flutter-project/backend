@@ -33,7 +33,7 @@ export class ScheduleNewsUpdate {
                 description: news.description,
                 content: news.content,
                 creator: news.creator,
-                pubDate: new Date(news.pubDate),
+                pub_date: new Date(news.pubDate),
                 image_url: news.image_url,
                 link: news.link,
                 company: news.source_id,

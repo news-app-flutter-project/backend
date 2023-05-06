@@ -8,9 +8,9 @@ export const newsRepository = {
     async findByCategory(category: string) {
         try {
             return await db.News.findAll({
-                where: Sequelize.literal(
-                    `JSON_CONTAINS(category, '["${category}"]')`
-                ),
+                where: {
+                    category: category,
+                },
                 order: [['pub_date', 'DESC']],
             });
         } catch (err) {

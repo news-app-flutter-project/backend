@@ -7,6 +7,7 @@ declare global {
         news_id: number;
         age: string;
         sex: Sex;
+        category: Category;
     }
 }
 
@@ -24,6 +25,7 @@ export class ReaderModel
     public news_id!: number;
     public age!: string;
     public sex!: Sex;
+    public category!: Category;
 }
 
 export const ReaderGenerator = (sequelize: Sequelize): typeof ReaderModel => {
@@ -49,6 +51,10 @@ export const ReaderGenerator = (sequelize: Sequelize): typeof ReaderModel => {
                     model: 'news',
                     key: 'id',
                 },
+            },
+            category: {
+                type: DataTypes.STRING(20),
+                allowNull: false,
             },
             age: {
                 type: DataTypes.ENUM('10', '20', '30', '40', '50', '60', '70'),

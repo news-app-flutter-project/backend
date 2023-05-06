@@ -39,10 +39,10 @@ class AuthController implements Controller {
 
     private logout = asyncWrapper(async (req: CustomRequest, res) => {
         const response = customResponse(res);
-        const { id } = req.body;
+        const auth_id = req.auth_id;
         const access_token = req.token;
         try {
-            await authService.logout(id, access_token!);
+            await authService.logout(auth_id!, access_token!);
             response.success({ code: StatusCodes.CREATED });
         } catch (err) {
             response.error(err as ErrorData);
@@ -51,10 +51,9 @@ class AuthController implements Controller {
 
     private token_login = asyncWrapper(async (req: CustomRequest, res) => {
         const response = customResponse(res);
-        const access_token = req.token;
-
+        const auth_id = req.auth_id;
         try {
-            const res = await authService.token_login(access_token!);
+            const res = await authService.token_login(auth_id!);
             response.success({ code: StatusCodes.CREATED, data: res });
         } catch (err) {
             response.error(err as ErrorData);

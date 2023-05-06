@@ -10,7 +10,7 @@ declare global {
         description: string;
         content: string;
         creator: string[] | null;
-        pubDate: Date;
+        pub_date: Date;
         image_url: string | null;
         link: string | null;
         company: string | null;
@@ -38,7 +38,7 @@ export class NewsModel
     public description!: string;
     public content!: string;
     public creator!: string[] | null;
-    public pubDate!: Date;
+    public pub_date!: Date;
     public image_url!: string | null;
     public link!: string | null;
     public company!: string | null;
@@ -82,7 +82,7 @@ export const NewsGenerator = (sequelize: Sequelize): typeof NewsModel => {
                 type: DataTypes.JSON,
                 allowNull: true,
             },
-            pubDate: {
+            pub_date: {
                 type: DataTypes.DATE,
                 allowNull: false,
             },

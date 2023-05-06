@@ -33,8 +33,7 @@ export const authService = {
         await this.repository.logout(id);
     },
 
-    async token_login(access_token: string) {
-        const { id } = await kakaoId(access_token);
+    async token_login(id: number) {
         const user = await this.repository.findbyKakaoId(id);
         if (!user) {
             return notFoundAccountException();
