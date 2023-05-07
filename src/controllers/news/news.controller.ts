@@ -52,11 +52,10 @@ class NewsController implements Controller {
     private readNews = asyncWrapper(async (req: CustomRequest, res) => {
         const response = customResponse(res);
         const auth_id = req.auth_id;
+        console.log('hehe');
         const news = req.news;
-        const { id: news_id } = news!;
-        console.log(auth_id, news_id);
         try {
-            await newsService.readNews(auth_id!, news_id);
+            await newsService.readNews(auth_id!, news!);
             return res.status(StatusCodes.OK).json({ result: true, news });
         } catch (err) {
             response.error(err as ErrorData);
@@ -66,6 +65,7 @@ class NewsController implements Controller {
     private addKeywords = asyncWrapper(async (req: CustomRequest, res) => {
         const response = customResponse(res);
         const news = req.news;
+        console.log('hi');
         try {
             const data = await newsService.addKeywords(news!);
             return res.status(StatusCodes.OK).json({ result: true, data });

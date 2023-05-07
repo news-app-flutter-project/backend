@@ -15,7 +15,7 @@ const newsIdValidation = (): RequestHandler => {
         try {
             const news = await newsRepository.findNewsbyId(news_id);
             if (!news) {
-                return notFoundNews();
+                return notFoundNews(news_id);
             }
             req.news = news;
             next();

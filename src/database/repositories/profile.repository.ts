@@ -13,13 +13,13 @@ export const profileRepository = {
         }
     },
 
-    async findProfilebyId(auth_id: number): Promise<ProfileModel> {
+    async findProfilebyId(auth_id: number): Promise<ProfileModel | null> {
         try {
             const profile = await db.Profile.findOne({
                 ...defaultOptions,
                 where: { auth_id: auth_id },
             });
-            return profile!;
+            return profile;
         } catch (err) {
             return notFoundAccountException(auth_id);
         }

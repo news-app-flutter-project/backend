@@ -54,7 +54,7 @@ export function createNewsRoutes(
                 bodyValidation(add_keywords),
                 newsIdValidation(),
             ],
-            handler: readNewsHandler,
+            handler: addKeywordsHandler,
         },
     };
 }

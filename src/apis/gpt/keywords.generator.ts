@@ -19,15 +19,10 @@ class UseChatGPT {
         this.openai = new OpenAIApi(configuration);
     }
 
-    async getKeywords({ title, desc, content }: useChatGPTParam) {
+    async getKeywords({ title, desc }: useChatGPTParam) {
         let prompt;
-        if (title) {
-            prompt = `list 3 korean keywords related to this text: ${title}.`;
-        } else if (desc) {
-            prompt = `list 3 korean keywords related to this text: ${desc}`;
-        } else if (content) {
-            prompt = `list 2 keywords in korean related to the content: ${content}`;
-        } else {
+        prompt = `generate list of 5 korean keywords which summarized the following texts: ${title}, ${desc}`;
+        if (!title && !desc) {
             throw new Error('No input provided');
         }
 

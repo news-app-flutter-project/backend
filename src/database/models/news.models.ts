@@ -4,7 +4,7 @@ declare global {
     // rows for the news table
     interface News extends TimeStampModel {
         id: number;
-        category: string | null;
+        category: Category;
         keywords: string[] | null;
         title: string;
         description: string;
@@ -32,7 +32,7 @@ export class NewsModel
     implements News
 {
     public id!: number;
-    public category!: string;
+    public category!: Category;
     public keywords!: string[] | null;
     public title!: string;
     public description!: string;
