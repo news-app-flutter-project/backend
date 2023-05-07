@@ -14,9 +14,7 @@ import {
 export function createReadsRoutes(
     path: string,
     readNewsHandler: any,
-    addKeywordsHandler: any,
-    findMostPopularForCategory: any,
-    findMostPopularWithCategoryAndAge: any
+    addKeywordsHandler: any
 ): AuthRoutes {
     return {
         readNews: {
@@ -39,20 +37,6 @@ export function createReadsRoutes(
                 newsIdValidation(),
             ],
             handler: addKeywordsHandler,
-        },
-
-        findByCategory: {
-            method: 'get',
-            path: `${path}/popular/category`,
-            middleware: [tokenValidation(), bodyValidation(category)],
-            handler: findMostPopularForCategory,
-        },
-
-        findByCategoryAndAge: {
-            method: 'get',
-            path: `${path}/popular/category/age`,
-            middleware: [tokenValidation(), bodyValidation(category_and_age)],
-            handler: findMostPopularWithCategoryAndAge,
         },
     };
 }

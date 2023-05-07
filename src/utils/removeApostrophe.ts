@@ -17,7 +17,13 @@ export function removeApostrophe(str: string): Category {
         category = 'technology';
     } else if (cleanedStr === 'world') {
         category = 'world';
-    } else if (cleanedStr === 'lifestyle') {
+    } else if (
+        cleanedStr === 'environment' ||
+        cleanedStr === 'health' ||
+        cleanedStr === 'food' ||
+        cleanedStr === 'top' ||
+        cleanedStr === 'tourism'
+    ) {
         category = 'lifestyle';
     } else {
         // Handle the case where the cleaned string does not match any category

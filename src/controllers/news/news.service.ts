@@ -8,20 +8,30 @@ export const newsService = {
     profile_repository: profileRepository,
     reads_repository: readerRepository,
 
-    async findByCategory(category: string) {
-        const news = await this.repository.findByCategory(category);
-        return news;
-    },
+    async getTopNewsByCategory(category: Category, page: number = 1) {
+        const limit = 10;
+        const mostReadOffset = (page - 1) * limit;
+        const remainingOffset = (page - 1) * limit;
 
-    async findByUserCategories(auth_id: number) {
-        const profile = await this.profile_repository.findProfilebyId(auth_id);
-        if (profile) {
-            const { category } = profile;
-            const convertedCategories = lifeStyleConvert(category);
-            const news = await this.repository.findByUserCategories(
-                convertedCategories
+        const mostReadNewsIds = await this.reads_repository.mostReadNews(
+            category,
+            mostReadOffset,
+            limit
+        );
+        const mostReadNews = await this.repository.mostReadNews(
+            mostReadNewsIds
+        );
+        if (mostReadNewsIds.length < 10) {
+            const remainingNews = await this.repository.remainingNews(
+                category,
+                mostReadNewsIds,
+                remainingOffset,
+                limit - mostReadNews.length
             );
-            return news;
+
+            return mostReadNews.concat(remainingNews!);
+        } else {
+            return mostReadNews;
         }
     },
 };

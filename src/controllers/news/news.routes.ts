@@ -8,25 +8,17 @@ import { find_news_by_category } from './news.validation';
 
 export function createNewsRoutes(
     path: string,
-    findCategoryHandler: any,
-    findByUserCategoriesHandler: any
+    getTopNewsByCategory: any
 ): AuthRoutes {
     return {
-        findByCategory: {
+        getTopNewsByCategory: {
             method: 'get',
-            path: `${path}/find_by_category`,
+            path: `${path}/topNewsByCategory`,
             middleware: [
                 tokenValidation(),
                 bodyValidation(find_news_by_category),
             ],
-            handler: findCategoryHandler,
-        },
-
-        findByUserCategories: {
-            method: 'get',
-            path: `${path}/find_by_categories`,
-            middleware: [tokenValidation()],
-            handler: findByUserCategoriesHandler,
+            handler: getTopNewsByCategory,
         },
     };
 }

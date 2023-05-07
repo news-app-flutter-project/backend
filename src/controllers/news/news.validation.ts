@@ -13,4 +13,5 @@ export const find_news_by_category = Joi.object({
             'lifestyle'
         )
         .required(),
+    page: Joi.number().required(),
 });

@@ -17,30 +17,24 @@ class NewsController implements Controller {
     private initializeRoutes(): void {
         const newsRoutes: AuthRoutes = createNewsRoutes(
             this.path,
-            this.findByCategory,
-            this.findByUserCategories
+            this.getTopNewsByCategory
         );
         createRoutes(newsRoutes, this.router);
     }
 
-    private findByCategory = asyncWrapper(async (req, res) => {
-        const response = customResponse(res);
-        const { category } = req.body;
-        try {
-            const data = await newsService.findByCategory(category);
-            return res.status(StatusCodes.OK).json({ result: true, data });
-        } catch (err) {
-            response.error(err as ErrorData);
-        }
-    });
-
-    private findByUserCategories = asyncWrapper(
+    private getTopNewsByCategory = asyncWrapper(
         async (req: CustomRequest, res) => {
             const response = customResponse(res);
-            const auth_id = req.auth_id;
+            const { category, page } = req.body;
+
             try {
-                const data = await newsService.findByUserCategories(auth_id!);
-                return res.status(StatusCodes.OK).json({ result: true, data });
+                const news = await newsService.getTopNewsByCategory(
+                    category,
+                    page
+                );
+                return res
+                    .status(StatusCodes.OK)
+                    .json({ result: true, data: news });
             } catch (err) {
                 response.error(err as ErrorData);
             }

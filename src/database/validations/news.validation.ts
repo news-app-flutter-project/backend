@@ -28,7 +28,7 @@ export const validateNews = async (news: NewsCreateInterface) => {
             Joi.allow(null)
         ),
 
-        pubDate: Joi.date().required(),
+        pub_date: Joi.date().required(),
 
         image_url: Joi.string().allow(null),
 

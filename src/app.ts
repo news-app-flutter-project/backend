@@ -104,7 +104,7 @@ class App {
 
         for (const param of paramsArr) {
             const { results: newsArr } = await useNewsApi(param);
-
+            console.log(newsArr);
             await schedule.insertNewsData(newsArr);
         }
 

@@ -1,4 +1,4 @@
-import { Sequelize, Op } from 'sequelize';
+import { Op, fn, col, literal } from 'sequelize';
 import db from '@/database/db';
 import { dbException } from '@/common/exceptions';
 import {
@@ -29,61 +29,34 @@ export const readerRepository = {
         }
     },
 
-    async mostPopularForCategory(category: Category) {
-        const readers = await db.Reader.findAll({
-            where: {},
-            include: [
-                {
-                    model: db.News,
-                    where: { category },
-                    attributes: [],
-                },
-            ],
-            group: ['news_id'],
-            order: [[Sequelize.fn('COUNT', Sequelize.col('news.id')), 'DESC']],
-            limit: 10,
-        });
-        return readers;
+    // Find the total number of news articles read in the given category
+    async countNewsForCategory(category: Category) {
+        try {
+            return await db.Reader.count({ where: { category } });
+        } catch (err) {
+            dbException(err);
+        }
     },
 
-    async mostPopularForCategoryAndAge(category: Category, age: Age) {
-        // Find all news articles in the specified category created today
-        const newsArticles = await db.News.findAll({
-            where: {
-                category: category,
-                createdAt: {
-                    [Op.gte]: new Date(new Date().setUTCHours(0, 0, 0, 0)), // Today's start time in UTC
-                    [Op.lte]: new Date(new Date().setUTCHours(23, 59, 59, 999)), // Today's end time in UTC
-                },
-            },
-        });
-
-        // Count the number of times each news article has been read by readers of the specified age
-        const newsArticleCounts = new Map<number, number>();
-        const readers = await db.Reader.findAll({
-            where: {
-                news_id: newsArticles.map((news) => news.id),
-                age: age,
-            },
-        });
-
-        readers.forEach((reader) => {
-            const newsId = reader.news_id;
-
-            const count = newsArticleCounts.get(newsId) ?? 0;
-            newsArticleCounts.set(newsId, count + 1);
-        });
-
-        // Sort the news articles by popularity (descending order)
-        const sortedNewsIds = [...newsArticleCounts.entries()]
-            .sort((a, b) => b[1] - a[1])
-            .map(([newsId]) => newsId);
-
-        // Fetch the news articles in the order of popularity
-        const sortedNewsArticles = sortedNewsIds.map(
-            (newsId) => newsArticles.find((news) => news.id === newsId)!
-        );
-
-        return sortedNewsArticles;
+    // Get news_ids for the most-read news articles in the given category
+    async mostReadNews(category: Category, offset: number, limit: number) {
+        try {
+            const mostReadNewsIds = (
+                await db.Reader.findAll({
+                    attributes: [
+                        [fn('COUNT', col('news_id')), 'read_count'],
+                        'news_id',
+                    ],
+                    where: { category },
+                    group: ['news_id'],
+                    order: [[literal('read_count'), 'DESC']],
+                    offset: offset,
+                    limit: limit,
+                })
+            ).map((record) => record.news_id);
+            return mostReadNewsIds;
+        } catch (err) {
+            return dbException(err);
+        }
     },
 };

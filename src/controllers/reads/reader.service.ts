@@ -13,17 +13,6 @@ export const readerService = {
     profile_repository: profileRepository,
     news_repository: newsRepository,
 
-    async findMostPopularForCategory(category: Category) {
-        return await this.repository.mostPopularForCategory(category);
-    },
-
-    async findMostPopularForCategoryAndAge(category: Category, age: Age) {
-        return await this.repository.mostPopularForCategoryAndAge(
-            category,
-            age
-        );
-    },
-
     async addKeywords(news: News) {
         const { id: news_id, gpt_keywords, description, title } = news;
 
