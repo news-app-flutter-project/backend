@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-    title: newsApp
+    title: ec2
     contact: {}
     version: '1.0'
 servers:
@@ -31,7 +31,6 @@ paths:
                     description: ''
                     headers: {}
             deprecated: false
-            security: []
     /auth/token_login:
         post:
             tags:
@@ -195,9 +194,9 @@ paths:
                             allOf:
                                 - $ref: '#/components/schemas/readrequest'
                                 - example:
-                                      news_id: 14
+                                      news_id: 96
                         example:
-                            news_id: 14
+                            news_id: 96
                 required: true
             responses:
                 '200':
@@ -233,12 +232,106 @@ paths:
             security:
                 - bearer: []
     /news/topNewsByCategory:
-        get:
+        post:
             tags:
                 - news
             summary: getTopNewsByCategory
             operationId: getTopNewsByCategory
             parameters: []
+            requestBody:
+                description: ''
+                content:
+                    text/plain:
+                        schema:
+                            type: string
+                            example:
+                                category: business
+                                page: 1
+                        example:
+                            category: business
+                            page: 1
+                required: true
+            responses:
+                '200':
+                    description: ''
+                    headers: {}
+            deprecated: false
+            security:
+                - bearer: []
+    /news/topNewsByCategoryAndAge:
+        post:
+            tags:
+                - news
+            summary: getTopNewsByCategoryAndAge
+            operationId: getTopNewsByCategoryAndAge
+            parameters: []
+            requestBody:
+                description: ''
+                content:
+                    text/plain:
+                        schema:
+                            type: string
+                            example:
+                                category: business
+                                age: '10'
+                                page: 1
+                        example:
+                            category: business
+                            age: '10'
+                            page: 1
+                required: true
+            responses:
+                '200':
+                    description: ''
+                    headers: {}
+            deprecated: false
+            security:
+                - bearer: []
+    /news/getTodayTopNews:
+        post:
+            tags:
+                - news
+            summary: getTodayTopNews
+            operationId: getTodayTopNews
+            parameters: []
+            requestBody:
+                description: ''
+                content:
+                    text/plain:
+                        schema:
+                            type: string
+                            example:
+                                page: 1
+                        example:
+                            page: 1
+                required: true
+            responses:
+                '200':
+                    description: ''
+                    headers: {}
+            deprecated: false
+            security:
+                - bearer: []
+    /news/getTodayTopNewsByAge:
+        post:
+            tags:
+                - news
+            summary: getTodayTopNewsByAge
+            operationId: getTodayTopNewsByAge
+            parameters: []
+            requestBody:
+                description: ''
+                content:
+                    text/plain:
+                        schema:
+                            type: string
+                            example:
+                                page: 1
+                                age: '20'
+                        example:
+                            page: 1
+                            age: '20'
+                required: true
             responses:
                 '200':
                     description: ''
@@ -309,7 +402,7 @@ components:
                     type: integer
                     format: int32
             example:
-                news_id: 14
+                news_id: 96
         addKeywordsRequest:
             title: addKeywordsRequest
             required:

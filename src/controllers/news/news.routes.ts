@@ -20,7 +20,7 @@ export function createNewsRoutes(
 ): AuthRoutes {
     return {
         getTopNewsByCategory: {
-            method: 'get',
+            method: 'post',
             path: `${path}/topNewsByCategory`,
             middleware: [
                 tokenValidation(),
@@ -29,7 +29,7 @@ export function createNewsRoutes(
             handler: getTopNewsByCategory,
         },
         getTopNewsByCategoryAndAge: {
-            method: 'get',
+            method: 'post',
             path: `${path}/topNewsByCategoryAndAge`,
             middleware: [
                 tokenValidation(),
@@ -38,13 +38,13 @@ export function createNewsRoutes(
             handler: getTopNewsByCategoryAndAge,
         },
         getTodayTopNews: {
-            method: 'get',
+            method: 'post',
             path: `${path}/getTodayTopNews`,
             middleware: [tokenValidation(), bodyValidation(today_top_news)],
             handler: getTodayTopNews,
         },
         getTodayTopNewsByAge: {
-            method: 'get',
+            method: 'post',
             path: `${path}/getTodayTopNewsByAge`,
             middleware: [tokenValidation(), bodyValidation(today_top_news_age)],
             handler: getTodayTopNewsByAge,
