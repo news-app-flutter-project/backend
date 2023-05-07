@@ -1,5 +1,13 @@
 import Joi from 'joi';
 
+export const add_keywords = Joi.object({
+    news_id: Joi.number().required(),
+});
+
+export const read_news = Joi.object({
+    news_id: Joi.number().required(),
+});
+
 export const category = Joi.object({
     category: Joi.string()
         .valid(

@@ -18,9 +18,7 @@ class NewsController implements Controller {
         const newsRoutes: AuthRoutes = createNewsRoutes(
             this.path,
             this.findByCategory,
-            this.findByUserCategories,
-            this.readNews,
-            this.addKeywords
+            this.findByUserCategories
         );
         createRoutes(newsRoutes, this.router);
     }
@@ -48,31 +46,6 @@ class NewsController implements Controller {
             }
         }
     );
-
-    private readNews = asyncWrapper(async (req: CustomRequest, res) => {
-        const response = customResponse(res);
-        const auth_id = req.auth_id;
-        console.log('hehe');
-        const news = req.news;
-        try {
-            await newsService.readNews(auth_id!, news!);
-            return res.status(StatusCodes.OK).json({ result: true, news });
-        } catch (err) {
-            response.error(err as ErrorData);
-        }
-    });
-
-    private addKeywords = asyncWrapper(async (req: CustomRequest, res) => {
-        const response = customResponse(res);
-        const news = req.news;
-        console.log('hi');
-        try {
-            const data = await newsService.addKeywords(news!);
-            return res.status(StatusCodes.OK).json({ result: true, data });
-        } catch (err) {
-            response.error(err as ErrorData);
-        }
-    });
 }
 
 export default NewsController;

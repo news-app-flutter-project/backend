@@ -4,18 +4,12 @@ import {
     bodyValidation,
     newsIdValidation,
 } from '@/middlewares/index';
-import {
-    find_news_by_category,
-    read_news,
-    add_keywords,
-} from './news.validation';
+import { find_news_by_category } from './news.validation';
 
 export function createNewsRoutes(
     path: string,
     findCategoryHandler: any,
-    findByUserCategoriesHandler: any,
-    readNewsHandler: any,
-    addKeywordsHandler: any
+    findByUserCategoriesHandler: any
 ): AuthRoutes {
     return {
         findByCategory: {
@@ -33,28 +27,6 @@ export function createNewsRoutes(
             path: `${path}/find_by_categories`,
             middleware: [tokenValidation()],
             handler: findByUserCategoriesHandler,
-        },
-
-        readNews: {
-            method: 'post',
-            path: `${path}/read`,
-            middleware: [
-                tokenValidation(),
-                bodyValidation(read_news),
-                newsIdValidation(),
-            ],
-            handler: readNewsHandler,
-        },
-
-        addKeywords: {
-            method: 'put',
-            path: `${path}/addKeywords`,
-            middleware: [
-                tokenValidation(),
-                bodyValidation(add_keywords),
-                newsIdValidation(),
-            ],
-            handler: addKeywordsHandler,
         },
     };
 }

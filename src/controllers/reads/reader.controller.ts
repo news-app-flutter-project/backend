@@ -17,11 +17,38 @@ class ReaderController implements Controller {
     private initializeRoutes(): void {
         const newsRoutes: AuthRoutes = createReadsRoutes(
             this.path,
+            this.readNews,
+            this.addKeywords,
             this.findMostPopularWithCategory,
             this.findMostPopularWithCategoryAndAge
         );
         createRoutes(newsRoutes, this.router);
     }
+
+    private readNews = asyncWrapper(async (req: CustomRequest, res) => {
+        const response = customResponse(res);
+        const auth_id = req.auth_id;
+        console.log('hehe');
+        const news = req.news;
+        try {
+            await readerService.readNews(auth_id!, news!);
+            return res.status(StatusCodes.OK).json({ result: true, news });
+        } catch (err) {
+            response.error(err as ErrorData);
+        }
+    });
+
+    private addKeywords = asyncWrapper(async (req: CustomRequest, res) => {
+        const response = customResponse(res);
+        const news = req.news;
+        console.log('hi');
+        try {
+            const data = await readerService.addKeywords(news!);
+            return res.status(StatusCodes.OK).json({ result: true, data });
+        } catch (err) {
+            response.error(err as ErrorData);
+        }
+    });
 
     private findMostPopularWithCategory = asyncWrapper(async (req, res) => {
         const response = customResponse(res);
