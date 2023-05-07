@@ -17,7 +17,10 @@ class NewsController implements Controller {
     private initializeRoutes(): void {
         const newsRoutes: AuthRoutes = createNewsRoutes(
             this.path,
-            this.getTopNewsByCategory
+            this.getTopNewsByCategory,
+            this.getTopNewsByCategoryAndAge,
+            this.getTodayTopNews,
+            this.getTodayTopNewsByAge
         );
         createRoutes(newsRoutes, this.router);
     }
@@ -28,10 +31,50 @@ class NewsController implements Controller {
             const { category, page } = req.body;
 
             try {
-                const news = await newsService.getTopNewsByCategory(
-                    category,
-                    page
-                );
+                const news = await newsService.getTopNews(page, category);
+                return res
+                    .status(StatusCodes.OK)
+                    .json({ result: true, data: news });
+            } catch (err) {
+                response.error(err as ErrorData);
+            }
+        }
+    );
+
+    private getTopNewsByCategoryAndAge = asyncWrapper(
+        async (req: CustomRequest, res) => {
+            const response = customResponse(res);
+            const { category, age, page } = req.body;
+            try {
+                const news = await newsService.getTopNews(page, category, age);
+                return res
+                    .status(StatusCodes.OK)
+                    .json({ result: true, data: news });
+            } catch (err) {
+                response.error(err as ErrorData);
+            }
+        }
+    );
+
+    private getTodayTopNews = asyncWrapper(async (req: CustomRequest, res) => {
+        const response = customResponse(res);
+        const { page } = req.body;
+        try {
+            const news = await newsService.getTopNews(page);
+            return res
+                .status(StatusCodes.OK)
+                .json({ result: true, data: news });
+        } catch (err) {
+            response.error(err as ErrorData);
+        }
+    });
+
+    private getTodayTopNewsByAge = asyncWrapper(
+        async (req: CustomRequest, res) => {
+            const response = customResponse(res);
+            const { page, age } = req.body;
+            try {
+                const news = await newsService.getTopNews(page, undefined, age);
                 return res
                     .status(StatusCodes.OK)
                     .json({ result: true, data: news });

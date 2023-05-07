@@ -55,19 +55,21 @@ export const newsRepository = {
 
     // If there are fewer than 10 most-read news articles, fill the remaining spots with the most recently created articles
     async remainingNews(
-        category: Category,
         mostReadNewsIds: number[],
         offset: number,
-        limit: number
+        limit: number,
+        category?: Category
     ) {
         try {
-            return await db.News.findAll({
-                where: {
-                    category,
-                    id: {
-                        [Op.notIn]: mostReadNewsIds,
-                    },
+            const where: any = {
+                id: {
+                    [Op.notIn]: mostReadNewsIds,
                 },
+            };
+            if (category) where.category = category;
+
+            return await db.News.findAll({
+                where: where,
                 order: [['pub_date', 'DESC']],
                 offset: offset,
                 limit: limit,

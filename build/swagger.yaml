@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-    title: NEWSAPP APIs
+    title: newsApp
     contact: {}
     version: '1.0'
 servers:
@@ -22,9 +22,9 @@ paths:
                             allOf:
                                 - $ref: '#/components/schemas/loginrequest'
                                 - example:
-                                      code: EhAh3mr-0GJtyPd1pzPVJ_d11EJhQ-chYDLsNilDJouShgUg7I6BGpSM6KUL8iw2h3gPxAoqJQ8AAAGH6HDgWQ
+                                      code: TySbueTnu4w2Q642ePDWO52eVEMFV-kwJ_brJODXtW3jbNWGRbJ3xNIzjhZgWgZHtMeMdworDKcAAAGH8x8t4w
                         example:
-                            code: EhAh3mr-0GJtyPd1pzPVJ_d11EJhQ-chYDLsNilDJouShgUg7I6BGpSM6KUL8iw2h3gPxAoqJQ8AAAGH6HDgWQ
+                            code: TySbueTnu4w2Q642ePDWO52eVEMFV-kwJ_brJODXtW3jbNWGRbJ3xNIzjhZgWgZHtMeMdworDKcAAAGH8x8t4w
                 required: true
             responses:
                 '200':
@@ -67,18 +67,6 @@ paths:
             summary: logout
             operationId: logout
             parameters: []
-            requestBody:
-                description: ''
-                content:
-                    application/json:
-                        schema:
-                            allOf:
-                                - $ref: '#/components/schemas/logoutrequest'
-                                - example:
-                                      id: 1
-                        example:
-                            id: 1
-                required: true
             responses:
                 '200':
                     description: ''
@@ -110,7 +98,7 @@ paths:
                                     allOf:
                                         - $ref: '#/components/schemas/payload'
                                         - example:
-                                              name: a
+                                              name: 김재혁
                                               birthday: 1996-04-02
                                               sex: male
                                               category:
@@ -167,9 +155,9 @@ paths:
                             allOf:
                                 - $ref: '#/components/schemas/update_screen_request'
                                 - example:
-                                      mode: light
+                                      mode: dark
                         example:
-                            mode: light
+                            mode: dark
                 required: true
             responses:
                 '200':
@@ -192,6 +180,72 @@ paths:
             deprecated: false
             security:
                 - bearer: []
+    /read:
+        post:
+            tags:
+                - read
+            summary: read
+            operationId: read
+            parameters: []
+            requestBody:
+                description: ''
+                content:
+                    application/json:
+                        schema:
+                            allOf:
+                                - $ref: '#/components/schemas/readrequest'
+                                - example:
+                                      news_id: 14
+                        example:
+                            news_id: 14
+                required: true
+            responses:
+                '200':
+                    description: ''
+                    headers: {}
+            deprecated: false
+            security:
+                - bearer: []
+    /read/addKeywords:
+        put:
+            tags:
+                - read
+            summary: addKeywords
+            operationId: addKeywords
+            parameters: []
+            requestBody:
+                description: ''
+                content:
+                    application/json:
+                        schema:
+                            allOf:
+                                - $ref: '#/components/schemas/addKeywordsRequest'
+                                - example:
+                                      news_id: 1
+                        example:
+                            news_id: 1
+                required: true
+            responses:
+                '200':
+                    description: ''
+                    headers: {}
+            deprecated: false
+            security:
+                - bearer: []
+    /news/topNewsByCategory:
+        get:
+            tags:
+                - news
+            summary: getTopNewsByCategory
+            operationId: getTopNewsByCategory
+            parameters: []
+            responses:
+                '200':
+                    description: ''
+                    headers: {}
+            deprecated: false
+            security:
+                - bearer: []
 components:
     schemas:
         loginrequest:
@@ -203,18 +257,7 @@ components:
                 code:
                     type: string
             example:
-                code: EhAh3mr-0GJtyPd1pzPVJ_d11EJhQ-chYDLsNilDJouShgUg7I6BGpSM6KUL8iw2h3gPxAoqJQ8AAAGH6HDgWQ
-        logoutrequest:
-            title: logoutrequest
-            required:
-                - id
-            type: object
-            properties:
-                id:
-                    type: integer
-                    format: int32
-            example:
-                id: 1
+                code: TySbueTnu4w2Q642ePDWO52eVEMFV-kwJ_brJODXtW3jbNWGRbJ3xNIzjhZgWgZHtMeMdworDKcAAAGH8x8t4w
         payload:
             title: payload
             required:
@@ -239,7 +282,7 @@ components:
                 age:
                     type: string
             example:
-                name: a
+                name: 김재혁
                 birthday: 1996-04-02
                 sex: male
                 category:
@@ -255,7 +298,29 @@ components:
                 mode:
                     type: string
             example:
-                mode: light
+                mode: dark
+        readrequest:
+            title: readrequest
+            required:
+                - news_id
+            type: object
+            properties:
+                news_id:
+                    type: integer
+                    format: int32
+            example:
+                news_id: 14
+        addKeywordsRequest:
+            title: addKeywordsRequest
+            required:
+                - news_id
+            type: object
+            properties:
+                news_id:
+                    type: integer
+                    format: int32
+            example:
+                news_id: 1
     securitySchemes:
         bearer:
             type: http
@@ -264,3 +329,5 @@ security: []
 tags:
     - name: auth
     - name: profile
+    - name: read
+    - name: news

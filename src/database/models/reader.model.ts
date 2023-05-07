@@ -5,7 +5,7 @@ declare global {
         id: number;
         profile_id: number;
         news_id: number;
-        age: string;
+        age: Age;
         sex: Sex;
         category: Category;
     }
@@ -23,7 +23,7 @@ export class ReaderModel
     public id!: number;
     public profile_id!: number;
     public news_id!: number;
-    public age!: string;
+    public age!: Age;
     public sex!: Sex;
     public category!: Category;
 }

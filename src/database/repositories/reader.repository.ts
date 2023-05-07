@@ -39,15 +39,26 @@ export const readerRepository = {
     },
 
     // Get news_ids for the most-read news articles in the given category
-    async mostReadNews(category: Category, offset: number, limit: number) {
+    async mostReadNews(
+        offset: number,
+        limit: number,
+        category?: Category,
+        age?: Age,
+        date?: Date
+    ) {
         try {
+            const where: any = {};
+            if (category) where.category = category;
+            if (age) where.age = age;
+            if (date) where.createdAt = { [Op.gte]: date };
+
             const mostReadNewsIds = (
                 await db.Reader.findAll({
                     attributes: [
                         [fn('COUNT', col('news_id')), 'read_count'],
                         'news_id',
                     ],
-                    where: { category },
+                    where: where,
                     group: ['news_id'],
                     order: [[literal('read_count'), 'DESC']],
                     offset: offset,
