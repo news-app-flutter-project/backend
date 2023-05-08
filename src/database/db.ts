@@ -4,6 +4,7 @@ import { NewsModel, NewsGenerator } from '@/database/models/news.models';
 import { AuthModel, AuthGenerator } from '@/database/models/auth.model';
 import { ProfileModel, ProfileGenerator } from './models/profile.models';
 import { ReaderModel, ReaderGenerator } from './models/reader.model';
+import { SearchModel, SearchGenerator } from './models/search.models';
 import { relations } from './relations';
 const sequelize = new Sequelize(SEQUELIZE_CONFIGS);
 
@@ -21,6 +22,7 @@ declare global {
         Auth: typeof AuthModel;
         Profile: typeof ProfileModel;
         Reader: typeof ReaderModel;
+        Search: typeof SearchModel;
     }
 }
 
@@ -31,6 +33,7 @@ const db: DB = {
     Auth: AuthGenerator(sequelize),
     Profile: ProfileGenerator(sequelize),
     Reader: ReaderGenerator(sequelize),
+    Search: SearchGenerator(sequelize),
 };
 
 relations(db);

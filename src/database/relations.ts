@@ -8,6 +8,7 @@ export const relations = (db: DB) => {
         foreignKey: { name: 'auth_id', allowNull: false },
         as: 'auth',
     });
+
     // Reads:Profile = M:1
     db.Reader.belongsTo(db.Profile, {
         foreignKey: { name: 'profile_id', allowNull: false },
@@ -17,7 +18,6 @@ export const relations = (db: DB) => {
         foreignKey: { name: 'profile_id', allowNull: false },
         as: 'reads',
     });
-
     // Reads:News = M:1
     db.Reader.belongsTo(db.News, {
         foreignKey: { name: 'news_id', allowNull: false },
@@ -26,5 +26,15 @@ export const relations = (db: DB) => {
     db.News.hasMany(db.Reader, {
         foreignKey: { name: 'news_id', allowNull: false },
         as: 'reads',
+    });
+
+    // Search:Profile = M:1
+    db.Search.belongsTo(db.Profile, {
+        foreignKey: { name: 'profile_id', allowNull: false },
+        as: 'profile',
+    });
+    db.Profile.hasMany(db.Search, {
+        foreignKey: { name: 'profile_id', allowNull: false },
+        as: 'searches',
     });
 };
