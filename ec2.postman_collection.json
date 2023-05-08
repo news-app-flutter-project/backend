@@ -1,0 +1,543 @@
+{
+	"info": {
+		"_postman_id": "0b016c45-097d-4c29-8bd7-bd4859488bc9",
+		"name": "ec2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20623203"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"code\": \"TySbueTnu4w2Q642ePDWO52eVEMFV-kwJ_brJODXtW3jbNWGRbJ3xNIzjhZgWgZHtMeMdworDKcAAAGH8x8t4w\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/auth/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "token_login",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "DeNlH9cSauC2o2kHORPp85VDA-RgFo08Twjo6ghoCiolUwAAAYf0bLKS",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/auth/token_login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"token_login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refresh_tokens",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "0gsn8I8mKnGMAh17dJlkLYILxQ273ShhGePpnDcMCisMqAAAAYfzH1qP",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/auth/refresh_tokens",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"refresh_tokens"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "ilQWJCr3ld4zgI5ev6oKcKv1cin5e2WtCQUKG-lhCisMpgAAAYfzHMsM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/auth/logout",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "profile",
+			"item": [
+				{
+					"name": "create_profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Cg0KZ3ocAN8zscpIIV05vxHhS-dTkAieYrkexcX7CiolTgAAAYfzH5q9",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/USER/Desktop/KakaoTalk_20230403_105722067_01.jpg"
+								},
+								{
+									"key": "payload",
+									"value": "{\"name\": \"김재혁\", \"birthday\": \"1996-04-02\", \"sex\":\"male\", \"category\":[ \"politics\", \"lifestyle\"], \"age\": \"10\"}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/profile/create_profile",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"profile",
+								"create_profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_img",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Cg0KZ3ocAN8zscpIIV05vxHhS-dTkAieYrkexcX7CiolTgAAAYfzH5q9",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/USER/Desktop/profile.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/profile/update_img",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"profile",
+								"update_img"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_screen",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Cg0KZ3ocAN8zscpIIV05vxHhS-dTkAieYrkexcX7CiolTgAAAYfzH5q9",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"mode\": \"dark\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/profile/update_screen",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"profile",
+								"update_screen"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "DeNlH9cSauC2o2kHORPp85VDA-RgFo08Twjo6ghoCiolUwAAAYf0bLKS",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/profile/get_profile",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"profile",
+								"get_profile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "read",
+			"item": [
+				{
+					"name": "read",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Cg0KZ3ocAN8zscpIIV05vxHhS-dTkAieYrkexcX7CiolTgAAAYfzH5q9",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"news_id\": 96\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/read",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"read"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addKeywords",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Cg0KZ3ocAN8zscpIIV05vxHhS-dTkAieYrkexcX7CiolTgAAAYfzH5q9",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"news_id\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/read/addKeywords",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"read",
+								"addKeywords"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "news",
+			"item": [
+				{
+					"name": "getTopNewsByCategory",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "DeNlH9cSauC2o2kHORPp85VDA-RgFo08Twjo6ghoCiolUwAAAYf0bLKS",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"category\": \"business\",\r\n    \"page\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/news/topNewsByCategory",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"news",
+								"topNewsByCategory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getTopNewsByCategoryAndAge",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "DeNlH9cSauC2o2kHORPp85VDA-RgFo08Twjo6ghoCiolUwAAAYf0bLKS",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"category\": \"business\",\r\n    \"age\": \"10\",\r\n    \"page\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/news/topNewsByCategoryAndAge",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"news",
+								"topNewsByCategoryAndAge"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getTodayTopNews",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "DeNlH9cSauC2o2kHORPp85VDA-RgFo08Twjo6ghoCiolUwAAAYf0bLKS",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"page\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/news/getTodayTopNews",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"news",
+								"getTodayTopNews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getTodayTopNewsByAge",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "DeNlH9cSauC2o2kHORPp85VDA-RgFo08Twjo6ghoCiolUwAAAYf0bLKS",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"page\": 1, \r\n    \"age\": \"20\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/news/getTodayTopNewsByAge",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"news",
+								"getTodayTopNewsByAge"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

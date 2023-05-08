@@ -1,57 +1,53 @@
 import {
-  payloadValidation,
-  tokenValidation,
-  bodyValidation,
-  newsIdValidation,
-} from "@/middlewares/index";
+    payloadValidation,
+    tokenValidation,
+    bodyValidation,
+    newsIdValidation,
+} from '@/middlewares/index';
 import {
-  find_news_by_category,
-  read_news,
-  add_keywords,
-} from "./news.validation";
+    find_news_by_category,
+    find_news_by_category_and_age,
+    today_top_news,
+    today_top_news_age,
+} from './news.validation';
 
 export function createNewsRoutes(
-  path: string,
-  findCategoryHandler: any,
-  findByUserCategoriesHandler: any,
-  readNewsHandler: any,
-  addKeywordsHandler: any
+    path: string,
+    getTopNewsByCategory: any,
+    getTopNewsByCategoryAndAge: any,
+    getTodayTopNews: any,
+    getTodayTopNewsByAge: any
 ): AuthRoutes {
-  return {
-    findByCategory: {
-      method: "get",
-      path: `${path}/find_by_category`,
-      middleware: [tokenValidation(), bodyValidation(find_news_by_category)],
-      handler: findCategoryHandler,
-    },
-
-    findByUserCategories: {
-      method: "get",
-      path: `${path}/find_by_categories`,
-      middleware: [tokenValidation()],
-      handler: findByUserCategoriesHandler,
-    },
-
-    readNews: {
-      method: "post",
-      path: `${path}/read`,
-      middleware: [
-        tokenValidation(),
-        bodyValidation(read_news),
-        newsIdValidation(),
-      ],
-      handler: readNewsHandler,
-    },
-
-    addKeywords: {
-      method: "put",
-      path: `${path}/addKeywords`,
-      middleware: [
-        tokenValidation(),
-        bodyValidation(add_keywords),
-        newsIdValidation(),
-      ],
-      handler: readNewsHandler,
-    },
-  };
+    return {
+        getTopNewsByCategory: {
+            method: 'post',
+            path: `${path}/topNewsByCategory`,
+            middleware: [
+                tokenValidation(),
+                bodyValidation(find_news_by_category),
+            ],
+            handler: getTopNewsByCategory,
+        },
+        getTopNewsByCategoryAndAge: {
+            method: 'post',
+            path: `${path}/topNewsByCategoryAndAge`,
+            middleware: [
+                tokenValidation(),
+                bodyValidation(find_news_by_category_and_age),
+            ],
+            handler: getTopNewsByCategoryAndAge,
+        },
+        getTodayTopNews: {
+            method: 'post',
+            path: `${path}/getTodayTopNews`,
+            middleware: [tokenValidation(), bodyValidation(today_top_news)],
+            handler: getTodayTopNews,
+        },
+        getTodayTopNewsByAge: {
+            method: 'post',
+            path: `${path}/getTodayTopNewsByAge`,
+            middleware: [tokenValidation(), bodyValidation(today_top_news_age)],
+            handler: getTodayTopNewsByAge,
+        },
+    };
 }

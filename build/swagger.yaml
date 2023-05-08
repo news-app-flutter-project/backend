@@ -1,0 +1,426 @@
+openapi: 3.0.0
+info:
+    title: ec2
+    contact: {}
+    version: '1.0'
+servers:
+    - url: https://newsapp-cf64.onrender.com/api
+      variables: {}
+paths:
+    /auth/login:
+        post:
+            tags:
+                - auth
+            summary: login
+            operationId: login
+            parameters: []
+            requestBody:
+                description: ''
+                content:
+                    application/json:
+                        schema:
+                            allOf:
+                                - $ref: '#/components/schemas/loginrequest'
+                                - example:
+                                      code: TySbueTnu4w2Q642ePDWO52eVEMFV-kwJ_brJODXtW3jbNWGRbJ3xNIzjhZgWgZHtMeMdworDKcAAAGH8x8t4w
+                        example:
+                            code: TySbueTnu4w2Q642ePDWO52eVEMFV-kwJ_brJODXtW3jbNWGRbJ3xNIzjhZgWgZHtMeMdworDKcAAAGH8x8t4w
+                required: true
+            responses:
+                '200':
+                    description: ''
+                    headers: {}
+            deprecated: false
+    /auth/token_login:
+        post:
+            tags:
+                - auth
+            summary: token_login
+            operationId: token_login
+            parameters: []
+            responses:
+                '200':
+                    description: ''
+                    headers: {}
+            deprecated: false
+            security:
+                - bearer: []
+    /auth/refresh_tokens:
+        post:
+            tags:
+                - auth
+            summary: refresh_tokens
+            operationId: refresh_tokens
+            parameters: []
+            responses:
+                '200':
+                    description: ''
+                    headers: {}
+            deprecated: false
+            security:
+                - bearer: []
+    /auth/logout:
+        post:
+            tags:
+                - auth
+            summary: logout
+            operationId: logout
+            parameters: []
+            responses:
+                '200':
+                    description: ''
+                    headers: {}
+            deprecated: false
+            security:
+                - bearer: []
+    /profile/create_profile:
+        post:
+            tags:
+                - profile
+            summary: create_profile
+            operationId: create_profile
+            parameters: []
+            requestBody:
+                content:
+                    multipart/form-data:
+                        encoding: {}
+                        schema:
+                            required:
+                                - image
+                                - payload
+                            type: object
+                            properties:
+                                image:
+                                    type: string
+                                    format: binary
+                                payload:
+                                    allOf:
+                                        - $ref: '#/components/schemas/payload'
+                                        - example:
+                                              name: 김재혁
+                                              birthday: 1996-04-02
+                                              sex: male
+                                              category:
+                                                  - politics
+                                                  - lifestyle
+                                              age: '10'
+                required: false
+            responses:
+                '200':
+                    description: ''
+                    headers: {}
+            deprecated: false
+            security:
+                - bearer: []
+    /profile/update_img:
+        put:
+            tags:
+                - profile
+            summary: update_img
+            operationId: update_img
+            parameters: []
+            requestBody:
+                content:
+                    multipart/form-data:
+                        encoding: {}
+                        schema:
+                            required:
+                                - image
+                            type: object
+                            properties:
+                                image:
+                                    type: string
+                                    format: binary
+                required: false
+            responses:
+                '200':
+                    description: ''
+                    headers: {}
+            deprecated: false
+            security:
+                - bearer: []
+    /profile/update_screen:
+        put:
+            tags:
+                - profile
+            summary: update_screen
+            operationId: update_screen
+            parameters: []
+            requestBody:
+                description: ''
+                content:
+                    application/json:
+                        schema:
+                            allOf:
+                                - $ref: '#/components/schemas/update_screen_request'
+                                - example:
+                                      mode: dark
+                        example:
+                            mode: dark
+                required: true
+            responses:
+                '200':
+                    description: ''
+                    headers: {}
+            deprecated: false
+            security:
+                - bearer: []
+    /profile/get_profile:
+        get:
+            tags:
+                - profile
+            summary: get_profile
+            operationId: get_profile
+            parameters: []
+            responses:
+                '200':
+                    description: ''
+                    headers: {}
+            deprecated: false
+            security:
+                - bearer: []
+    /read:
+        post:
+            tags:
+                - read
+            summary: read
+            operationId: read
+            parameters: []
+            requestBody:
+                description: ''
+                content:
+                    application/json:
+                        schema:
+                            allOf:
+                                - $ref: '#/components/schemas/readrequest'
+                                - example:
+                                      news_id: 96
+                        example:
+                            news_id: 96
+                required: true
+            responses:
+                '200':
+                    description: ''
+                    headers: {}
+            deprecated: false
+            security:
+                - bearer: []
+    /read/addKeywords:
+        put:
+            tags:
+                - read
+            summary: addKeywords
+            operationId: addKeywords
+            parameters: []
+            requestBody:
+                description: ''
+                content:
+                    application/json:
+                        schema:
+                            allOf:
+                                - $ref: '#/components/schemas/addKeywordsRequest'
+                                - example:
+                                      news_id: 1
+                        example:
+                            news_id: 1
+                required: true
+            responses:
+                '200':
+                    description: ''
+                    headers: {}
+            deprecated: false
+            security:
+                - bearer: []
+    /news/topNewsByCategory:
+        post:
+            tags:
+                - news
+            summary: getTopNewsByCategory
+            operationId: getTopNewsByCategory
+            parameters: []
+            requestBody:
+                description: ''
+                content:
+                    text/plain:
+                        schema:
+                            type: string
+                            example:
+                                category: business
+                                page: 1
+                        example:
+                            category: business
+                            page: 1
+                required: true
+            responses:
+                '200':
+                    description: ''
+                    headers: {}
+            deprecated: false
+            security:
+                - bearer: []
+    /news/topNewsByCategoryAndAge:
+        post:
+            tags:
+                - news
+            summary: getTopNewsByCategoryAndAge
+            operationId: getTopNewsByCategoryAndAge
+            parameters: []
+            requestBody:
+                description: ''
+                content:
+                    text/plain:
+                        schema:
+                            type: string
+                            example:
+                                category: business
+                                age: '10'
+                                page: 1
+                        example:
+                            category: business
+                            age: '10'
+                            page: 1
+                required: true
+            responses:
+                '200':
+                    description: ''
+                    headers: {}
+            deprecated: false
+            security:
+                - bearer: []
+    /news/getTodayTopNews:
+        post:
+            tags:
+                - news
+            summary: getTodayTopNews
+            operationId: getTodayTopNews
+            parameters: []
+            requestBody:
+                description: ''
+                content:
+                    text/plain:
+                        schema:
+                            type: string
+                            example:
+                                page: 1
+                        example:
+                            page: 1
+                required: true
+            responses:
+                '200':
+                    description: ''
+                    headers: {}
+            deprecated: false
+            security:
+                - bearer: []
+    /news/getTodayTopNewsByAge:
+        post:
+            tags:
+                - news
+            summary: getTodayTopNewsByAge
+            operationId: getTodayTopNewsByAge
+            parameters: []
+            requestBody:
+                description: ''
+                content:
+                    text/plain:
+                        schema:
+                            type: string
+                            example:
+                                page: 1
+                                age: '20'
+                        example:
+                            page: 1
+                            age: '20'
+                required: true
+            responses:
+                '200':
+                    description: ''
+                    headers: {}
+            deprecated: false
+            security:
+                - bearer: []
+components:
+    schemas:
+        loginrequest:
+            title: loginrequest
+            required:
+                - code
+            type: object
+            properties:
+                code:
+                    type: string
+            example:
+                code: TySbueTnu4w2Q642ePDWO52eVEMFV-kwJ_brJODXtW3jbNWGRbJ3xNIzjhZgWgZHtMeMdworDKcAAAGH8x8t4w
+        payload:
+            title: payload
+            required:
+                - name
+                - birthday
+                - sex
+                - category
+                - age
+            type: object
+            properties:
+                name:
+                    type: string
+                birthday:
+                    type: string
+                sex:
+                    type: string
+                category:
+                    type: array
+                    items:
+                        type: string
+                    description: ''
+                age:
+                    type: string
+            example:
+                name: 김재혁
+                birthday: 1996-04-02
+                sex: male
+                category:
+                    - politics
+                    - lifestyle
+                age: '10'
+        update_screen_request:
+            title: update_screen_request
+            required:
+                - mode
+            type: object
+            properties:
+                mode:
+                    type: string
+            example:
+                mode: dark
+        readrequest:
+            title: readrequest
+            required:
+                - news_id
+            type: object
+            properties:
+                news_id:
+                    type: integer
+                    format: int32
+            example:
+                news_id: 96
+        addKeywordsRequest:
+            title: addKeywordsRequest
+            required:
+                - news_id
+            type: object
+            properties:
+                news_id:
+                    type: integer
+                    format: int32
+            example:
+                news_id: 1
+    securitySchemes:
+        bearer:
+            type: http
+            scheme: bearer
+security: []
+tags:
+    - name: auth
+    - name: profile
+    - name: read
+    - name: news
