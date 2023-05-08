@@ -17,7 +17,9 @@ class SearchController implements Controller {
     private initializeRoutes(): void {
         const newsRoutes: AuthRoutes = createSearchRoutes(
             this.path,
-            this.searchKeyword
+            this.searchKeyword,
+            this.recentSearches,
+            this.getTopKeywords
         );
         createRoutes(newsRoutes, this.router);
     }
@@ -26,11 +28,34 @@ class SearchController implements Controller {
         const response = customResponse(res);
         const profile_id = req.profile_id;
         const { keyword } = req.body;
+        console.log(keyword);
         try {
             const data = await searchService.searchKeyword(
                 profile_id!,
                 keyword
             );
+            response.success({ code: StatusCodes.CREATED, data });
+        } catch (err) {
+            response.error(err as ErrorData);
+        }
+    });
+
+    private recentSearches = asyncWrapper(async (req: CustomRequest, res) => {
+        const response = customResponse(res);
+        const profile_id = req.profile_id;
+
+        try {
+            const data = await searchService.recentSearches(profile_id!);
+            response.success({ code: StatusCodes.CREATED, data });
+        } catch (err) {
+            response.error(err as ErrorData);
+        }
+    });
+
+    private getTopKeywords = asyncWrapper(async (req: CustomRequest, res) => {
+        const response = customResponse(res);
+        try {
+            const data = await searchService.getTopKeywords();
             response.success({ code: StatusCodes.CREATED, data });
         } catch (err) {
             response.error(err as ErrorData);

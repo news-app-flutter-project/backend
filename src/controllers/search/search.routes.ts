@@ -9,7 +9,9 @@ import { search_keyword } from './search.validation';
 
 export function createSearchRoutes(
     path: string,
-    searchKeyword: any
+    searchKeyword: any,
+    recentSearches: any,
+    getTopKeywords: any
 ): AuthRoutes {
     return {
         searchKeyword: {
@@ -20,6 +22,18 @@ export function createSearchRoutes(
                 bodyValidation(search_keyword),
             ],
             handler: searchKeyword,
+        },
+        recentSearches: {
+            method: 'get',
+            path: `${path}/recentSearches`,
+            middleware: [tokenValidationProfile()],
+            handler: recentSearches,
+        },
+        getTopKeywords: {
+            method: 'get',
+            path: `${path}/getTopKeywords`,
+            middleware: [tokenValidation()],
+            handler: getTopKeywords,
         },
     };
 }

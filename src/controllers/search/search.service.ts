@@ -7,4 +7,14 @@ export const searchService = {
         const res = await this.repository.searchKeyword(profile_id, keyword);
         return res;
     },
+
+    async recentSearches(profile_id: number) {
+        const res = await this.repository.recentSearches(profile_id);
+        return res;
+    },
+
+    async getTopKeywords() {
+        const res = await this.repository.getTopKeywords();
+        return res;
+    },
 };

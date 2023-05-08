@@ -41,15 +41,15 @@ const tokenValidationProfile = (): RequestHandler => {
                 if (!auth_id) {
                     return notFoundAccountException();
                 }
-                const profile_id = await profileRepository.findProfilebyId(
+                const profile = await profileRepository.findProfilebyId(
                     auth_id
                 );
-                console.log(profile_id);
-                if (!profile_id) {
+
+                if (!profile) {
                     return notFoundAccountException();
                 }
                 req.auth_id = auth_id;
-                req.profile_id = profile_id.id;
+                req.profile_id = profile.id;
                 req.token = access_token;
                 next();
             } catch (err) {
