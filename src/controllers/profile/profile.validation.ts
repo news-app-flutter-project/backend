@@ -30,3 +30,7 @@ export const create_profile = Joi.object({
 export const screen_mode = Joi.object({
     mode: Joi.string().valid('light', 'dark').required(),
 });
+
+export const text_size = Joi.object({
+    text_size: Joi.string().valid('small', 'large').required(),
+});

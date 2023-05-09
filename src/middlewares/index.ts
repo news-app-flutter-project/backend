@@ -1,5 +1,6 @@
 import asyncWrapper from './async';
 import tokenValidation from './tokenAuth';
+import tokenValidationProfile from './tokenAuth.profile_id';
 import bodyValidation from './bodyValidation';
 import payloadValidation from './payloadValidation';
 import headersValidation from './headersValidation';
@@ -16,4 +17,5 @@ export {
     headersValidation,
     tokenValidation,
     newsIdValidation,
+    tokenValidationProfile,
 };

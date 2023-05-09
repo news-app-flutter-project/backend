@@ -5,6 +5,7 @@ declare global {
     interface CustomRequest extends Request {
         token?: string;
         auth_id?: number;
+        profile_id?: number;
         news?: News;
     }
 }
