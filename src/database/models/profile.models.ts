@@ -13,6 +13,7 @@ declare global {
     type Age = '10' | '20' | '30' | '40' | '50' | '60' | '70';
     type Sex = 'male' | 'female';
     type Screen_Mode = 'dark' | 'light';
+    type Text_Size = 'small' | 'large';
     interface Profile extends TimeStampModel {
         id: number;
         profile_img: string;
@@ -25,13 +26,14 @@ declare global {
             | [Category, Category, Category];
         age: Age;
         screen_mode: Screen_Mode;
+        text_size: Text_Size;
         auth_id: number;
     }
 }
 
 export type ProfileCreateInterface = Omit<
     Profile,
-    'id' | 'screen_mode' | 'createdAt' | 'updatedAt' | 'deletedAt'
+    'id' | 'screen_mode' | 'text_size' | 'createdAt' | 'updatedAt' | 'deletedAt'
 >;
 
 export class ProfileModel
@@ -49,6 +51,7 @@ export class ProfileModel
         | [Category, Category, Category];
     public age!: Age;
     public screen_mode!: Screen_Mode;
+    public text_size!: Text_Size;
     public auth_id!: number;
     public createdAt?: Date;
     public updatedAt?: Date;
@@ -116,6 +119,11 @@ export const ProfileGenerator = (sequelize: Sequelize): typeof ProfileModel => {
                 type: DataTypes.ENUM('dark', 'light'),
                 allowNull: false,
                 defaultValue: 'light',
+            },
+            text_size: {
+                type: DataTypes.ENUM('small', 'large'),
+                allowNull: false,
+                defaultValue: 'large',
             },
             auth_id: {
                 type: DataTypes.INTEGER.UNSIGNED,

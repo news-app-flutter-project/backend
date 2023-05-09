@@ -55,4 +55,9 @@ export const profileService = {
         const data = await this.repository.updateScreenMode(mode, auth_id);
         return { screen_mode: data };
     },
+
+    async updateTextSize(text_size: Text_Size, auth_id: number) {
+        const data = await this.repository.updateTextSize(text_size, auth_id);
+        return data;
+    },
 };

@@ -3,14 +3,15 @@ import {
     tokenValidation,
     bodyValidation,
 } from '@/middlewares/index';
-import { create_profile, screen_mode } from './profile.validation';
+import { create_profile, screen_mode, text_size } from './profile.validation';
 
 export function createAuthRoutes(
     path: string,
     createProfileHandler: any,
     getProfileHandler: any,
     updateImageHandler: any,
-    updateScreenModeHandler: any
+    updateScreenModeHandler: any,
+    updateTextSize: any
 ): AuthRoutes {
     return {
         createProfile: {
@@ -36,6 +37,12 @@ export function createAuthRoutes(
             path: `${path}/update_screen`,
             middleware: [tokenValidation(), bodyValidation(screen_mode)],
             handler: updateScreenModeHandler,
+        },
+        updateTextSize: {
+            method: 'put',
+            path: `${path}/update_text`,
+            middleware: [tokenValidation(), bodyValidation(text_size)],
+            handler: updateTextSize,
         },
     };
 }

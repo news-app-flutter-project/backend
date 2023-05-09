@@ -48,4 +48,16 @@ export const profileRepository = {
             return dbException(err);
         }
     },
+
+    async updateTextSize(text_size: Text_Size, auth_id: number) {
+        try {
+            await db.Profile.update(
+                { text_size },
+                { where: { auth_id: auth_id } }
+            );
+            return text_size;
+        } catch (err) {
+            return dbException(err);
+        }
+    },
 };
