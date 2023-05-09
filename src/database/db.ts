@@ -5,6 +5,11 @@ import { AuthModel, AuthGenerator } from '@/database/models/auth.model';
 import { ProfileModel, ProfileGenerator } from './models/profile.models';
 import { ReaderModel, ReaderGenerator } from './models/reader.model';
 import { SearchModel, SearchGenerator } from './models/search.models';
+import { BookmarkModel, BookmarkGenerator } from './models/bookmark.model';
+import {
+    Bookmark_FolderModel,
+    Bookmark_FolderGenerator,
+} from './models/bookmark_folder.model';
 import { relations } from './relations';
 const sequelize = new Sequelize(SEQUELIZE_CONFIGS);
 
@@ -23,6 +28,8 @@ declare global {
         Profile: typeof ProfileModel;
         Reader: typeof ReaderModel;
         Search: typeof SearchModel;
+        BookMarkFolder: typeof Bookmark_FolderModel;
+        BookMark: typeof BookmarkModel;
     }
 }
 
@@ -34,6 +41,8 @@ const db: DB = {
     Profile: ProfileGenerator(sequelize),
     Reader: ReaderGenerator(sequelize),
     Search: SearchGenerator(sequelize),
+    BookMarkFolder: Bookmark_FolderGenerator(sequelize),
+    BookMark: BookmarkGenerator(sequelize),
 };
 
 relations(db);
