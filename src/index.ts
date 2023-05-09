@@ -9,6 +9,7 @@ import {
     ProfileController,
     ReaderController,
     SearchController,
+    BookmarkController,
 } from '@/controllers/index';
 
 validateEnv();
@@ -19,6 +20,7 @@ const app = new App({
         new ProfileController(),
         new ReaderController(),
         new SearchController(),
+        new BookmarkController(),
     ],
     port: Number(process.env.PORT),
 });

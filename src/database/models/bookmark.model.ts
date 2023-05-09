@@ -11,7 +11,7 @@ declare global {
 
 export type BookmarkCreateInterface = Omit<
     Bookmark,
-    'id' | 'profile_id' | 'folder_id' | 'createdAt' | 'updatedAt' | 'deletedAt'
+    'id' | 'folder_id' | 'folder_id' | 'createdAt' | 'updatedAt' | 'deletedAt'
 >;
 
 export class BookmarkModel

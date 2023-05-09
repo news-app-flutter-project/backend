@@ -36,7 +36,6 @@ export const searchRepository = {
                 order: [[literal('keyword_count'), 'DESC']],
                 limit: limit,
             });
-            console.log(topKeywords);
             return topKeywords.map((record) => ({
                 keyword: record.keyword,
                 count: record.get('keyword_count'),

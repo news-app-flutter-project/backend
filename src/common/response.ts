@@ -5,24 +5,26 @@ declare global {
     interface SuccessData {
         code: number;
         data?: any;
+        message?: string;
     }
 
     interface ErrorData {
         code: number;
         message: string;
         error?: any;
+        data?: any;
     }
 }
 
 export const customResponse = (res: Response) => {
     return {
-        success({ code = StatusCodes.OK, data }: SuccessData) {
-            return res.status(code).json({ result: true, code, data });
+        success({ code = StatusCodes.OK, data, message }: SuccessData) {
+            return res.status(code).json({ result: true, code, data, message });
         },
-        error({ code, message, error }: ErrorData) {
+        error({ code, message, error, data }: ErrorData) {
             return res
                 .status(code)
-                .json({ result: false, code, message, error });
+                .json({ result: false, code, message, error, data });
         },
     };
 };
