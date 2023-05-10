@@ -11,6 +11,8 @@ import {
     bookmark_validation,
     createFolder_validation,
     allocate_validation,
+    updateFolderName_validation,
+    removeBookmarkFromFolder_validation,
 } from './bookmark.validation';
 
 export function createSearchRoutes(
@@ -19,7 +21,9 @@ export function createSearchRoutes(
     listAllBookmarks: any,
     createFolder: any,
     listAllFolders: any,
-    allocate: any
+    allocate: any,
+    updateFolderName: any,
+    removeBookmarkFromFolder: any
 ): AuthRoutes {
     return {
         bookmark: {
@@ -56,13 +60,31 @@ export function createSearchRoutes(
             handler: listAllFolders,
         },
         allocate: {
-            method: 'put',
+            method: 'post',
             path: `${path}/allocate`,
             middleware: [
                 bodyValidation(allocate_validation),
                 tokenValidationProfile(),
             ],
             handler: allocate,
+        },
+        updateFolderName: {
+            method: 'put',
+            path: `${path}/updateFolderName`,
+            middleware: [
+                bodyValidation(updateFolderName_validation),
+                tokenValidationProfile(),
+            ],
+            handler: updateFolderName,
+        },
+        removeBookmarkFromFolder: {
+            method: 'delete',
+            path: `${path}/removeBookmarkFromFolder`,
+            middleware: [
+                bodyValidation(removeBookmarkFromFolder_validation),
+                tokenValidationProfile(),
+            ],
+            handler: removeBookmarkFromFolder,
         },
     };
 }

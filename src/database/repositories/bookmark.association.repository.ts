@@ -18,7 +18,7 @@ export const bookmarkFolderItemRepository = {
                 where: { bookmark_id, folder_id, profile_id },
             });
             if (existingBookmark) {
-                return DuplicateError('news article already in the folder');
+                return DuplicateError('bookmark already in the folder');
             }
             return existingBookmark;
         } catch (err) {
@@ -57,5 +57,20 @@ export const bookmarkFolderItemRepository = {
         } catch (err) {
             return dbException(err);
         }
+    },
+
+    async deleteBookmarkFromFolder(
+        profile_id: number,
+        bookmark_id: number,
+        folder_id: number
+    ) {
+        const bookmarkFolderItem = await db.BookMarkFolderItem.findOne({
+            where: { folder_id, bookmark_id, profile_id },
+        });
+
+        if (!bookmarkFolderItem) {
+            return notFoundError('the bookmark is not found in the folder');
+        }
+        await bookmarkFolderItem.destroy({ force: true });
     },
 };

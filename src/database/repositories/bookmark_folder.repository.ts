@@ -66,4 +66,24 @@ export const bookmark_folderRepository = {
             return dbException(err);
         }
     },
+
+    async updateFolderName(
+        profile_id: number,
+        folder_id: number,
+        new_name: string
+    ) {
+        try {
+            const folder = await db.BookMarkFolder.findOne({
+                where: { id: folder_id, profile_id },
+            });
+            if (!folder) {
+                return notFoundError('folder not found');
+            }
+            folder.name = new_name;
+            const updatedFolder = await folder.save();
+            return updatedFolder;
+        } catch (err) {
+            return dbException(err);
+        }
+    },
 };

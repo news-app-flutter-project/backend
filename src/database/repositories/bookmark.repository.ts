@@ -47,4 +47,26 @@ export const bookmarkRepository = {
             return dbException(err);
         }
     },
+
+    async findBookMark(bookmark_id: number) {
+        try {
+            const bookmark = await db.BookMark.findOne({
+                where: {
+                    id: bookmark_id,
+                },
+                include: [
+                    {
+                        model: db.News,
+                        as: 'news',
+                    },
+                ],
+            });
+            if (!bookmark) {
+                return notFoundError('the bookmark does not exist');
+            }
+            return bookmark;
+        } catch (err) {
+            return dbException(err);
+        }
+    },
 };
