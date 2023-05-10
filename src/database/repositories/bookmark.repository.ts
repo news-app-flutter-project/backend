@@ -23,4 +23,17 @@ export const bookmarkRepository = {
             return dbException(err);
         }
     },
+
+    async listAllBookMarks(profile_id: number) {
+        try {
+            const bookmarks = await db.BookMark.findAll({
+                where: {
+                    profile_id: profile_id,
+                },
+            });
+            return bookmarks;
+        } catch (err) {
+            return dbException(err);
+        }
+    },
 };

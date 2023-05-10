@@ -17,7 +17,10 @@ class BookmarkController implements Controller {
     private initializeRoutes(): void {
         const newsRoutes: AuthRoutes = createSearchRoutes(
             this.path,
-            this.bookmark
+            this.bookmark,
+            this.listAllBookmarks,
+            this.createFolder,
+            this.listAllFolders
         );
         createRoutes(newsRoutes, this.router);
     }
@@ -31,7 +34,42 @@ class BookmarkController implements Controller {
                 profile_id!,
                 news_id!
             );
-            response.success({ code: StatusCodes.CREATED });
+            response.success({ code: StatusCodes.CREATED, data });
+        } catch (err) {
+            response.error(err as ErrorData);
+        }
+    });
+
+    private listAllBookmarks = asyncWrapper(async (req: CustomRequest, res) => {
+        const response = customResponse(res);
+        const profile_id = req.profile_id;
+
+        try {
+            const data = await bookmarkService.listAllBookmarks(profile_id!);
+            response.success({ code: StatusCodes.CREATED, data });
+        } catch (err) {
+            response.error(err as ErrorData);
+        }
+    });
+
+    private createFolder = asyncWrapper(async (req: CustomRequest, res) => {
+        const response = customResponse(res);
+        const profile_id = req.profile_id;
+        const { name } = req.body;
+        try {
+            const data = await bookmarkService.createFolder(profile_id!, name);
+            response.success({ code: StatusCodes.CREATED, data });
+        } catch (err) {
+            response.error(err as ErrorData);
+        }
+    });
+
+    private listAllFolders = asyncWrapper(async (req: CustomRequest, res) => {
+        const response = customResponse(res);
+        const profile_id = req.profile_id;
+        try {
+            const data = await bookmarkService.listAllFolders(profile_id!);
+            response.success({ code: StatusCodes.CREATED, data });
         } catch (err) {
             response.error(err as ErrorData);
         }

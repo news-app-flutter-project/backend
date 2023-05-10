@@ -37,4 +37,34 @@ export const relations = (db: DB) => {
         foreignKey: { name: 'profile_id', allowNull: false },
         as: 'searches',
     });
+
+    // Bookmark:News = M:1
+    db.BookMark.belongsTo(db.News, {
+        foreignKey: { name: 'news_id', allowNull: false },
+        as: 'news',
+    });
+    db.News.hasMany(db.BookMark, {
+        foreignKey: { name: 'news_id', allowNull: false },
+        as: 'bookmarks',
+    });
+
+    // Bookmark:BookmarkFolder = M:1
+    db.BookMark.belongsTo(db.BookMarkFolder, {
+        foreignKey: { name: 'folder_id', allowNull: true },
+        as: 'folder',
+    });
+    db.BookMarkFolder.hasMany(db.BookMark, {
+        foreignKey: { name: 'folder_id', allowNull: true },
+        as: 'bookmarks',
+    });
+
+    // BookmarkFolder:Profile = M:1
+    db.BookMarkFolder.belongsTo(db.Profile, {
+        foreignKey: { name: 'profile_id', allowNull: false },
+        as: 'profile',
+    });
+    db.Profile.hasMany(db.BookMarkFolder, {
+        foreignKey: { name: 'profile_id', allowNull: false },
+        as: 'bookmark_folders',
+    });
 };

@@ -13,7 +13,6 @@ const uploadImageCloud = async (img: string): Promise<ICloudinaryRes> => {
         });
         return { secure_url };
     } catch (err: any) {
-        console.log('cloud error');
         cloudinaryException(err);
     }
     return {
