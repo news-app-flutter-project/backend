@@ -10,6 +10,10 @@ import {
     Bookmark_FolderModel,
     Bookmark_FolderGenerator,
 } from './models/bookmark_folder.model';
+import {
+    BookmarkFolderItemModel,
+    BookmarkFolderItemGenerator,
+} from './models/bookmark.junction.model';
 import { relations } from './relations';
 const sequelize = new Sequelize(SEQUELIZE_CONFIGS);
 
@@ -30,6 +34,7 @@ declare global {
         Search: typeof SearchModel;
         BookMarkFolder: typeof Bookmark_FolderModel;
         BookMark: typeof BookmarkModel;
+        BookMarkFolderItem: typeof BookmarkFolderItemModel;
     }
 }
 
@@ -43,6 +48,7 @@ const db: DB = {
     Search: SearchGenerator(sequelize),
     BookMarkFolder: Bookmark_FolderGenerator(sequelize),
     BookMark: BookmarkGenerator(sequelize),
+    BookMarkFolderItem: BookmarkFolderItemGenerator(sequelize),
 };
 
 relations(db);

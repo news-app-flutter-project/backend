@@ -1,6 +1,11 @@
 import { Op, fn, col, literal } from 'sequelize';
 import db from '@/database/db';
-import { dbException } from '@/common/exceptions';
+import {
+    dbException,
+    notFoundError,
+    DuplicateError,
+    LimitError,
+} from '@/common/exceptions';
 
 export const bookmarkRepository = {
     async bookmarkNews(profile_id: number, news_id: number) {
@@ -24,12 +29,18 @@ export const bookmarkRepository = {
         }
     },
 
-    async listAllBookMarks(profile_id: number) {
+    async listAllBookMarks(profile_id: number): Promise<Bookmark[]> {
         try {
             const bookmarks = await db.BookMark.findAll({
                 where: {
                     profile_id: profile_id,
                 },
+                include: [
+                    {
+                        model: db.News,
+                        as: 'news',
+                    },
+                ],
             });
             return bookmarks;
         } catch (err) {

@@ -20,7 +20,8 @@ class BookmarkController implements Controller {
             this.bookmark,
             this.listAllBookmarks,
             this.createFolder,
-            this.listAllFolders
+            this.listAllFolders,
+            this.allocate
         );
         createRoutes(newsRoutes, this.router);
     }
@@ -69,6 +70,23 @@ class BookmarkController implements Controller {
         const profile_id = req.profile_id;
         try {
             const data = await bookmarkService.listAllFolders(profile_id!);
+            response.success({ code: StatusCodes.CREATED, data });
+        } catch (err) {
+            response.error(err as ErrorData);
+        }
+    });
+
+    private allocate = asyncWrapper(async (req: CustomRequest, res) => {
+        const response = customResponse(res);
+        const profile_id = req.profile_id;
+        const { folder_id, bookmark_id } = req.body;
+        console.log(profile_id, folder_id, bookmark_id);
+        try {
+            const data = await bookmarkService.allocate(
+                profile_id!,
+                folder_id,
+                bookmark_id
+            );
             response.success({ code: StatusCodes.CREATED, data });
         } catch (err) {
             response.error(err as ErrorData);

@@ -21,7 +21,6 @@ export class BookmarkModel
     public id!: number;
     public profile_id!: number;
     public news_id!: number;
-    public folder_id?: number;
 }
 
 export const BookmarkGenerator = (
@@ -47,14 +46,6 @@ export const BookmarkGenerator = (
                 allowNull: false,
                 references: {
                     model: 'profile',
-                    key: 'id',
-                },
-            },
-            folder_id: {
-                type: DataTypes.INTEGER.UNSIGNED,
-                allowNull: true,
-                references: {
-                    model: 'bookmark_folder',
                     key: 'id',
                 },
             },

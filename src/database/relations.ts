@@ -48,13 +48,13 @@ export const relations = (db: DB) => {
         as: 'bookmarks',
     });
 
-    // Bookmark:BookmarkFolder = M:1
-    db.BookMark.belongsTo(db.BookMarkFolder, {
-        foreignKey: { name: 'folder_id', allowNull: true },
-        as: 'folder',
+    // Bookmark:Profile = M:1
+    db.BookMark.belongsTo(db.Profile, {
+        foreignKey: { name: 'profile_id', allowNull: false },
+        as: 'profile',
     });
-    db.BookMarkFolder.hasMany(db.BookMark, {
-        foreignKey: { name: 'folder_id', allowNull: true },
+    db.Profile.hasMany(db.BookMark, {
+        foreignKey: { name: 'profile_id', allowNull: false },
         as: 'bookmarks',
     });
 
@@ -66,5 +66,27 @@ export const relations = (db: DB) => {
     db.Profile.hasMany(db.BookMarkFolder, {
         foreignKey: { name: 'profile_id', allowNull: false },
         as: 'bookmark_folders',
+    });
+
+    // Bookmark:Bookmark_Folder = M:N
+    db.BookMark.belongsToMany(db.BookMarkFolder, {
+        through: db.BookMarkFolderItem,
+        foreignKey: 'bookmark_id',
+        as: 'folders',
+    });
+    db.BookMarkFolder.belongsToMany(db.BookMark, {
+        through: db.BookMarkFolderItem,
+        foreignKey: 'folder_id',
+        as: 'bookmarks',
+    });
+
+    // BookmarkFolderItem:Profile = M:1
+    db.BookMarkFolderItem.belongsTo(db.Profile, {
+        foreignKey: { name: 'profile_id', allowNull: false },
+        as: 'profile',
+    });
+    db.Profile.hasMany(db.BookMarkFolderItem, {
+        foreignKey: { name: 'profile_id', allowNull: false },
+        as: 'bookmark_folder_items',
     });
 };

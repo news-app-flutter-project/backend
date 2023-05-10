@@ -10,6 +10,7 @@ import {
 import {
     bookmark_validation,
     createFolder_validation,
+    allocate_validation,
 } from './bookmark.validation';
 
 export function createSearchRoutes(
@@ -17,7 +18,8 @@ export function createSearchRoutes(
     bookmark: any,
     listAllBookmarks: any,
     createFolder: any,
-    listAllFolders: any
+    listAllFolders: any,
+    allocate: any
 ): AuthRoutes {
     return {
         bookmark: {
@@ -52,6 +54,15 @@ export function createSearchRoutes(
             path: `${path}/listAllFolders`,
             middleware: [tokenValidationProfile()],
             handler: listAllFolders,
+        },
+        allocate: {
+            method: 'put',
+            path: `${path}/allocate`,
+            middleware: [
+                bodyValidation(allocate_validation),
+                tokenValidationProfile(),
+            ],
+            handler: allocate,
         },
     };
 }
