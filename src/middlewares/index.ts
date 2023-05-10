@@ -8,6 +8,7 @@ import newsIdValidation from './newsIdValidation';
 import HttpException from './http-exception';
 import errorMiddleware from './error-middleware';
 import bookmarkValidation from './bookmarkValidation';
+import bookmarkFolderNameValidation from './bookmarkFolder.name.validation';
 
 export {
     asyncWrapper,
@@ -20,4 +21,5 @@ export {
     newsIdValidation,
     tokenValidationProfile,
     bookmarkValidation,
+    bookmarkFolderNameValidation,
 };

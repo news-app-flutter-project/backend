@@ -25,6 +25,20 @@ export const notFoundNews = (news_id?: number) => {
     };
 };
 
+export const DuplicateError = (msg: string) => {
+    throw {
+        code: StatusCodes.CONFLICT,
+        message: msg,
+    };
+};
+
+export const LimitError = (msg: string) => {
+    throw {
+        code: StatusCodes.CONFLICT,
+        message: msg,
+    };
+};
+
 /***************** external api related exceptions **********************/
 export const kakaoRegisterException = (error: any) => {
     throw {

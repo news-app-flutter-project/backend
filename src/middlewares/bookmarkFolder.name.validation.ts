@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction, RequestHandler } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { customResponse } from '@/common/response';
-import { bookmarkRepository } from '@/database/repositories/bookmark.repository';
+import { bookmark_folderRepository } from '@/database/repositories/bookmark_folder.repository';
 import { DuplicateError } from '@/common/exceptions';
 
-const bookmarkValidation = (): RequestHandler => {
+const bookmarkFolderNameValidation = (): RequestHandler => {
     return async (
         req: CustomRequest,
         res: Response,
@@ -12,15 +12,15 @@ const bookmarkValidation = (): RequestHandler => {
     ): Promise<void> => {
         const response = customResponse(res);
         const profile_id = req.profile_id;
-        const news = req.news!;
+        const { name } = req.body;
         try {
-            const bookmarkedNews =
-                await bookmarkRepository.check_duplicateBookmark(
+            const isFolderNameExist =
+                await bookmark_folderRepository.checkDuplicate(
                     profile_id!,
-                    news.id!
+                    name
                 );
-            if (bookmarkedNews) {
-                return DuplicateError('already bookmarked by the user');
+            if (isFolderNameExist) {
+                return DuplicateError('folder name already in use');
             }
             next();
         } catch (err) {
@@ -29,4 +29,4 @@ const bookmarkValidation = (): RequestHandler => {
     };
 };
 
-export default bookmarkValidation;
+export default bookmarkFolderNameValidation;
