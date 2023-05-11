@@ -32,7 +32,7 @@ export const bookmarkService = {
     },
 
     async allocate(profile_id: number, folder_id: number, bookmark_id: number) {
-        await this.repository.findBookMark(bookmark_id);
+        await this.repository.findBookMark(bookmark_id, profile_id);
         await this.folder_repository.findFolder(profile_id, folder_id);
         await this.bookmark_association_repository.findBookmarkInFolder(
             bookmark_id,
@@ -71,5 +71,33 @@ export const bookmarkService = {
             bookmark_id,
             folder_id
         );
+    },
+
+    async deleteAllBookmarksfromFolders(
+        profile_id: number,
+        bookmark_id: number
+    ) {
+        const bookmark = await this.repository.findBookMark(
+            bookmark_id,
+            profile_id
+        );
+        console.log(bookmark);
+        await this.bookmark_association_repository.deleteAllBookmarksfromFolders(
+            profile_id,
+            bookmark_id
+        );
+        await bookmark.destroy({ force: true });
+    },
+
+    async deleteBookmarkFolder(profile_id: number, folder_id: number) {
+        const folder = await this.folder_repository.findFolder(
+            profile_id,
+            folder_id
+        );
+        await this.bookmark_association_repository.deleteBookmarkFolder(
+            profile_id,
+            folder_id
+        );
+        await folder.destroy({ force: true });
     },
 };

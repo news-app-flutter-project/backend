@@ -48,11 +48,12 @@ export const bookmarkRepository = {
         }
     },
 
-    async findBookMark(bookmark_id: number) {
+    async findBookMark(bookmark_id: number, profile_id: number) {
         try {
             const bookmark = await db.BookMark.findOne({
                 where: {
                     id: bookmark_id,
+                    profile_id,
                 },
                 include: [
                     {

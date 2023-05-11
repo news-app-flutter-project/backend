@@ -13,6 +13,8 @@ import {
     allocate_validation,
     updateFolderName_validation,
     removeBookmarkFromFolder_validation,
+    deleteAllBookmarksfromFolders_validation,
+    deleteBookmarkFolder_validation,
 } from './bookmark.validation';
 
 export function createSearchRoutes(
@@ -23,7 +25,9 @@ export function createSearchRoutes(
     listAllFolders: any,
     allocate: any,
     updateFolderName: any,
-    removeBookmarkFromFolder: any
+    removeBookmarkFromFolder: any,
+    deleteAllBookmarksfromFolders: any,
+    deleteBookmarkFolder: any
 ): AuthRoutes {
     return {
         bookmark: {
@@ -37,12 +41,14 @@ export function createSearchRoutes(
             ],
             handler: bookmark,
         },
+
         listAllBookmarks: {
             method: 'get',
             path: `${path}/listAllBookmarks`,
             middleware: [tokenValidationProfile()],
             handler: listAllBookmarks,
         },
+
         createFolder: {
             method: 'post',
             path: `${path}/createFolder`,
@@ -53,12 +59,14 @@ export function createSearchRoutes(
             ],
             handler: createFolder,
         },
+
         listAllFolders: {
             method: 'get',
             path: `${path}/listAllFolders`,
             middleware: [tokenValidationProfile()],
             handler: listAllFolders,
         },
+
         allocate: {
             method: 'post',
             path: `${path}/allocate`,
@@ -68,6 +76,7 @@ export function createSearchRoutes(
             ],
             handler: allocate,
         },
+
         updateFolderName: {
             method: 'put',
             path: `${path}/updateFolderName`,
@@ -77,6 +86,7 @@ export function createSearchRoutes(
             ],
             handler: updateFolderName,
         },
+
         removeBookmarkFromFolder: {
             method: 'delete',
             path: `${path}/removeBookmarkFromFolder`,
@@ -85,6 +95,26 @@ export function createSearchRoutes(
                 tokenValidationProfile(),
             ],
             handler: removeBookmarkFromFolder,
+        },
+
+        deleteAllBookmarksfromFolders: {
+            method: 'delete',
+            path: `${path}/deleteAllBookmarksfromFolders`,
+            middleware: [
+                bodyValidation(deleteAllBookmarksfromFolders_validation),
+                tokenValidationProfile(),
+            ],
+            handler: deleteAllBookmarksfromFolders,
+        },
+
+        deleteBookmarkFolder: {
+            method: 'delete',
+            path: `${path}/deleteBookmarkFolder`,
+            middleware: [
+                bodyValidation(deleteBookmarkFolder_validation),
+                tokenValidationProfile(),
+            ],
+            handler: deleteBookmarkFolder,
         },
     };
 }

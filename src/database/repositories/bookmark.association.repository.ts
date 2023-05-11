@@ -64,13 +64,41 @@ export const bookmarkFolderItemRepository = {
         bookmark_id: number,
         folder_id: number
     ) {
-        const bookmarkFolderItem = await db.BookMarkFolderItem.findOne({
-            where: { folder_id, bookmark_id, profile_id },
-        });
+        try {
+            const bookmarkFolderItem = await db.BookMarkFolderItem.findOne({
+                where: { folder_id, bookmark_id, profile_id },
+            });
 
-        if (!bookmarkFolderItem) {
-            return notFoundError('the bookmark is not found in the folder');
+            if (!bookmarkFolderItem) {
+                return notFoundError('the bookmark is not found in the folder');
+            }
+            await bookmarkFolderItem.destroy({ force: true });
+        } catch (err) {
+            return dbException(err);
         }
-        await bookmarkFolderItem.destroy({ force: true });
+    },
+
+    async deleteAllBookmarksfromFolders(
+        profile_id: number,
+        bookmark_id: number
+    ) {
+        try {
+            await db.BookMarkFolderItem.destroy({
+                where: { bookmark_id, profile_id },
+                force: true,
+            });
+        } catch (err) {
+            return dbException(err);
+        }
+    },
+
+    async deleteBookmarkFolder(profile_id: number, folder_id: number) {
+        try {
+            await db.BookMarkFolderItem.destroy({
+                where: { folder_id, profile_id },
+            });
+        } catch (err) {
+            return dbException(err);
+        }
     },
 };
