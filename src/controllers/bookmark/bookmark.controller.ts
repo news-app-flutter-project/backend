@@ -25,7 +25,7 @@ class BookmarkController implements Controller {
             this.updateFolderName,
             this.listBookmarksFromFolder,
             this.removeBookmarkFromFolder,
-            this.deleteAllBookmarksfromFolders,
+            this.deleteBookmark,
             this.deleteBookmarkFolder
         );
         createRoutes(newsRoutes, this.router);
@@ -134,45 +134,32 @@ class BookmarkController implements Controller {
     private removeBookmarkFromFolder = asyncWrapper(
         async (req: CustomRequest, res) => {
             const response = customResponse(res);
-            const profile_id = req.profile_id;
-            const { bookmark_id, folder_id } = req.body;
-
-            try {
-                await bookmarkService.removeBookmarkFromFolder(
-                    profile_id!,
-                    bookmark_id,
-                    folder_id
-                );
-                response.success({
-                    code: StatusCodes.CREATED,
-                    data: 'bookmarked removed',
-                });
-            } catch (err) {
-                response.error(err as ErrorData);
-            }
-        }
-    );
-
-    private deleteAllBookmarksfromFolders = asyncWrapper(
-        async (req: CustomRequest, res) => {
-            const response = customResponse(res);
-            const profile_id = req.profile_id;
             const { bookmark_id } = req.body;
 
             try {
-                await bookmarkService.deleteAllBookmarksfromFolders(
-                    profile_id!,
-                    bookmark_id
-                );
+                await bookmarkService.removeBookmarkFromFolder(bookmark_id);
                 response.success({
                     code: StatusCodes.CREATED,
-                    data: `bookmark : ${bookmark_id} is removed from all folders `,
                 });
             } catch (err) {
                 response.error(err as ErrorData);
             }
         }
     );
+
+    private deleteBookmark = asyncWrapper(async (req: CustomRequest, res) => {
+        const response = customResponse(res);
+        const { bookmark_id } = req.body;
+
+        try {
+            await bookmarkService.deleteBookmark(bookmark_id);
+            response.success({
+                code: StatusCodes.CREATED,
+            });
+        } catch (err) {
+            response.error(err as ErrorData);
+        }
+    });
 
     private deleteBookmarkFolder = asyncWrapper(
         async (req: CustomRequest, res) => {

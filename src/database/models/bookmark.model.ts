@@ -5,7 +5,7 @@ declare global {
         id: number;
         profile_id: number;
         news_id: number;
-        folder_id?: number;
+        folder_id?: number | null;
     }
 }
 
@@ -21,7 +21,7 @@ export class BookmarkModel
     public id!: number;
     public profile_id!: number;
     public news_id!: number;
-    public folder_id!: number;
+    public folder_id!: number | null;
 }
 
 export const BookmarkGenerator = (

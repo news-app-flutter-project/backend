@@ -72,6 +72,22 @@ export const bookmarkRepository = {
         }
     },
 
+    async findBookmarkSimple(bookmark_id: number) {
+        try {
+            const bookmark = await db.BookMark.findOne({
+                where: {
+                    id: bookmark_id,
+                },
+            });
+            if (!bookmark) {
+                return notFoundError('the bookmark does not exist');
+            }
+            return bookmark;
+        } catch (err) {
+            return dbException(err);
+        }
+    },
+
     async allocateBookmarkToFolder(bookmark_id: number, folder_id: number) {
         try {
             const bookmark = await db.BookMark.update(
@@ -99,6 +115,37 @@ export const bookmarkRepository = {
                     },
                 ],
             });
+            return bookmarks;
+        } catch (err) {
+            return dbException(err);
+        }
+    },
+
+    async removeBookmarkFromFolder(bookmark_id: number) {
+        try {
+            const bookmark = await db.BookMark.findByPk(bookmark_id);
+
+            if (!bookmark) {
+                return notFoundError('the bookmark does not exist');
+            }
+
+            bookmark.folder_id = null;
+            await bookmark.save();
+            return bookmark;
+        } catch (err) {
+            return dbException(err);
+        }
+    },
+
+    async findAllBookmarksWithFolder(folder_id: number, profile_id: number) {
+        try {
+            const bookmarks = await db.BookMark.findAll({
+                where: {
+                    folder_id,
+                    profile_id,
+                },
+            });
+
             return bookmarks;
         } catch (err) {
             return dbException(err);

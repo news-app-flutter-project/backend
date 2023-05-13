@@ -23,11 +23,10 @@ export const listBookmarksFromFolder_validation = Joi.object({
 });
 
 export const removeBookmarkFromFolder_validation = Joi.object({
-    folder_id: Joi.number().required(),
     bookmark_id: Joi.number().required(),
 });
 
-export const deleteAllBookmarksfromFolders_validation = Joi.object({
+export const deleteBookmark_validation = Joi.object({
     bookmark_id: Joi.number().required(),
 });
 

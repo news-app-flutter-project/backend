@@ -1,6 +1,7 @@
 import { bookmarkRepository } from '@/database/repositories/bookmark.repository';
 import { bookmark_folderRepository } from '@/database/repositories/bookmark_folder.repository';
-import { LimitError } from '@/common/exceptions';
+import { dbException } from '@/common/exceptions';
+import db from '@/database/db';
 
 export const bookmarkService = {
     repository: bookmarkRepository,
@@ -53,31 +54,33 @@ export const bookmarkService = {
         return await this.repository.listBookmarksFromFolder(folder_id);
     },
 
-    async removeBookmarkFromFolder(
-        profile_id: number,
-        bookmark_id: number,
-        folder_id: number
-    ) {},
+    async removeBookmarkFromFolder(bookmark_id: number) {
+        return await this.repository.removeBookmarkFromFolder(bookmark_id);
+    },
 
-    async deleteAllBookmarksfromFolders(
-        profile_id: number,
-        bookmark_id: number
-    ) {
-        const bookmark = await this.repository.findBookMark(
-            bookmark_id,
-            profile_id
-        );
-        console.log(bookmark);
-
+    async deleteBookmark(bookmark_id: number) {
+        const bookmark = await this.repository.findBookmarkSimple(bookmark_id);
         await bookmark.destroy({ force: true });
     },
 
     async deleteBookmarkFolder(profile_id: number, folder_id: number) {
-        const folder = await this.folder_repository.findFolder(
-            profile_id,
-            folder_id
-        );
+        try {
+            const folder = await this.folder_repository.findFolder(
+                profile_id,
+                folder_id
+            );
+            const bookmarks = await this.repository.findAllBookmarksWithFolder(
+                folder_id,
+                profile_id
+            );
+            for (let bookmark of bookmarks) {
+                bookmark.folder_id = null;
+                await bookmark.save();
+            }
 
-        await folder.destroy({ force: true });
+            await folder.destroy({ force: true });
+        } catch (err) {
+            return dbException(err);
+        }
     },
 };

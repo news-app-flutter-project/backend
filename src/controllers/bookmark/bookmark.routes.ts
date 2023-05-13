@@ -14,7 +14,7 @@ import {
     updateFolderName_validation,
     listBookmarksFromFolder_validation,
     removeBookmarkFromFolder_validation,
-    deleteAllBookmarksfromFolders_validation,
+    deleteBookmark_validation,
     deleteBookmarkFolder_validation,
 } from './bookmark.validation';
 
@@ -28,7 +28,7 @@ export function createSearchRoutes(
     updateFolderName: any,
     listBookmarksFromFolder: any,
     removeBookmarkFromFolder: any,
-    deleteAllBookmarksfromFolders: any,
+    deleteBookmark: any,
     deleteBookmarkFolder: any
 ): AuthRoutes {
     return {
@@ -110,14 +110,14 @@ export function createSearchRoutes(
             handler: removeBookmarkFromFolder,
         },
 
-        deleteAllBookmarksfromFolders: {
+        deleteBookmark: {
             method: 'delete',
-            path: `${path}/deleteAllBookmarksfromFolders`,
+            path: `${path}/deleteBookmark`,
             middleware: [
-                bodyValidation(deleteAllBookmarksfromFolders_validation),
+                bodyValidation(deleteBookmark_validation),
                 tokenValidationProfile(),
             ],
-            handler: deleteAllBookmarksfromFolders,
+            handler: deleteBookmark,
         },
 
         deleteBookmarkFolder: {
