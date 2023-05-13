@@ -1,7 +1,6 @@
 import { bookmarkRepository } from '@/database/repositories/bookmark.repository';
 import { bookmark_folderRepository } from '@/database/repositories/bookmark_folder.repository';
 import { dbException } from '@/common/exceptions';
-import db from '@/database/db';
 
 export const bookmarkService = {
     repository: bookmarkRepository,

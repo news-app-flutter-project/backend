@@ -8,12 +8,11 @@ declare global {
         memo_folder_id?: number | null;
         content: string;
     }
+    type MemoCreateInterface = Omit<
+        Memo,
+        'id' | 'memo_folder_id' | 'createdAt' | 'updatedAt' | 'deletedAt'
+    >;
 }
-
-export type MemoCreateInterface = Omit<
-    Memo,
-    'id' | 'memo_folder_id' | 'createdAt' | 'updatedAt' | 'deletedAt'
->;
 
 export class MemoModel
     extends Model<Memo, MemoCreateInterface>
