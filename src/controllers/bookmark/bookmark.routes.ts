@@ -12,6 +12,7 @@ import {
     createFolder_validation,
     allocate_validation,
     updateFolderName_validation,
+    listBookmarksFromFolder_validation,
     removeBookmarkFromFolder_validation,
     deleteAllBookmarksfromFolders_validation,
     deleteBookmarkFolder_validation,
@@ -25,6 +26,7 @@ export function createSearchRoutes(
     listAllFolders: any,
     allocate: any,
     updateFolderName: any,
+    listBookmarksFromFolder: any,
     removeBookmarkFromFolder: any,
     deleteAllBookmarksfromFolders: any,
     deleteBookmarkFolder: any
@@ -83,8 +85,19 @@ export function createSearchRoutes(
             middleware: [
                 bodyValidation(updateFolderName_validation),
                 tokenValidationProfile(),
+                bookmarkFolderNameValidation(),
             ],
             handler: updateFolderName,
+        },
+
+        listBookmarksFromFolder: {
+            method: 'get',
+            path: `${path}/listBookmarksFromFolder`,
+            middleware: [
+                bodyValidation(listBookmarksFromFolder_validation),
+                tokenValidationProfile(),
+            ],
+            handler: listBookmarksFromFolder,
         },
 
         removeBookmarkFromFolder: {

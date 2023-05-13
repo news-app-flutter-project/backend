@@ -34,6 +34,7 @@ export const bookmarkRepository = {
             const bookmarks = await db.BookMark.findAll({
                 where: {
                     profile_id: profile_id,
+                    folder_id: literal('`folder_id` IS NULL'),
                 },
                 include: [
                     {
@@ -66,6 +67,39 @@ export const bookmarkRepository = {
                 return notFoundError('the bookmark does not exist');
             }
             return bookmark;
+        } catch (err) {
+            return dbException(err);
+        }
+    },
+
+    async allocateBookmarkToFolder(bookmark_id: number, folder_id: number) {
+        try {
+            const bookmark = await db.BookMark.update(
+                {
+                    folder_id: folder_id,
+                },
+                { where: { id: bookmark_id } }
+            );
+            return bookmark;
+        } catch (err) {
+            return dbException(err);
+        }
+    },
+
+    async listBookmarksFromFolder(folder_id: number) {
+        try {
+            const bookmarks = await db.BookMark.findAll({
+                where: {
+                    folder_id: folder_id,
+                },
+                include: [
+                    {
+                        model: db.News,
+                        as: 'news',
+                    },
+                ],
+            });
+            return bookmarks;
         } catch (err) {
             return dbException(err);
         }

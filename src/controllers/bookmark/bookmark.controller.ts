@@ -23,6 +23,7 @@ class BookmarkController implements Controller {
             this.listAllFolders,
             this.allocate,
             this.updateFolderName,
+            this.listBookmarksFromFolder,
             this.removeBookmarkFromFolder,
             this.deleteAllBookmarksfromFolders,
             this.deleteBookmarkFolder
@@ -99,7 +100,7 @@ class BookmarkController implements Controller {
     private updateFolderName = asyncWrapper(async (req: CustomRequest, res) => {
         const response = customResponse(res);
         const profile_id = req.profile_id;
-        const { new_name, folder_id } = req.body;
+        const { name: new_name, folder_id } = req.body;
         try {
             const data = await bookmarkService.updateFolderName(
                 profile_id!,
@@ -111,6 +112,24 @@ class BookmarkController implements Controller {
             response.error(err as ErrorData);
         }
     });
+
+    private listBookmarksFromFolder = asyncWrapper(
+        async (req: CustomRequest, res) => {
+            const response = customResponse(res);
+            console.log('hi');
+            const profile_id = req.profile_id;
+            const { folder_id } = req.body;
+            try {
+                const data = await bookmarkService.listBookmarksFromFolder(
+                    folder_id,
+                    profile_id!
+                );
+                response.success({ code: StatusCodes.CREATED, data });
+            } catch (err) {
+                response.error(err as ErrorData);
+            }
+        }
+    );
 
     private removeBookmarkFromFolder = asyncWrapper(
         async (req: CustomRequest, res) => {

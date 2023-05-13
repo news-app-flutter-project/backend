@@ -15,7 +15,11 @@ export const allocate_validation = Joi.object({
 
 export const updateFolderName_validation = Joi.object({
     folder_id: Joi.number().required(),
-    new_name: Joi.string().required(),
+    name: Joi.string().required(),
+});
+
+export const listBookmarksFromFolder_validation = Joi.object({
+    folder_id: Joi.number().required(),
 });
 
 export const removeBookmarkFromFolder_validation = Joi.object({
