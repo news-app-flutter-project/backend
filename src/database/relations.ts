@@ -77,4 +77,44 @@ export const relations = (db: DB) => {
         foreignKey: { name: 'folder_id', allowNull: true },
         as: 'bookmarks',
     });
+
+    // Memo:MemosFolder = M:1
+    db.Memo.belongsTo(db.MemoFolder, {
+        foreignKey: { name: 'memo_folder_id', allowNull: true },
+        as: 'folder',
+    });
+    db.MemoFolder.hasMany(db.Memo, {
+        foreignKey: { name: 'memo_folder_id', allowNull: true },
+        as: 'memos',
+    });
+
+    // Profile:Memo = 1:M
+    db.Profile.hasMany(db.Memo, {
+        foreignKey: 'profile_id',
+        as: 'memos',
+    });
+    db.Memo.belongsTo(db.Profile, {
+        foreignKey: 'profile_id',
+        as: 'profile',
+    });
+
+    // Profile:MemoFolder = 1:M
+    db.Profile.hasMany(db.MemoFolder, {
+        foreignKey: 'profile_id',
+        as: 'memo_folders',
+    });
+    db.MemoFolder.belongsTo(db.Profile, {
+        foreignKey: 'profile_id',
+        as: 'profile',
+    });
+
+    // News:Memo = 1:1
+    db.News.hasOne(db.Memo, {
+        foreignKey: 'news_id',
+        as: 'memo',
+    });
+    db.Memo.belongsTo(db.News, {
+        foreignKey: 'news_id',
+        as: 'news',
+    });
 };
