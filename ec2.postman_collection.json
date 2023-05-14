@@ -1,1439 +1,1214 @@
 {
-	"info": {
-		"_postman_id": "0b016c45-097d-4c29-8bd7-bd4859488bc9",
-		"name": "ec2",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "20623203"
-	},
-	"item": [
-		{
-			"name": "auth",
-			"item": [
-				{
-					"name": "login",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"code\": \"1k4KOo3LYhYeWK7g6wZcreqNlT_y1Dve6Wj70hCsOvJfE4BtFGJN7HqDUKu1rew-2vFmMwo9cxgAAAGIE8SWXg\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/auth/login",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"auth",
-								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "token_login",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/api/auth/token_login",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"auth",
-								"token_login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "refresh_tokens",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "j8OFZYUcCRuLcKzAm8vckfUa7oLxFPW0nuT7r0nrCinJYAAAAYgTxNxf",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/api/auth/refresh_tokens",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"auth",
-								"refresh_tokens"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "logout",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/api/auth/logout",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"auth",
-								"logout"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "profile",
-			"item": [
-				{
-					"name": "create_profile",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "image",
-									"type": "file",
-									"src": "/C:/Users/USER/Desktop/KakaoTalk_20230403_105722067_01.jpg"
-								},
-								{
-									"key": "payload",
-									"value": "{\"name\": \"김재혁\", \"birthday\": \"1996-04-02\", \"sex\":\"female\", \"category\":[ \"politics\", \"lifestyle\"], \"age\": \"30\"}",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{url}}/api/profile/create_profile",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"profile",
-								"create_profile"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update_img",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "image",
-									"type": "file",
-									"src": "/C:/Users/USER/Desktop/profile.png"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{url}}/api/profile/update_img",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"profile",
-								"update_img"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update_screen",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"mode\": \"dark\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/profile/update_screen",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"profile",
-								"update_screen"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get_profile",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/api/profile/get_profile",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"profile",
-								"get_profile"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update_text",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"text_size\": \"small\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/profile/update_text",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"profile",
-								"update_text"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "read",
-			"item": [
-				{
-					"name": "read",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"news_id\": 101\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/read",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"read"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "addKeywords",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"news_id\": 1\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/read/addKeywords",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"read",
-								"addKeywords"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "news",
-			"item": [
-				{
-					"name": "getTopNewsByCategory",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"category\": \"business\",\r\n    \"page\": 1\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/news/topNewsByCategory",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"news",
-								"topNewsByCategory"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getTopNewsByCategoryAndAge",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"category\": \"business\",\r\n    \"age\": \"20\",\r\n    \"page\": 1\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/news/topNewsByCategoryAndAge",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"news",
-								"topNewsByCategoryAndAge"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getTodayTopNews",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"page\": 1\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/news/getTodayTopNews",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"news",
-								"getTodayTopNews"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getTodayTopNewsByAge",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"page\": 1, \r\n    \"age\": \"20\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/news/getTodayTopNewsByAge",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"news",
-								"getTodayTopNewsByAge"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "search",
-			"item": [
-				{
-					"name": "addKeyword",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"keyword\": \"new\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/search/searchKeyword",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"search",
-								"searchKeyword"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "recentSearches",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/api/search/recentSearches",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"search",
-								"recentSearches"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getTopKeywords",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/api/search/getTopKeywords",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"search",
-								"getTopKeywords"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "bookmark",
-			"item": [
-				{
-					"name": "bookmark",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"news_id\": 2\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/bookmark/bookmark",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"bookmark",
-								"bookmark"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "bookmarkList",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/api/bookmark/listAllBookmarks",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"bookmark",
-								"listAllBookmarks"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "create_folder",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"test\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/bookmark/createFolder",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"bookmark",
-								"createFolder"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "folderList",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/api/bookmark/listAllFolders",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"bookmark",
-								"listAllFolders"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "allocate",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"bookmark_id\": 2,\r\n    \"folder_id\": 4\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/bookmark/allocate",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"bookmark",
-								"allocate"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "listBookmarksFromFolder",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"folder_id\": 3\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/bookmark/listBookmarksFromFolder",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"bookmark",
-								"listBookmarksFromFolder"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "updateFolderName",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n      \"folder_id\": 2,\r\n      \"name\": \"newnew\"\r\n}\r\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/bookmark/updateFolderName",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"bookmark",
-								"updateFolderName"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "removeBookmarkFromFolder",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n      \"bookmark_id\": 1\r\n}\r\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/bookmark/removeBookmarkFromFolder",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"bookmark",
-								"removeBookmarkFromFolder"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "removeBookmarkFromFolder",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n      \"bookmark_id\": 1\r\n}\r\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/bookmark/deleteBookmark",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"bookmark",
-								"deleteBookmark"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "deleteBookmarkFolder",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"folder_id\": 1\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/bookmark/deleteBookmarkFolder",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"bookmark",
-								"deleteBookmarkFolder"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "memo",
-			"item": [
-				{
-					"name": "registerMemo",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"news_id\": 2, \r\n    \"content\": \"sadfasdfasfasfsadfasfsafsadfsadfsajkdfhsajfhllasdhfsadjkhfasdlkjfhaskljfhaskjldfhajlskhdfasjkldhfajklshdfajklshfkasdjlhflajksdhfkladjshfaksjldhfskadjlfhasjkdfhaskljhfaskjlhfaksjdhfkasjlhfaklsjhfkasjdhf\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/memo/registerMemo",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"memo",
-								"registerMemo"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "updateMemo",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"memo_id\": 2,\r\n    \"content\": \"update\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/memo/updateMemo",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"memo",
-								"updateMemo"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "listMemo",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/api/memo/listMemo",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"memo",
-								"listMemo"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "createFolder",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"test\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/memo/createFolder",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"memo",
-								"createFolder"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "listFolders",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/api/memo/listFolders",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"memo",
-								"listFolders"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "allocate",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"id\": 2,\r\n    \"folder_id\": 2\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/memo/allocate",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"memo",
-								"allocate"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "updateFolderName",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"update\",\r\n    \"folder_id\": 2\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/memo/updateFolderName",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"memo",
-								"updateFolderName"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "listmemosFromFolder",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"folder_id\": 1\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/memo/listmemosFromFolder",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"memo",
-								"listmemosFromFolder"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "removeMemoFromFolder",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"id\": 1\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/memo/removeMemoFromFolder",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"memo",
-								"removeMemoFromFolder"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "deleteMemo",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"id\": 1\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/memo/deleteMemo",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"memo",
-								"deleteMemo"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "deleteMemoFolder",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"folder_id\": 1\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/memo/deleteMemoFolder",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"memo",
-								"deleteMemoFolder"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		}
-	]
+    "info": {
+        "_postman_id": "0b016c45-097d-4c29-8bd7-bd4859488bc9",
+        "name": "ec2",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "_exporter_id": "20623203"
+    },
+    "item": [
+        {
+            "name": "auth",
+            "item": [
+                {
+                    "name": "login",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"code\": \"1k4KOo3LYhYeWK7g6wZcreqNlT_y1Dve6Wj70hCsOvJfE4BtFGJN7HqDUKu1rew-2vFmMwo9cxgAAAGIE8SWXg\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{url}}/api/auth/login",
+                            "host": ["{{url}}"],
+                            "path": ["api", "auth", "login"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "token_login",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "url": {
+                            "raw": "{{url}}/api/auth/token_login",
+                            "host": ["{{url}}"],
+                            "path": ["api", "auth", "token_login"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "refresh_tokens",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "j8OFZYUcCRuLcKzAm8vckfUa7oLxFPW0nuT7r0nrCinJYAAAAYgTxNxf",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "url": {
+                            "raw": "{{url}}/api/auth/refresh_tokens",
+                            "host": ["{{url}}"],
+                            "path": ["api", "auth", "refresh_tokens"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "logout",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "url": {
+                            "raw": "{{url}}/api/auth/logout",
+                            "host": ["{{url}}"],
+                            "path": ["api", "auth", "logout"]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "profile",
+            "item": [
+                {
+                    "name": "create_profile",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "image",
+                                    "type": "file",
+                                    "src": "/C:/Users/USER/Desktop/KakaoTalk_20230403_105722067_01.jpg"
+                                },
+                                {
+                                    "key": "payload",
+                                    "value": "{\"name\": \"김재혁\", \"birthday\": \"1996-04-02\", \"sex\":\"female\", \"category\":[ \"politics\", \"lifestyle\"], \"age\": \"30\"}",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{url}}/api/profile/create_profile",
+                            "host": ["{{url}}"],
+                            "path": ["api", "profile", "create_profile"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "update_img",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "image",
+                                    "type": "file",
+                                    "src": "/C:/Users/USER/Desktop/profile.png"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{url}}/api/profile/update_img",
+                            "host": ["{{url}}"],
+                            "path": ["api", "profile", "update_img"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "update_screen",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"mode\": \"dark\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{url}}/api/profile/update_screen",
+                            "host": ["{{url}}"],
+                            "path": ["api", "profile", "update_screen"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "get_profile",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{url}}/api/profile/get_profile",
+                            "host": ["{{url}}"],
+                            "path": ["api", "profile", "get_profile"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "update_text",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"text_size\": \"small\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{url}}/api/profile/update_text",
+                            "host": ["{{url}}"],
+                            "path": ["api", "profile", "update_text"]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "read",
+            "item": [
+                {
+                    "name": "read",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"news_id\": 101\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{url}}/api/read",
+                            "host": ["{{url}}"],
+                            "path": ["api", "read"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "addKeywords",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"news_id\": 1\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{url}}/api/read/addKeywords",
+                            "host": ["{{url}}"],
+                            "path": ["api", "read", "addKeywords"]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "news",
+            "item": [
+                {
+                    "name": "getTopNewsByCategory",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"category\": \"business\",\r\n    \"page\": 1\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{url}}/api/news/topNewsByCategory",
+                            "host": ["{{url}}"],
+                            "path": ["api", "news", "topNewsByCategory"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "getTopNewsByCategoryAndAge",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"category\": \"business\",\r\n    \"age\": \"20\",\r\n    \"page\": 1\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{url}}/api/news/topNewsByCategoryAndAge",
+                            "host": ["{{url}}"],
+                            "path": ["api", "news", "topNewsByCategoryAndAge"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "getTodayTopNews",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"page\": 1\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{url}}/api/news/getTodayTopNews",
+                            "host": ["{{url}}"],
+                            "path": ["api", "news", "getTodayTopNews"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "getTodayTopNewsByAge",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"page\": 1, \r\n    \"age\": \"20\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{url}}/api/news/getTodayTopNewsByAge",
+                            "host": ["{{url}}"],
+                            "path": ["api", "news", "getTodayTopNewsByAge"]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "search",
+            "item": [
+                {
+                    "name": "addKeyword",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"keyword\": \"new\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{url}}/api/search/searchKeyword",
+                            "host": ["{{url}}"],
+                            "path": ["api", "search", "searchKeyword"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "recentSearches",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{url}}/api/search/recentSearches",
+                            "host": ["{{url}}"],
+                            "path": ["api", "search", "recentSearches"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "getTopKeywords",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{url}}/api/search/getTopKeywords",
+                            "host": ["{{url}}"],
+                            "path": ["api", "search", "getTopKeywords"]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "bookmark",
+            "item": [
+                {
+                    "name": "bookmark",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"news_id\": 2\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{url}}/api/bookmark/bookmark",
+                            "host": ["{{url}}"],
+                            "path": ["api", "bookmark", "bookmark"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "bookmarkList",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{url}}/api/bookmark/listAllBookmarks",
+                            "host": ["{{url}}"],
+                            "path": ["api", "bookmark", "listAllBookmarks"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "create_folder",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"name\": \"test\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{url}}/api/bookmark/createFolder",
+                            "host": ["{{url}}"],
+                            "path": ["api", "bookmark", "createFolder"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "folderList",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{url}}/api/bookmark/listAllFolders",
+                            "host": ["{{url}}"],
+                            "path": ["api", "bookmark", "listAllFolders"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "allocate",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"bookmark_id\": 2,\r\n    \"folder_id\": 4\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{url}}/api/bookmark/allocate",
+                            "host": ["{{url}}"],
+                            "path": ["api", "bookmark", "allocate"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "listBookmarksFromFolder",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"folder_id\": 3\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{url}}/api/bookmark/listBookmarksFromFolder",
+                            "host": ["{{url}}"],
+                            "path": [
+                                "api",
+                                "bookmark",
+                                "listBookmarksFromFolder"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "updateFolderName",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n      \"folder_id\": 2,\r\n      \"name\": \"newnew\"\r\n}\r\n",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{url}}/api/bookmark/updateFolderName",
+                            "host": ["{{url}}"],
+                            "path": ["api", "bookmark", "updateFolderName"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "removeBookmarkFromFolder",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n      \"bookmark_id\": 1\r\n}\r\n",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{url}}/api/bookmark/removeBookmarkFromFolder",
+                            "host": ["{{url}}"],
+                            "path": [
+                                "api",
+                                "bookmark",
+                                "removeBookmarkFromFolder"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "removeBookmarkFromFolder",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n      \"bookmark_id\": 1\r\n}\r\n",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{url}}/api/bookmark/deleteBookmark",
+                            "host": ["{{url}}"],
+                            "path": ["api", "bookmark", "deleteBookmark"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "deleteBookmarkFolder",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"folder_id\": 1\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{url}}/api/bookmark/deleteBookmarkFolder",
+                            "host": ["{{url}}"],
+                            "path": ["api", "bookmark", "deleteBookmarkFolder"]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "memo",
+            "item": [
+                {
+                    "name": "registerMemo",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"news_id\": 2, \r\n    \"content\": \"sadfasdfasfasfsadfasfsafsadfsadfsajkdfhsajfhllasdhfsadjkhfasdlkjfhaskljfhaskjldfhajlskhdfasjkldhfajklshdfajklshfkasdjlhflajksdhfkladjshfaksjldhfskadjlfhasjkdfhaskljhfaskjlhfaksjdhfkasjlhfaklsjhfkasjdhf\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{url}}/api/memo/registerMemo",
+                            "host": ["{{url}}"],
+                            "path": ["api", "memo", "registerMemo"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "updateMemo",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"memo_id\": 2,\r\n    \"content\": \"update\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{url}}/api/memo/updateMemo",
+                            "host": ["{{url}}"],
+                            "path": ["api", "memo", "updateMemo"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "listMemo",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{url}}/api/memo/listMemo",
+                            "host": ["{{url}}"],
+                            "path": ["api", "memo", "listMemo"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "createFolder",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"name\": \"test\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{url}}/api/memo/createFolder",
+                            "host": ["{{url}}"],
+                            "path": ["api", "memo", "createFolder"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "listFolders",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{url}}/api/memo/listFolders",
+                            "host": ["{{url}}"],
+                            "path": ["api", "memo", "listFolders"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "allocate",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"id\": 2,\r\n    \"folder_id\": 2\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{url}}/api/memo/allocate",
+                            "host": ["{{url}}"],
+                            "path": ["api", "memo", "allocate"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "updateFolderName",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"name\": \"update\",\r\n    \"folder_id\": 2\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{url}}/api/memo/updateFolderName",
+                            "host": ["{{url}}"],
+                            "path": ["api", "memo", "updateFolderName"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "listmemosFromFolder",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"folder_id\": 1\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{url}}/api/memo/listmemosFromFolder",
+                            "host": ["{{url}}"],
+                            "path": ["api", "memo", "listmemosFromFolder"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "removeMemoFromFolder",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"id\": 1\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{url}}/api/memo/removeMemoFromFolder",
+                            "host": ["{{url}}"],
+                            "path": ["api", "memo", "removeMemoFromFolder"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "deleteMemo",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"id\": 1\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{url}}/api/memo/deleteMemo",
+                            "host": ["{{url}}"],
+                            "path": ["api", "memo", "deleteMemo"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "deleteMemoFolder",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"folder_id\": 1\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{url}}/api/memo/deleteMemoFolder",
+                            "host": ["{{url}}"],
+                            "path": ["api", "memo", "deleteMemoFolder"]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ]
 }
