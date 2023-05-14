@@ -20,7 +20,13 @@ class BookmarkController implements Controller {
             this.bookmark,
             this.listAllBookmarks,
             this.createFolder,
-            this.listAllFolders
+            this.listAllFolders,
+            this.allocate,
+            this.updateFolderName,
+            this.listBookmarksFromFolder,
+            this.removeBookmarkFromFolder,
+            this.deleteBookmark,
+            this.deleteBookmarkFolder
         );
         createRoutes(newsRoutes, this.router);
     }
@@ -74,6 +80,106 @@ class BookmarkController implements Controller {
             response.error(err as ErrorData);
         }
     });
+
+    private allocate = asyncWrapper(async (req: CustomRequest, res) => {
+        const response = customResponse(res);
+        const profile_id = req.profile_id;
+        const { folder_id, bookmark_id } = req.body;
+        try {
+            const data = await bookmarkService.allocate(
+                profile_id!,
+                folder_id,
+                bookmark_id
+            );
+            response.success({ code: StatusCodes.CREATED, data });
+        } catch (err) {
+            response.error(err as ErrorData);
+        }
+    });
+
+    private updateFolderName = asyncWrapper(async (req: CustomRequest, res) => {
+        const response = customResponse(res);
+        const profile_id = req.profile_id;
+        const { name: new_name, folder_id } = req.body;
+        try {
+            const data = await bookmarkService.updateFolderName(
+                profile_id!,
+                folder_id,
+                new_name
+            );
+            response.success({ code: StatusCodes.CREATED, data });
+        } catch (err) {
+            response.error(err as ErrorData);
+        }
+    });
+
+    private listBookmarksFromFolder = asyncWrapper(
+        async (req: CustomRequest, res) => {
+            const response = customResponse(res);
+            const profile_id = req.profile_id;
+            const { folder_id } = req.body;
+            try {
+                const data = await bookmarkService.listBookmarksFromFolder(
+                    folder_id,
+                    profile_id!
+                );
+                response.success({ code: StatusCodes.CREATED, data });
+            } catch (err) {
+                response.error(err as ErrorData);
+            }
+        }
+    );
+
+    private removeBookmarkFromFolder = asyncWrapper(
+        async (req: CustomRequest, res) => {
+            const response = customResponse(res);
+            const { bookmark_id } = req.body;
+
+            try {
+                await bookmarkService.removeBookmarkFromFolder(bookmark_id);
+                response.success({
+                    code: StatusCodes.CREATED,
+                });
+            } catch (err) {
+                response.error(err as ErrorData);
+            }
+        }
+    );
+
+    private deleteBookmark = asyncWrapper(async (req: CustomRequest, res) => {
+        const response = customResponse(res);
+        const { bookmark_id } = req.body;
+
+        try {
+            await bookmarkService.deleteBookmark(bookmark_id);
+            response.success({
+                code: StatusCodes.CREATED,
+            });
+        } catch (err) {
+            response.error(err as ErrorData);
+        }
+    });
+
+    private deleteBookmarkFolder = asyncWrapper(
+        async (req: CustomRequest, res) => {
+            const response = customResponse(res);
+            const profile_id = req.profile_id;
+            const { folder_id } = req.body;
+
+            try {
+                await bookmarkService.deleteBookmarkFolder(
+                    profile_id!,
+                    folder_id
+                );
+                response.success({
+                    code: StatusCodes.CREATED,
+                    data: `folder : ${folder_id} is deleted`,
+                });
+            } catch (err) {
+                response.error(err as ErrorData);
+            }
+        }
+    );
 }
 
 export default BookmarkController;

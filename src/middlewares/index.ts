@@ -9,6 +9,10 @@ import HttpException from './http-exception';
 import errorMiddleware from './error-middleware';
 import bookmarkValidation from './bookmarkValidation';
 import bookmarkFolderNameValidation from './bookmarkFolder.name.validation';
+import bookmarkAllocationValidation from './bookmark.allocation.validation';
+import memoValidation from './memoValidation';
+import memoFolderNameValidation from './memoFolder.name.validation';
+import memoAllocationValidation from './memo.allocation.validation';
 
 export {
     asyncWrapper,
@@ -22,4 +26,8 @@ export {
     tokenValidationProfile,
     bookmarkValidation,
     bookmarkFolderNameValidation,
+    bookmarkAllocationValidation,
+    memoValidation,
+    memoFolderNameValidation,
+    memoAllocationValidation,
 };

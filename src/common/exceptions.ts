@@ -13,28 +13,35 @@ export const dbException = (error: any) => {
 
 export const notFoundAccountException = (id?: number) => {
     throw {
-        code: 404,
+        code: StatusCodes.INTERNAL_SERVER_ERROR,
         message: `user does not exist with id ${id}`,
     };
 };
 
 export const notFoundNews = (news_id?: number) => {
     throw {
-        code: 404,
+        code: StatusCodes.INTERNAL_SERVER_ERROR,
         message: `news does not exist with id ${news_id}`,
+    };
+};
+
+export const notFoundError = (message: string) => {
+    throw {
+        code: StatusCodes.INTERNAL_SERVER_ERROR,
+        message,
     };
 };
 
 export const DuplicateError = (msg: string) => {
     throw {
-        code: StatusCodes.CONFLICT,
+        code: StatusCodes.INTERNAL_SERVER_ERROR,
         message: msg,
     };
 };
 
 export const LimitError = (msg: string) => {
     throw {
-        code: StatusCodes.CONFLICT,
+        code: StatusCodes.INTERNAL_SERVER_ERROR,
         message: msg,
     };
 };

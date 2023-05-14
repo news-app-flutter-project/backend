@@ -1,13 +1,16 @@
 import { Op, fn, col, literal } from 'sequelize';
 import db from '@/database/db';
-import { dbException } from '@/common/exceptions';
+import { dbException, notFoundError, LimitError } from '@/common/exceptions';
 
 export const bookmark_folderRepository = {
-    async countFolders(profile_id: number) {
+    async countFolders(profile_id: number, maxFolders: number = 7) {
         try {
-            return await db.BookMarkFolder.count({
+            const folderCount = await db.BookMarkFolder.count({
                 where: { profile_id: profile_id },
             });
+            if (folderCount >= maxFolders) {
+                return LimitError(`max folderNo. exceeded: ${maxFolders}`);
+            }
         } catch (err) {
             return dbException(err);
         }
@@ -42,6 +45,43 @@ export const bookmark_folderRepository = {
                 },
             });
             return bookmarkFolders;
+        } catch (err) {
+            return dbException(err);
+        }
+    },
+
+    async findFolder(profile_id: number, folder_id: number) {
+        try {
+            const folder = await db.BookMarkFolder.findOne({
+                where: {
+                    id: folder_id,
+                    profile_id: profile_id,
+                },
+            });
+            if (!folder) {
+                return notFoundError('folder not found');
+            }
+            return folder;
+        } catch (err) {
+            return dbException(err);
+        }
+    },
+
+    async updateFolderName(
+        profile_id: number,
+        folder_id: number,
+        new_name: string
+    ) {
+        try {
+            const folder = await db.BookMarkFolder.findOne({
+                where: { id: folder_id, profile_id },
+            });
+            if (!folder) {
+                return notFoundError('folder not found');
+            }
+            folder.name = new_name;
+            const updatedFolder = await folder.save();
+            return updatedFolder;
         } catch (err) {
             return dbException(err);
         }
