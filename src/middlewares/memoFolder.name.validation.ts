@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction, RequestHandler } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { customResponse } from '@/common/response';
-import { memoRepository } from '@/database/repositories/memo.repository';
+import { memoFolderRepository } from '@/database/repositories/memo_folder.repository';
 import { DuplicateError } from '@/common/exceptions';
 
-const memoValidation = (): RequestHandler => {
+const memoFolderNameValidation = (): RequestHandler => {
     return async (
         req: CustomRequest,
         res: Response,
@@ -12,14 +12,14 @@ const memoValidation = (): RequestHandler => {
     ): Promise<void> => {
         const response = customResponse(res);
         const profile_id = req.profile_id;
-        const news = req.news!;
+        const { name } = req.body;
         try {
-            const memo = await memoRepository.checkDup({
+            const isFolderNameExist = await memoFolderRepository.checkDup({
                 profile_id,
-                news_id: news.id!,
+                name,
             });
-            if (memo) {
-                return DuplicateError('news already has a memo by the user');
+            if (isFolderNameExist) {
+                return DuplicateError('folder name already in use');
             }
             next();
         } catch (err) {
@@ -28,4 +28,4 @@ const memoValidation = (): RequestHandler => {
     };
 };
 
-export default memoValidation;
+export default memoFolderNameValidation;

@@ -6,12 +6,11 @@ declare global {
         profile_id: number;
         name: string;
     }
+    type MemoFolderCreateInterface = Omit<
+        MemoFolder,
+        'id' | 'createdAt' | 'updatedAt' | 'deletedAt'
+    >;
 }
-
-export type MemoFolderCreateInterface = Omit<
-    MemoFolder,
-    'id' | 'createdAt' | 'updatedAt' | 'deletedAt'
->;
 
 export class MemoFolderModel
     extends Model<MemoFolder, MemoFolderCreateInterface>

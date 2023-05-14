@@ -17,7 +17,11 @@ class MemoController implements Controller {
     private initializeRoutes(): void {
         const newRoutes: AuthRoutes = createMemoRoutes(
             this.path,
-            this.registerMemo
+            this.registerMemo,
+            this.updateMemo,
+            this.listMemo,
+            this.createFolder,
+            this.listFolders
         );
         createRoutes(newRoutes, this.router);
     }
@@ -32,7 +36,55 @@ class MemoController implements Controller {
                 content,
                 profile_id,
             });
-            await response.success({ code: StatusCodes.CREATED, data });
+            response.success({ code: StatusCodes.CREATED, data });
+        } catch (err) {
+            response.error(err as ErrorData);
+        }
+    });
+
+    private updateMemo = asyncWrapper(async (req: CustomRequest, res) => {
+        const response = customResponse(res);
+        const { content, memo_id: id } = req.body;
+        try {
+            const data = await memoService.updateMemo({
+                content,
+                id,
+            });
+            response.success({ code: StatusCodes.CREATED, data });
+        } catch (err) {
+            response.error(err as ErrorData);
+        }
+    });
+
+    private listMemo = asyncWrapper(async (req: CustomRequest, res) => {
+        const response = customResponse(res);
+        const profile_id = req.profile_id!;
+        try {
+            const data = await memoService.listMemo({ profile_id });
+            response.success({ code: StatusCodes.CREATED, data });
+        } catch (err) {
+            response.error(err as ErrorData);
+        }
+    });
+
+    private createFolder = asyncWrapper(async (req: CustomRequest, res) => {
+        const response = customResponse(res);
+        const profile_id = req.profile_id!;
+        const { name } = req.body;
+        try {
+            const data = await memoService.createFolder({ profile_id, name });
+            response.success({ code: StatusCodes.CREATED, data });
+        } catch (err) {
+            response.error(err as ErrorData);
+        }
+    });
+
+    private listFolders = asyncWrapper(async (req: CustomRequest, res) => {
+        const response = customResponse(res);
+        const profile_id = req.profile_id!;
+        try {
+            const data = await memoService.listFolders({ profile_id });
+            response.success({ code: StatusCodes.CREATED, data });
         } catch (err) {
             response.error(err as ErrorData);
         }

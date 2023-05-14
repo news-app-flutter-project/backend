@@ -10,6 +10,7 @@ import errorMiddleware from './error-middleware';
 import bookmarkValidation from './bookmarkValidation';
 import bookmarkFolderNameValidation from './bookmarkFolder.name.validation';
 import memoValidation from './memoValidation';
+import memoFolderNameValidation from './memoFolder.name.validation';
 
 export {
     asyncWrapper,
@@ -24,4 +25,5 @@ export {
     bookmarkValidation,
     bookmarkFolderNameValidation,
     memoValidation,
+    memoFolderNameValidation,
 };

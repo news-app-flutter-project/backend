@@ -4,11 +4,23 @@ import {
     newsIdValidation,
     tokenValidationProfile,
     memoValidation,
+    memoFolderNameValidation,
 } from '@/middlewares/index';
 
-import { register_memo_validation } from './memo.validation';
+import {
+    register_memo_validation,
+    update_memo_validation,
+    createFolder_validation,
+} from './memo.validation';
 
-export function createMemoRoutes(path: string, registerMemo: any): AuthRoutes {
+export function createMemoRoutes(
+    path: string,
+    registerMemo: any,
+    updateMemo: any,
+    listMemo: any,
+    createFolder: any,
+    listFolders: any
+): AuthRoutes {
     return {
         registerMemo: {
             method: 'post',
@@ -20,6 +32,37 @@ export function createMemoRoutes(path: string, registerMemo: any): AuthRoutes {
                 memoValidation(),
             ],
             handler: registerMemo,
+        },
+        updateMemo: {
+            method: 'put',
+            path: `${path}/updateMemo`,
+            middleware: [
+                bodyValidation(update_memo_validation),
+                tokenValidationProfile(),
+            ],
+            handler: updateMemo,
+        },
+        listMemo: {
+            method: 'get',
+            path: `${path}/listMemo`,
+            middleware: [tokenValidationProfile()],
+            handler: listMemo,
+        },
+        createFolder: {
+            method: 'post',
+            path: `${path}/createFolder`,
+            middleware: [
+                bodyValidation(createFolder_validation),
+                tokenValidationProfile(),
+                memoFolderNameValidation(),
+            ],
+            handler: createFolder,
+        },
+        listFolders: {
+            method: 'get',
+            path: `${path}/listFolders`,
+            middleware: [tokenValidationProfile()],
+            handler: listFolders,
         },
     };
 }

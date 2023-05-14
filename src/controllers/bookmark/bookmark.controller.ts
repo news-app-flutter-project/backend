@@ -116,7 +116,6 @@ class BookmarkController implements Controller {
     private listBookmarksFromFolder = asyncWrapper(
         async (req: CustomRequest, res) => {
             const response = customResponse(res);
-            console.log('hi');
             const profile_id = req.profile_id;
             const { folder_id } = req.body;
             try {
