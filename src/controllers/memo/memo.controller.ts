@@ -21,7 +21,8 @@ class MemoController implements Controller {
             this.updateMemo,
             this.listMemo,
             this.createFolder,
-            this.listFolders
+            this.listFolders,
+            this.allocate
         );
         createRoutes(newRoutes, this.router);
     }
@@ -85,6 +86,22 @@ class MemoController implements Controller {
         try {
             const data = await memoService.listFolders({ profile_id });
             response.success({ code: StatusCodes.CREATED, data });
+        } catch (err) {
+            response.error(err as ErrorData);
+        }
+    });
+
+    private allocate = asyncWrapper(async (req: CustomRequest, res) => {
+        const response = customResponse(res);
+        const profile_id = req.profile_id!;
+        const { id, folder_id } = req.body;
+        try {
+            await memoService.allocate({
+                profile_id,
+                id,
+                folder_id,
+            });
+            response.success({ code: StatusCodes.CREATED });
         } catch (err) {
             response.error(err as ErrorData);
         }

@@ -12,6 +12,7 @@ interface dataHandler {
     news_id?: number | undefined;
     content?: string | undefined;
     id?: number | undefined;
+    folder_id?: number | undefined;
 }
 
 export const memoRepository = {
@@ -59,5 +60,30 @@ export const memoRepository = {
         }
     },
 
-    async allocate() {},
+    async allocate(data: dataHandler) {
+        try {
+            return await db.Memo.update(
+                {
+                    memo_folder_id: data.folder_id,
+                },
+                { where: { id: data.id } }
+            );
+        } catch (err) {
+            return dbException(err);
+        }
+    },
+
+    async allocateDupCheck(data: dataHandler) {
+        try {
+            const bookmark = await db.Memo.findOne({
+                where: {
+                    profile_id: data.profile_id,
+                    memo_folder_id: data.folder_id,
+                },
+            });
+            return bookmark;
+        } catch (err) {
+            return dbException(err);
+        }
+    },
 };

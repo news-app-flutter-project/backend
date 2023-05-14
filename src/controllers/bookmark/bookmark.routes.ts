@@ -6,6 +6,7 @@ import {
     tokenValidationProfile,
     bookmarkValidation,
     bookmarkFolderNameValidation,
+    bookmarkAllocationValidation,
 } from '@/middlewares/index';
 import {
     bookmark_validation,
@@ -75,6 +76,7 @@ export function createSearchRoutes(
             middleware: [
                 bodyValidation(allocate_validation),
                 tokenValidationProfile(),
+                bookmarkAllocationValidation(),
             ],
             handler: allocate,
         },

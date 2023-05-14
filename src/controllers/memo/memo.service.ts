@@ -8,6 +8,7 @@ interface dataHandler {
     content?: string | undefined;
     id?: number | undefined;
     name?: string | undefined;
+    folder_id?: number | undefined;
 }
 
 export const memoService = {
@@ -38,5 +39,11 @@ export const memoService = {
 
     async listFolders(data: dataHandler) {
         return await this.folder_repository.listFolders(data);
+    },
+
+    async allocate(data: dataHandler) {
+        await this.repository.findMemoById(data);
+        await this.folder_repository.findFolderById(data);
+        return await this.repository.allocate(data);
     },
 };

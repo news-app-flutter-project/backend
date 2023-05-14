@@ -5,12 +5,14 @@ import {
     tokenValidationProfile,
     memoValidation,
     memoFolderNameValidation,
+    memoAllocationValidation,
 } from '@/middlewares/index';
 
 import {
     register_memo_validation,
     update_memo_validation,
     createFolder_validation,
+    allocate_validation,
 } from './memo.validation';
 
 export function createMemoRoutes(
@@ -19,7 +21,8 @@ export function createMemoRoutes(
     updateMemo: any,
     listMemo: any,
     createFolder: any,
-    listFolders: any
+    listFolders: any,
+    allocate: any
 ): AuthRoutes {
     return {
         registerMemo: {
@@ -63,6 +66,16 @@ export function createMemoRoutes(
             path: `${path}/listFolders`,
             middleware: [tokenValidationProfile()],
             handler: listFolders,
+        },
+        allocate: {
+            method: 'put',
+            path: `${path}/allocate`,
+            middleware: [
+                bodyValidation(allocate_validation),
+                tokenValidationProfile(),
+                memoAllocationValidation(),
+            ],
+            handler: allocate,
         },
     };
 }

@@ -13,3 +13,8 @@ export const update_memo_validation = Joi.object({
 export const createFolder_validation = Joi.object({
     name: Joi.string().required(),
 });
+
+export const allocate_validation = Joi.object({
+    id: Joi.number().required(),
+    folder_id: Joi.number().required(),
+});

@@ -102,6 +102,17 @@ export const bookmarkRepository = {
         }
     },
 
+    async allocateDupCheck(profile_id: number, folder_id: number) {
+        try {
+            const bookmark = await db.BookMark.findOne({
+                where: { profile_id, folder_id },
+            });
+            return bookmark;
+        } catch (err) {
+            return dbException(err);
+        }
+    },
+
     async listBookmarksFromFolder(folder_id: number) {
         try {
             const bookmarks = await db.BookMark.findAll({

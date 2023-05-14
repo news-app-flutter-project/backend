@@ -11,6 +11,7 @@ interface dataHandler {
     profile_id?: number | undefined;
     name?: string | undefined;
     id?: number | undefined;
+    folder_id?: number | undefined;
 }
 
 export const memoFolderRepository = {
@@ -27,6 +28,17 @@ export const memoFolderRepository = {
             return await db.MemoFolder.findOne({
                 where: { profile_id: data.profile_id, name: data.name },
             });
+        } catch (err) {
+            return dbException(err);
+        }
+    },
+
+    async findFolderById(data: dataHandler) {
+        try {
+            const folder = await db.MemoFolder.findByPk(data.folder_id);
+            if (!folder) {
+                return notFoundError('folder is not found');
+            }
         } catch (err) {
             return dbException(err);
         }
