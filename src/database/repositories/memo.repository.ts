@@ -86,4 +86,54 @@ export const memoRepository = {
             return dbException(err);
         }
     },
+    async listmemosFromFolder(data: dataHandler): Promise<Memo[]> {
+        try {
+            const memos = await db.Memo.findAll({
+                where: {
+                    profile_id: data.profile_id,
+                    memo_folder_id: data.folder_id,
+                },
+                include: [
+                    {
+                        model: db.News,
+                        as: 'news',
+                    },
+                ],
+            });
+            return memos;
+        } catch (err) {
+            return dbException(err);
+        }
+    },
+
+    async removeMemoFromFolder(data: dataHandler) {
+        try {
+            const memo = await db.Memo.findByPk(data.id);
+
+            if (!memo) {
+                return notFoundError('the bookmark does not exist');
+            }
+
+            memo.memo_folder_id = null;
+            await memo.save();
+            return memo;
+        } catch (err) {
+            return dbException(err);
+        }
+    },
+
+    async findAllMemoWithFolder(data: dataHandler) {
+        try {
+            const bookmarks = await db.Memo.findAll({
+                where: {
+                    memo_folder_id: data.folder_id,
+                    profile_id: data.profile_id,
+                },
+            });
+
+            return bookmarks;
+        } catch (err) {
+            return dbException(err);
+        }
+    },
 };

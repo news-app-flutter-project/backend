@@ -22,7 +22,12 @@ class MemoController implements Controller {
             this.listMemo,
             this.createFolder,
             this.listFolders,
-            this.allocate
+            this.allocate,
+            this.updateFolderName,
+            this.listmemosFromFolder,
+            this.removeMemoFromFolder,
+            this.deleteMemo,
+            this.deleteMemoFolder
         );
         createRoutes(newRoutes, this.router);
     }
@@ -102,6 +107,75 @@ class MemoController implements Controller {
                 folder_id,
             });
             response.success({ code: StatusCodes.CREATED });
+        } catch (err) {
+            response.error(err as ErrorData);
+        }
+    });
+
+    private updateFolderName = asyncWrapper(async (req: CustomRequest, res) => {
+        const response = customResponse(res);
+        const { name, folder_id: id } = req.body;
+        try {
+            await memoService.updateFolderName({ name, id });
+            response.success({ code: StatusCodes.CREATED });
+        } catch (err) {
+            response.error(err as ErrorData);
+        }
+    });
+
+    private listmemosFromFolder = asyncWrapper(
+        async (req: CustomRequest, res) => {
+            const response = customResponse(res);
+            const profile_id = req.profile_id!;
+            const { folder_id } = req.body;
+            try {
+                const data = await memoService.listmemosFromFolder({
+                    profile_id,
+                    folder_id,
+                });
+                response.success({ code: StatusCodes.CREATED, data });
+            } catch (err) {
+                response.error(err as ErrorData);
+            }
+        }
+    );
+
+    private removeMemoFromFolder = asyncWrapper(
+        async (req: CustomRequest, res) => {
+            const response = customResponse(res);
+            const { id } = req.body;
+            try {
+                await memoService.removeMemoFromFolder({ id });
+                response.success({ code: StatusCodes.CREATED });
+            } catch (err) {
+                response.error(err as ErrorData);
+            }
+        }
+    );
+
+    private deleteMemo = asyncWrapper(async (req: CustomRequest, res) => {
+        const response = customResponse(res);
+        const { id } = req.body;
+        try {
+            const data = await memoService.deleteMemo({
+                id,
+            });
+            response.success({ code: StatusCodes.CREATED, data });
+        } catch (err) {
+            response.error(err as ErrorData);
+        }
+    });
+
+    private deleteMemoFolder = asyncWrapper(async (req: CustomRequest, res) => {
+        const response = customResponse(res);
+        const profile_id = req.profile_id!;
+        const { folder_id } = req.body;
+        try {
+            const data = await memoService.deleteMemoFolder({
+                profile_id,
+                folder_id,
+            });
+            response.success({ code: StatusCodes.CREATED, data });
         } catch (err) {
             response.error(err as ErrorData);
         }

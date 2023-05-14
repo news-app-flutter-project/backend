@@ -39,6 +39,7 @@ export const memoFolderRepository = {
             if (!folder) {
                 return notFoundError('folder is not found');
             }
+            return folder;
         } catch (err) {
             return dbException(err);
         }
@@ -56,5 +57,18 @@ export const memoFolderRepository = {
         }
     },
 
-    async updateFolderName() {},
+    async updateFolderName(data: dataHandler) {
+        try {
+            return await db.MemoFolder.update(
+                { name: data.name },
+                {
+                    where: {
+                        id: data.id,
+                    },
+                }
+            );
+        } catch (err) {
+            return dbException(err);
+        }
+    },
 };
