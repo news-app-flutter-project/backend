@@ -4,7 +4,7 @@ info:
     contact: {}
     version: '1.0'
 servers:
-    - url: https://newsapp-cf64.onrender.com/api
+    - url: http://3.34.3.159:8280/api
       variables: {}
 paths:
     /auth/login:
