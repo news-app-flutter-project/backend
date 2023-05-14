@@ -32,13 +32,13 @@ class App {
         this.express = express();
         this.port = port;
 
+        this.initializeSwagger();
         this.initializeMiddleware();
         this.initializeCloudinary();
         this.initializeHome();
         this.initializeKakaoRedirect();
         this.initializeControllers(controllers);
         this.initializeErrorHandling();
-        this.initializeSwagger();
     }
 
     private initializeMiddleware() {
