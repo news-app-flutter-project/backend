@@ -44,7 +44,7 @@ class App {
     private initializeMiddleware() {
         this.express.use(helmet());
         this.express.use(cors());
-        // this.express.use(xss());
+        this.express.use(xss());
         this.express.use(morgan('dev'));
         this.express.use(express.json());
         this.express.use(express.urlencoded({ extended: false }));
