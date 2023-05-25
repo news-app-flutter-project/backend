@@ -20,6 +20,7 @@ import {
     SubCommentModel,
     SubCommentGenerator,
 } from './models/subComment.model';
+import { BadWordsModel, BadWordsGenerator } from './models/bad_words.model';
 
 import { relations } from './relations';
 const sequelize = new Sequelize(SEQUELIZE_CONFIGS);
@@ -45,6 +46,7 @@ declare global {
         MemoFolder: typeof MemoFolderModel;
         Comments: typeof CommentModel;
         SubComment: typeof SubCommentModel;
+        BadWords: typeof BadWordsModel;
     }
 }
 
@@ -62,6 +64,7 @@ const db: DB = {
     MemoFolder: MemoFolderGenerator(sequelize),
     Comments: CommentGenerator(sequelize),
     SubComment: SubCommentGenerator(sequelize),
+    BadWords: BadWordsGenerator(sequelize),
 };
 
 relations(db);
