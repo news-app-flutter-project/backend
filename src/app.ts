@@ -32,8 +32,8 @@ class App {
         this.express = express();
         this.port = port;
 
-        this.initializeMiddleware();
         this.initializeSwagger();
+        this.initializeMiddleware();
         this.initializeCloudinary();
         this.initializeHome();
         this.initializeKakaoRedirect();
