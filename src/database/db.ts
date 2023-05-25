@@ -15,6 +15,11 @@ import {
     MemoFolderModel,
     MemoFolderGenerator,
 } from './models/memo_folder.model';
+import { CommentModel, CommentGenerator } from './models/comment.model';
+import {
+    SubCommentModel,
+    SubCommentGenerator,
+} from './models/subComment.model';
 
 import { relations } from './relations';
 const sequelize = new Sequelize(SEQUELIZE_CONFIGS);
@@ -38,6 +43,8 @@ declare global {
         BookMark: typeof BookmarkModel;
         Memo: typeof MemoModel;
         MemoFolder: typeof MemoFolderModel;
+        Comments: typeof CommentModel;
+        SubComment: typeof SubCommentModel;
     }
 }
 
@@ -53,6 +60,8 @@ const db: DB = {
     BookMark: BookmarkGenerator(sequelize),
     Memo: MemoGenerator(sequelize),
     MemoFolder: MemoFolderGenerator(sequelize),
+    Comments: CommentGenerator(sequelize),
+    SubComment: SubCommentGenerator(sequelize),
 };
 
 relations(db);

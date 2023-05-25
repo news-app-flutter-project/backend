@@ -11,6 +11,7 @@ import {
     SearchController,
     BookmarkController,
     MemoController,
+    CommentController,
 } from '@/controllers/index';
 
 validateEnv();
@@ -23,6 +24,7 @@ const app = new App({
         new SearchController(),
         new BookmarkController(),
         new MemoController(),
+        new CommentController(),
     ],
     port: Number(process.env.PORT),
 });
