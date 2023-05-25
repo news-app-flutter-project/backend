@@ -13,6 +13,8 @@ import bookmarkAllocationValidation from './bookmark.allocation.validation';
 import memoValidation from './memoValidation';
 import memoFolderNameValidation from './memoFolder.name.validation';
 import memoAllocationValidation from './memo.allocation.validation';
+import badWordsValidation from './badwords.validation';
+import maxCommentsValidation from './maxComments.validation';
 
 export {
     asyncWrapper,
@@ -30,4 +32,6 @@ export {
     memoValidation,
     memoFolderNameValidation,
     memoAllocationValidation,
+    badWordsValidation,
+    maxCommentsValidation,
 };

@@ -8,16 +8,14 @@ import {
 } from '@/common/exceptions';
 
 interface dataHandler {
-    sentence: string;
+    content: string;
 }
 
 export const badWordsRepository = {
     async FindBadWords(data: dataHandler) {
         try {
-            // Split the user's sentence into individual words
-            let words = data.sentence.split(' ');
+            let words = data.content.split(' ');
 
-            // Search for any of those words in the bad_words table
             const badWords = await db.BadWords.findAll({
                 where: {
                     words: {

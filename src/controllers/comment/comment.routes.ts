@@ -1,4 +1,9 @@
-import { bodyValidation, tokenValidationProfile } from '@/middlewares/index';
+import {
+    bodyValidation,
+    tokenValidationProfile,
+    badWordsValidation,
+    maxCommentsValidation,
+} from '@/middlewares/index';
 import { writeComment_validation } from './comment.validation';
 
 export function createCommentRoutes(
@@ -12,6 +17,8 @@ export function createCommentRoutes(
             middleware: [
                 bodyValidation(writeComment_validation),
                 tokenValidationProfile(),
+                maxCommentsValidation(),
+                badWordsValidation(),
             ],
             handler: writeComment,
         },

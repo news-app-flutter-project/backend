@@ -22,4 +22,18 @@ export const commentRepository = {
             return dbException(err);
         }
     },
+
+    async checkMaxCommentsPerNews(data: dataHandler) {
+        try {
+            const count = await db.Comments.count({
+                where: {
+                    profile_id: data.profile_id,
+                    news_id: data.news_id,
+                },
+            });
+            return count;
+        } catch (err) {
+            throw dbException(err);
+        }
+    },
 };
