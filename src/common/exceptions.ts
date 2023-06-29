@@ -78,3 +78,10 @@ export const chatGptException = (error: any) => {
         error: error,
     };
 };
+
+export const badWordsException = () => {
+    throw {
+        code: StatusCodes.BAD_REQUEST,
+        message: 'contains bad words',
+    };
+};

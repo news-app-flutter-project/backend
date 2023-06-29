@@ -117,4 +117,44 @@ export const relations = (db: DB) => {
         foreignKey: 'news_id',
         as: 'news',
     });
+
+    // Comment:Profile = M:1
+    db.Comments.belongsTo(db.Profile, {
+        foreignKey: { name: 'profile_id', allowNull: false },
+        as: 'profile',
+    });
+    db.Profile.hasMany(db.Comments, {
+        foreignKey: { name: 'profile_id', allowNull: false },
+        as: 'comments',
+    });
+
+    // Comment:News = M:1
+    db.Comments.belongsTo(db.News, {
+        foreignKey: { name: 'news_id', allowNull: false },
+        as: 'news',
+    });
+    db.News.hasMany(db.Comments, {
+        foreignKey: { name: 'news_id', allowNull: false },
+        as: 'comments',
+    });
+
+    // SubComment:Comment = M:1
+    db.SubComment.belongsTo(db.Comments, {
+        foreignKey: { name: 'comment_id', allowNull: false },
+        as: 'comment',
+    });
+    db.Comments.hasMany(db.SubComment, {
+        foreignKey: { name: 'comment_id', allowNull: false },
+        as: 'subcomments',
+    });
+
+    // SubComment:Profile = M:1
+    db.SubComment.belongsTo(db.Profile, {
+        foreignKey: { name: 'profile_id', allowNull: false },
+        as: 'profile',
+    });
+    db.Profile.hasMany(db.SubComment, {
+        foreignKey: { name: 'profile_id', allowNull: false },
+        as: 'subcomments',
+    });
 };

@@ -1,7 +1,7 @@
 import 'source-map-support/register';
 import 'dotenv/config';
 import 'module-alias/register';
-import validateEnv from './utils/validateEnv';
+import validateEnv from '@/utils/validateEnv';
 import App from './app';
 import {
     NewsFinalController,
@@ -11,7 +11,6 @@ import {
     SearchController,
     BookmarkController,
     MemoController,
-    CommentController,
 } from '@/controllers/index';
 
 validateEnv();
@@ -24,7 +23,6 @@ const app = new App({
         new SearchController(),
         new BookmarkController(),
         new MemoController(),
-        new CommentController(),
     ],
     port: Number(process.env.PORT),
 });
