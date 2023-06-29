@@ -3,6 +3,7 @@ import { cleanEnv, str, port } from 'envalid';
 const validateEnv = (): void => {
     cleanEnv(process.env, {
         NODE_ENV: str(),
+        URL: str(),
         PORT: port({ default: 8280 }),
         NEWS_DATA_API_KEY: str(),
         DB_TYPE: str(),

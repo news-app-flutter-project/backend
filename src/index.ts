@@ -26,7 +26,8 @@ const app = new App({
         new MemoController(),
         new CommentController(),
     ],
-    port: Number(process.env.PORT),
+    port: Number(process.env.port),
+    URL: Number(process.env.URL),
 });
 
 // cron job

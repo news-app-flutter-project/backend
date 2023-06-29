@@ -21,16 +21,19 @@ const swaggerDoc = YAML.load(path.join(__dirname, '../build/swagger.yaml'));
 
 interface Paramters {
     port: number;
+    URL: number;
     controllers: Controller[];
 }
 
 class App {
     public express: Application;
     public port: number;
+    public URL: number;
 
-    constructor({ port, controllers }: Paramters) {
+    constructor({ port, URL, controllers }: Paramters) {
         this.express = express();
         this.port = port;
+        this.URL = URL;
 
         this.initializeSwagger();
         this.initializeMiddleware();
@@ -132,7 +135,7 @@ class App {
         this.express.listen(this.port, () => {
             console.log(`App listening on port ${this.port}`);
         });
-        console.log(`API is available at http://localhost:${this.port}`);
+        console.log(`API is available at ${this.URL}:${this.port}`);
     }
 
     public bootstrap() {
