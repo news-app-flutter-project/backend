@@ -1,4 +1,5 @@
 import { authRepository } from '@/database/repositories/auth.repository';
+import { profileRepository } from '@/database/repositories/profile.repository';
 import {
     kakaoLogin,
     kakaoId,
@@ -10,6 +11,7 @@ import { notFoundAccountException } from '@/common/exceptions';
 
 export const authService = {
     repository: authRepository,
+    profile_repository: profileRepository,
 
     async login(code: string) {
         const kakao_login_response = await kakaoLogin(code);
@@ -21,6 +23,16 @@ export const authService = {
             const updatedTokens = await this.repository.updateAllTokens(
                 kakaoData
             );
+            const profileId = await this.profile_repository.findProfilebyId(
+                user
+            );
+            if (profileId) {
+                return {
+                    auth_id: user,
+                    profile_id: profileId,
+                    ...updatedTokens,
+                };
+            }
             return { auth_id: user, ...updatedTokens };
         } else {
             return await this.repository.createUser(kakaoData);
