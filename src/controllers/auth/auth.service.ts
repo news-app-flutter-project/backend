@@ -21,7 +21,7 @@ export const authService = {
             const updatedTokens = await this.repository.updateAllTokens(
                 kakaoData
             );
-            return { id: user, ...updatedTokens };
+            return { auth_id: user, ...updatedTokens };
         } else {
             return await this.repository.createUser(kakaoData);
         }
