@@ -27,7 +27,7 @@ const app = new App({
         new CommentController(),
     ],
     port: Number(process.env.port),
-    URL: Number(process.env.URL),
+    URL: process.env.URL!,
 });
 
 // cron job

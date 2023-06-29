@@ -21,14 +21,14 @@ const swaggerDoc = YAML.load(path.join(__dirname, '../build/swagger.yaml'));
 
 interface Paramters {
     port: number;
-    URL: number;
+    URL: string;
     controllers: Controller[];
 }
 
 class App {
     public express: Application;
     public port: number;
-    public URL: number;
+    public URL: string;
 
     constructor({ port, URL, controllers }: Paramters) {
         this.express = express();
