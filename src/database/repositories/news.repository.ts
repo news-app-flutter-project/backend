@@ -58,7 +58,7 @@ export const newsRepository = {
         mostReadNewsIds: number[],
         offset: number,
         limit: number,
-        category?: Category
+        categories?: Category[]
     ) {
         try {
             const where: any = {
@@ -66,7 +66,7 @@ export const newsRepository = {
                     [Op.notIn]: mostReadNewsIds,
                 },
             };
-            if (category) where.category = category;
+            if (categories) where.category = { [Op.in]: categories };
 
             return await db.News.findAll({
                 where: where,

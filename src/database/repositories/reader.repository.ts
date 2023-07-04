@@ -42,13 +42,13 @@ export const readerRepository = {
     async mostReadNews(
         offset: number,
         limit: number,
-        category?: Category,
+        categories?: Category[],
         age?: Age,
         date?: Date
     ) {
         try {
             const where: any = {};
-            if (category) where.category = category;
+            if (categories) where.category = { [Op.in]: categories };
             if (age) where.age = age;
             if (date) where.createdAt = { [Op.gte]: date };
 

@@ -1,5 +1,9 @@
 import Joi from 'joi';
 
+export const find_my_news = Joi.object({
+    page: Joi.number().required(),
+});
+
 export const find_news_by_category = Joi.object({
     category: Joi.string()
         .valid(

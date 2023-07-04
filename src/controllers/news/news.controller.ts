@@ -17,6 +17,7 @@ class NewsController implements Controller {
     private initializeRoutes(): void {
         const newsRoutes: AuthRoutes = createNewsRoutes(
             this.path,
+            this.getMyNews,
             this.getTopNewsByCategory,
             this.getTopNewsByCategoryAndAge,
             this.getTodayTopNews,
@@ -25,13 +26,28 @@ class NewsController implements Controller {
         createRoutes(newsRoutes, this.router);
     }
 
+    private getMyNews = asyncWrapper(async (req: CustomRequest, res) => {
+        const response = customResponse(res);
+        const { category, age } = req;
+        const { page } = req.body;
+        console.log(category, age, page);
+        try {
+            const news = await newsService.getTopNews(page, category, age);
+            return res
+                .status(StatusCodes.OK)
+                .json({ result: true, data: news });
+        } catch (err) {
+            response.error(err as ErrorData);
+        }
+    });
+
     private getTopNewsByCategory = asyncWrapper(
         async (req: CustomRequest, res) => {
             const response = customResponse(res);
             const { category, page } = req.body;
 
             try {
-                const news = await newsService.getTopNews(page, category);
+                const news = await newsService.getTopNews(page, [category]);
                 return res
                     .status(StatusCodes.OK)
                     .json({ result: true, data: news });
@@ -46,7 +62,11 @@ class NewsController implements Controller {
             const response = customResponse(res);
             const { category, age, page } = req.body;
             try {
-                const news = await newsService.getTopNews(page, category, age);
+                const news = await newsService.getTopNews(
+                    page,
+                    [category],
+                    age
+                );
                 return res
                     .status(StatusCodes.OK)
                     .json({ result: true, data: news });
