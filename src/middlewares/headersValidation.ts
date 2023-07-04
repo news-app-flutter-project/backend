@@ -7,6 +7,8 @@ declare global {
         auth_id?: number;
         profile_id?: number;
         news?: News;
+        category?: Category[];
+        age?: Age;
     }
 }
 

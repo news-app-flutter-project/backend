@@ -8,7 +8,7 @@ export const newsService = {
     profile_repository: profileRepository,
     reads_repository: readerRepository,
 
-    async getTopNews(page: number = 1, category?: Category, age?: Age) {
+    async getTopNews(page: number = 1, categories?: Category[], age?: Age) {
         const limit = 10;
         const mostReadOffset = (page - 1) * limit;
         const remainingOffset = (page - 1) * limit;
@@ -19,7 +19,7 @@ export const newsService = {
         const mostReadNewsIds = await this.reads_repository.mostReadNews(
             mostReadOffset,
             limit,
-            category,
+            categories,
             age,
             today
         );
@@ -31,7 +31,7 @@ export const newsService = {
                 mostReadNewsIds,
                 remainingOffset,
                 limit - mostReadNews.length,
-                category
+                categories
             );
 
             return mostReadNews.concat(remainingNews!);

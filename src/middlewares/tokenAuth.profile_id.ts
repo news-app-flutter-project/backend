@@ -50,6 +50,8 @@ const tokenValidationProfile = (): RequestHandler => {
                 }
                 req.auth_id = auth_id;
                 req.profile_id = profile.id;
+                req.category = profile.category;
+                req.age = profile.age;
                 req.token = access_token;
                 next();
             } catch (err) {

@@ -3,8 +3,10 @@ import {
     tokenValidation,
     bodyValidation,
     newsIdValidation,
+    tokenValidationProfile,
 } from '@/middlewares/index';
 import {
+    find_my_news,
     find_news_by_category,
     find_news_by_category_and_age,
     today_top_news,
@@ -13,12 +15,23 @@ import {
 
 export function createNewsRoutes(
     path: string,
+    getMyNews: any,
     getTopNewsByCategory: any,
     getTopNewsByCategoryAndAge: any,
     getTodayTopNews: any,
     getTodayTopNewsByAge: any
 ): AuthRoutes {
     return {
+        getMyNews: {
+            method: 'post',
+            path: `${path}/myNews`,
+            middleware: [
+                tokenValidationProfile(),
+                bodyValidation(find_my_news),
+            ],
+            handler: getMyNews,
+        },
+
         getTopNewsByCategory: {
             method: 'post',
             path: `${path}/topNewsByCategory`,
