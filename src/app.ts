@@ -22,13 +22,14 @@ const swaggerDoc = YAML.load(path.join(__dirname, '../build/swagger.yaml'));
 interface Paramters {
     port: number;
     controllers: Controller[];
+    mobile_controllers: Controller[];
 }
 
 class App {
     public express: Application;
     public port: number;
 
-    constructor({ port, controllers }: Paramters) {
+    constructor({ port, controllers, mobile_controllers }: Paramters) {
         this.express = express();
         this.port = port;
 
@@ -38,6 +39,7 @@ class App {
         this.initializeHome();
         this.initializeKakaoRedirect();
         this.initializeControllers(controllers);
+        this.initializeControllers(mobile_controllers);
         this.initializeErrorHandling();
     }
 

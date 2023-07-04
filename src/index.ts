@@ -4,7 +4,7 @@ import 'module-alias/register';
 import validateEnv from './utils/validateEnv';
 import App from './app';
 import {
-    NewsFinalController,
+    NewsController,
     AuthController,
     ProfileController,
     ReaderController,
@@ -13,11 +13,12 @@ import {
     MemoController,
     CommentController,
 } from '@/controllers/index';
+import { AuthMobileController } from '@/controllers_mobile/index';
 
 validateEnv();
 const app = new App({
     controllers: [
-        new NewsFinalController(),
+        new NewsController(),
         new AuthController(),
         new ProfileController(),
         new ReaderController(),
@@ -26,6 +27,7 @@ const app = new App({
         new MemoController(),
         new CommentController(),
     ],
+    mobile_controllers: [new AuthMobileController()],
     port: Number(process.env.PORT),
 });
 

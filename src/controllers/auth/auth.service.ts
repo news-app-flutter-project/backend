@@ -14,26 +14,26 @@ export const authService = {
     profile_repository: profileRepository,
 
     async login(code: string) {
-        const kakao_login_response = await kakaoLogin(code);
-        const kakao_info = await kakaoId(kakao_login_response.access_token);
-        const user = await this.repository.findbyKakaoId(kakao_info.id);
-        const kakaoData = registerParams(kakao_info, kakao_login_response);
+        const tokenInfo = await kakaoLogin(code);
+        const kakao_info_data = await kakaoId(tokenInfo.access_token);
+        const user = await this.repository.findbyKakaoId(kakao_info_data.id);
+        const kakaoData = registerParams({
+            kakao_info_data,
+            tokenInfo,
+        });
 
         if (user) {
             const updatedTokens = await this.repository.updateAllTokens(
                 kakaoData
             );
-            const profileId = await this.profile_repository.findProfilebyId(
-                user
-            );
-            if (profileId) {
+            const profile = await this.profile_repository.findProfilebyId(user);
+            if (profile) {
                 return {
-                    auth_id: user,
-                    profile_id: profileId,
+                    profile,
                     ...updatedTokens,
                 };
             }
-            return { auth_id: user, ...updatedTokens };
+            return { ...updatedTokens };
         } else {
             return await this.repository.createUser(kakaoData);
         }

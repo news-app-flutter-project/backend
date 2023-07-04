@@ -31,7 +31,7 @@ class AuthController implements Controller {
         const { code } = req.body;
         try {
             const res = await authService.login(code);
-            if (res.hasOwnProperty('profile_id')) {
+            if (res.hasOwnProperty('profile')) {
                 response.success({ code: StatusCodes.OK, data: res });
             }
             response.success({ code: StatusCodes.CREATED, data: res });
