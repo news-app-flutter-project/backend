@@ -29,7 +29,6 @@ class AuthMobileController implements Controller {
                 response.success({ code: StatusCodes.OK, data: res });
             }
             response.success({ code: StatusCodes.CREATED, data: res });
-            response.success({ code: StatusCodes.CREATED });
         } catch (err) {
             response.error(err as ErrorData);
         }

@@ -8,7 +8,6 @@ declare global {
     interface ProfileRegisterData {
         profile_img: string;
         name: string;
-        birthday: string;
         sex: Sex;
         category:
             | [Category]
@@ -16,6 +15,7 @@ declare global {
             | [Category, Category, Category];
         age: Age;
         auth_id: number;
+        email: string | null;
     }
 }
 
@@ -25,11 +25,10 @@ export const profileService = {
     async createProfile(profileData: ProfileRegisterData) {
         const { secure_url } = await uploadImageCloud(profileData.profile_img);
         fs.unlinkSync(profileData.profile_img);
-        const date = toMySQLDate(profileData.birthday);
+        // const date = toMySQLDate(profileData.birthday);
         const newUser = await this.repository.createProfile({
             ...profileData,
             profile_img: secure_url,
-            birthday: date,
         });
         return newUser;
     },

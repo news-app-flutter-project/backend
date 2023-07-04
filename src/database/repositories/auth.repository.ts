@@ -9,9 +9,6 @@ export const authRepository = {
                 ...defaultOptions,
                 where: { kakao_id: kakao_id },
             });
-            if (!user) {
-                return notFoundAccountException(kakao_id);
-            }
             return user?.id;
         } catch (err) {
             return dbException(err);

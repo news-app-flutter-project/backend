@@ -18,7 +18,7 @@ declare global {
         id: number;
         profile_img: string;
         name: string;
-        birthday: string;
+        email: string | null;
         sex: Sex;
         category:
             | [Category]
@@ -43,6 +43,7 @@ export class ProfileModel
     public id!: number;
     public profile_img!: string;
     public name!: string;
+    public email!: string | null;
     public birthday!: string;
     public sex!: Sex;
     public category!:
@@ -74,9 +75,12 @@ export const ProfileGenerator = (sequelize: Sequelize): typeof ProfileModel => {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
-            birthday: {
-                type: DataTypes.DATE,
+            email: {
+                type: DataTypes.STRING,
                 allowNull: false,
+                validate: {
+                    isEmail: true,
+                },
             },
             sex: {
                 type: DataTypes.ENUM('male', 'female', 'undefined'),
