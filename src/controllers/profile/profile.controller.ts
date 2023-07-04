@@ -37,7 +37,7 @@ class ProfileController implements Controller {
         };
         try {
             const data = await profileService.createProfile(req_data);
-            return res.status(StatusCodes.OK).json({ result: true, data });
+            return response.success({ code: StatusCodes.CREATED, data });
         } catch (err: any) {
             response.error(err as ErrorData);
         }

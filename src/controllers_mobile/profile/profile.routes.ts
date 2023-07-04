@@ -2,8 +2,10 @@ import {
     payloadValidation,
     tokenValidation,
     bodyValidation,
-    kakaoIdValidation,
+    createProfileValidation,
 } from '@/middlewares/index';
+
+import { create_profile } from './profile.validation';
 
 export function createProfileMobileRoutes(
     path: string,
@@ -13,7 +15,10 @@ export function createProfileMobileRoutes(
         createProfile: {
             method: 'post',
             path: `${path}/create_profile`,
-            middleware: [kakaoIdValidation()],
+            middleware: [
+                createProfileValidation(),
+                payloadValidation(create_profile),
+            ],
             handler: createProfileHandler,
         },
     };

@@ -5,7 +5,7 @@ import { customResponse } from '@/common/response';
 import { authRepository } from '@/database/repositories/auth.repository';
 import { notFoundAccountException } from '@/common/exceptions';
 
-const kakaoIdValidation = (): RequestHandler => {
+const createProfileValidation = (): RequestHandler => {
     return async (
         req: CustomRequest,
         res: Response,
@@ -20,7 +20,6 @@ const kakaoIdValidation = (): RequestHandler => {
         // kakao_id 확인
         const { kakao_id } = req_data;
         const auth_id = await authRepository.findbyKakaoId(kakao_id);
-
         const profile_create_data = {
             profile_img: files.image.tempFilePath,
             ...JSON.parse(req.body.payload),
@@ -33,4 +32,4 @@ const kakaoIdValidation = (): RequestHandler => {
     };
 };
 
-export default kakaoIdValidation;
+export default createProfileValidation;
