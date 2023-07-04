@@ -4,7 +4,7 @@ info:
     contact: {}
     version: '1.0'
 servers:
-    - url: http://13.209.97.58:8280/api
+    - url: http://54.180.122.211:8280/api
       variables: {}
 paths:
     /auth/login:
