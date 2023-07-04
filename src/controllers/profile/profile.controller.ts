@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { asyncWrapper } from '@/middlewares/index';
 import { StatusCodes } from 'http-status-codes';
-import { createAuthRoutes } from './profile.routes';
+import { createProfileRoutes } from './profile.routes';
 import { customResponse } from '@/common/response';
 import { createRoutes } from '@/common/createRouter';
 import { profileService } from './profile.service';
@@ -15,7 +15,7 @@ class ProfileController implements Controller {
     }
 
     private initializeRoutes(): void {
-        const authRoutes: AuthRoutes = createAuthRoutes(
+        const authRoutes: AuthRoutes = createProfileRoutes(
             this.path,
             this.createProfile,
             this.getProfile,
@@ -37,9 +37,7 @@ class ProfileController implements Controller {
         };
         try {
             const data = await profileService.createProfile(req_data);
-            return res
-                .status(StatusCodes.OK)
-                .json({ result: true, data: data });
+            return res.status(StatusCodes.OK).json({ result: true, data });
         } catch (err: any) {
             response.error(err as ErrorData);
         }

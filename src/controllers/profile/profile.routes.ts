@@ -5,7 +5,7 @@ import {
 } from '@/middlewares/index';
 import { create_profile, screen_mode, text_size } from './profile.validation';
 
-export function createAuthRoutes(
+export function createProfileRoutes(
     path: string,
     createProfileHandler: any,
     getProfileHandler: any,

@@ -9,6 +9,7 @@ declare global {
         news?: News;
         category?: Category[];
         age?: Age;
+        profile_create_data?: ProfileRegisterData;
     }
 }
 

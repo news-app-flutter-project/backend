@@ -13,7 +13,10 @@ import {
     MemoController,
     CommentController,
 } from '@/controllers/index';
-import { AuthMobileController } from '@/controllers_mobile/index';
+import {
+    AuthMobileController,
+    ProfileMobileController,
+} from '@/controllers_mobile/index';
 
 validateEnv();
 const app = new App({
@@ -27,7 +30,10 @@ const app = new App({
         new MemoController(),
         new CommentController(),
     ],
-    mobile_controllers: [new AuthMobileController()],
+    mobile_controllers: [
+        new AuthMobileController(),
+        new ProfileMobileController(),
+    ],
     port: Number(process.env.PORT),
 });
 
