@@ -30,7 +30,6 @@ class NewsController implements Controller {
         const response = customResponse(res);
         const { category, age } = req;
         const { page } = req.body;
-        console.log(category, age, page);
         try {
             const news = await newsService.getTopNews(page, category, age);
             return res

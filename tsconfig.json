@@ -1,23 +1,24 @@
 {
-  "compilerOptions": {
-    "target": "ES2021",
-    "module": "commonjs",
-    "outDir": "dist",
-    "strict": true,
-    "baseUrl": "./src",
-    "paths": {
-      "@/utils/*": ["utils/*"],
-      "@/controllers/*": ["controllers/*"],
-      "@/middlewares/*": ["middlewares/*"],
-      "@/apis/*": ["apis/*"],
-      "@/swagger/*": ["swagger/*"],
-      "@/common/*": ["common/*"],
-      "@/database/*": ["database/*"],
-      "@/cron/*": ["cron/*"]
-    },
-    "esModuleInterop": true,
+    "compilerOptions": {
+        "target": "ES2021",
+        "module": "commonjs",
+        "outDir": "dist",
+        "strict": true,
+        "baseUrl": "./src",
+        "paths": {
+            "@/utils/*": ["utils/*"],
+            "@/controllers/*": ["controllers/*"],
+            "@/controllers_mobile/*": ["controllers_mobile/*"],
+            "@/middlewares/*": ["middlewares/*"],
+            "@/apis/*": ["apis/*"],
+            "@/swagger/*": ["swagger/*"],
+            "@/common/*": ["common/*"],
+            "@/database/*": ["database/*"],
+            "@/cron/*": ["cron/*"]
+        },
+        "esModuleInterop": true,
 
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
-  }
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true
+    }
 }

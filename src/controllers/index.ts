@@ -1,4 +1,4 @@
-import NewsFinalController from './news/news.controller';
+import NewsController from './news/news.controller';
 import AuthController from './auth/auth.controller';
 import ProfileController from './profile/profile.controller';
 import ReaderController from './reads/reader.controller';
@@ -8,7 +8,7 @@ import MemoController from './memo/memo.controller';
 import CommentController from './comment/comment.controller';
 
 export {
-    NewsFinalController,
+    NewsController,
     AuthController,
     ProfileController,
     ReaderController,

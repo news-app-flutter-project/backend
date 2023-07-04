@@ -3,12 +3,15 @@ import { dbException, notFoundAccountException } from '@/common/exceptions';
 import { defaultOptions } from '../options';
 
 export const authRepository = {
-    async findbyKakaoId(kakao_id: number) {
+    async findbyKakaoId(kakao_id: kakao_id) {
         try {
             const user = await db.Auth.findOne({
                 ...defaultOptions,
                 where: { kakao_id: kakao_id },
             });
+            if (!user) {
+                return notFoundAccountException(kakao_id);
+            }
             return user?.id;
         } catch (err) {
             return dbException(err);
