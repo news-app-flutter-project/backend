@@ -10,8 +10,8 @@ declare global {
         | 'technology'
         | 'world'
         | 'lifestyle';
-    type Age = '10' | '20' | '30' | '40' | '50' | '60' | '70';
-    type Sex = 'male' | 'female';
+    type Age = '10' | '20' | '30' | '40' | '50' | '60';
+    type Sex = 'male' | 'female' | 'undefined';
     type Screen_Mode = 'dark' | 'light';
     type Text_Size = 'small' | 'large';
     interface Profile extends TimeStampModel {
@@ -79,7 +79,7 @@ export const ProfileGenerator = (sequelize: Sequelize): typeof ProfileModel => {
                 allowNull: false,
             },
             sex: {
-                type: DataTypes.ENUM('male', 'female'),
+                type: DataTypes.ENUM('male', 'female', 'undefined'),
                 allowNull: false,
             },
             category: {
@@ -112,7 +112,7 @@ export const ProfileGenerator = (sequelize: Sequelize): typeof ProfileModel => {
                 },
             },
             age: {
-                type: DataTypes.ENUM('10', '20', '30', '40', '50', '60', '70'),
+                type: DataTypes.ENUM('10', '20', '30', '40', '50', '60'),
                 allowNull: false,
             },
             screen_mode: {
