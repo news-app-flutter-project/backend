@@ -3,3 +3,6 @@ config
 seeders
 node_modules
 .env
+
+tmp
+uploads

@@ -10,7 +10,7 @@ declare global {
         | 'technology'
         | 'world'
         | 'lifestyle';
-    type Age = '10' | '20' | '30' | '40' | '50' | '60';
+    type Age = 10 | 20 | 30 | 40 | 50 | 60;
     type Sex = 'male' | 'female' | 'undefined';
     type Screen_Mode = 'dark' | 'light';
     type Text_Size = 'small' | 'large';
@@ -44,7 +44,6 @@ export class ProfileModel
     public profile_img!: string;
     public name!: string;
     public email!: string | null;
-    public birthday!: string;
     public sex!: Sex;
     public category!:
         | [Category]
@@ -116,9 +115,13 @@ export const ProfileGenerator = (sequelize: Sequelize): typeof ProfileModel => {
                 },
             },
             age: {
-                type: DataTypes.ENUM('10', '20', '30', '40', '50', '60'),
+                type: DataTypes.INTEGER,
                 allowNull: false,
+                validate: {
+                    isIn: [[10, 20, 30, 40, 50, 60]],
+                },
             },
+
             screen_mode: {
                 type: DataTypes.ENUM('dark', 'light'),
                 allowNull: false,

@@ -24,12 +24,12 @@ class ProfileMobileController implements Controller {
 
     private createProfile = asyncWrapper(async (req: CustomRequest, res) => {
         const response = customResponse(res);
-        // const profile_create_data = req.profile_create_data;
+        const auth_id = req.auth_id;
+        console.log(auth_id);
+        const req_data = { ...req.body, auth_id };
         try {
-            // const data = await profileService.createProfile(
-            //     profile_create_data!
-            // );
-            return response.success({ code: StatusCodes.CREATED });
+            const data = await profileService.createProfile(req_data);
+            return response.success({ code: StatusCodes.CREATED, data });
         } catch (err: any) {
             response.error(err as ErrorData);
         }

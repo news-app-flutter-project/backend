@@ -15,7 +15,9 @@ import memoFolderNameValidation from './memoFolder.name.validation';
 import memoAllocationValidation from './memo.allocation.validation';
 import badWordsValidation from './badwords.validation';
 import maxCommentsValidation from './maxComments.validation';
-import createProfileValidation from './createProfileValidation';
+import validationFormData from './FormDataValidation';
+import kakaoIdAuth from './kakaoIdAuth';
+import { multerErrorHandling } from './multerErrorHandling';
 
 export {
     asyncWrapper,
@@ -35,5 +37,7 @@ export {
     memoAllocationValidation,
     badWordsValidation,
     maxCommentsValidation,
-    createProfileValidation,
+    multerErrorHandling,
+    validationFormData,
+    kakaoIdAuth,
 };
