@@ -5,7 +5,8 @@ import { toMySQLDate } from '@/utils/index';
 import fs from 'fs';
 
 interface ProfileRegisterDataMobile {
-    file: string;
+    kakao_id: kakao_id;
+    profile_img: string;
     name: string;
     sex: Sex;
     category:
@@ -13,18 +14,18 @@ interface ProfileRegisterDataMobile {
         | [Category, Category]
         | [Category, Category, Category];
     age: Age;
-    auth_id: number;
     email: string | null;
     birthday: string;
+    auth_id: number;
 }
 
 export const profileService = {
     repository: profileRepository,
 
     async createProfile(profileData: ProfileRegisterDataMobile) {
-        const { secure_url } = await uploadImageCloud(profileData.file);
-        fs.unlinkSync(profileData.file);
-
+        const { secure_url } = await uploadImageCloud(profileData.profile_img);
+        fs.unlinkSync(profileData.profile_img);
+        // const date = toMySQLDate(profileData.birthday);
         const newUser = await this.repository.createProfile({
             ...profileData,
             profile_img: secure_url,

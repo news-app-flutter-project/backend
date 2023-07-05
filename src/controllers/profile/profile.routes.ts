@@ -11,7 +11,6 @@ import { upload } from '@/utils/multerSetup';
 
 export function createProfileRoutes(
     path: string,
-    createProfileTestHandler: any,
     createProfileHandler: any,
     getProfileHandler: any,
     updateImageHandler: any,
@@ -21,21 +20,16 @@ export function createProfileRoutes(
     return {
         createProfileTest: {
             method: 'post',
-            path: `${path}/create_profile_test`,
+            path: `${path}/create_profile`,
             middleware: [
                 upload.single('file'),
                 multerErrorHandling,
                 tokenValidation(),
                 validationFormData(create_profile),
             ],
-            handler: createProfileTestHandler,
-        },
-        createProfile: {
-            method: 'post',
-            path: `${path}/create_profile`,
-            middleware: [tokenValidation(), payloadValidation(create_profile)],
             handler: createProfileHandler,
         },
+
         getProfile: {
             method: 'get',
             path: `${path}/get_profile`,

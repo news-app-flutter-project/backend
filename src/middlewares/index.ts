@@ -16,6 +16,7 @@ import memoAllocationValidation from './memo.allocation.validation';
 import badWordsValidation from './badwords.validation';
 import maxCommentsValidation from './maxComments.validation';
 import validationFormData from './FormDataValidation';
+import kakaoIdAuth from './kakaoIdAuth';
 import { multerErrorHandling } from './multerErrorHandling';
 
 export {
@@ -38,4 +39,5 @@ export {
     maxCommentsValidation,
     multerErrorHandling,
     validationFormData,
+    kakaoIdAuth,
 };
