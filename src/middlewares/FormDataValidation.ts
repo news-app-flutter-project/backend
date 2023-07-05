@@ -16,6 +16,7 @@ const validationFormData = (schema: Joi.Schema): RequestHandler => {
         };
         try {
             const file: Express.Multer.File = req.file!;
+            console.log(file);
             const req_data = {
                 profile_img: file.path, // Access the uploaded file via req.file
                 ...req.body,

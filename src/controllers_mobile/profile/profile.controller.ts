@@ -27,6 +27,7 @@ class ProfileMobileController implements Controller {
         const auth_id = req.auth_id;
         console.log(auth_id);
         const req_data = { ...req.body, auth_id };
+        console.log(req_data);
         try {
             const data = await profileService.createProfile(req_data);
             return response.success({ code: StatusCodes.CREATED, data });
