@@ -2,9 +2,6 @@ import Joi from 'joi';
 
 export const create_profile = Joi.object({
     name: Joi.string().required(),
-    birthday: Joi.string()
-        .pattern(/^\d{4}-\d{2}-\d{2}$/)
-        .required(),
     sex: Joi.string().valid('male', 'female', 'undefined').required(),
     category: Joi.array()
         .items(
@@ -22,7 +19,12 @@ export const create_profile = Joi.object({
         .min(1)
         .max(3)
         .required(),
-    age: Joi.string().valid('10', '20', '30', '40', '50', '60').required(),
+    birthday: Joi.string()
+        .pattern(/^\d{4}-\d{2}-\d{2}$/)
+        .allow(null)
+        .required(),
+    age: Joi.number().valid(10, 20, 30, 40, 50, 60).required(),
+    email: Joi.string().email().required(),
 });
 
 export const screen_mode = Joi.object({

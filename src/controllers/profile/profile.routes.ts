@@ -2,11 +2,16 @@ import {
     payloadValidation,
     tokenValidation,
     bodyValidation,
+    multerErrorHandling,
+    validationFormData,
 } from '@/middlewares/index';
 import { create_profile, screen_mode, text_size } from './profile.validation';
 
+import { upload } from '@/utils/multerSetup';
+
 export function createProfileRoutes(
     path: string,
+    createProfileTestHandler: any,
     createProfileHandler: any,
     getProfileHandler: any,
     updateImageHandler: any,
@@ -14,6 +19,17 @@ export function createProfileRoutes(
     updateTextSize: any
 ): AuthRoutes {
     return {
+        createProfileTest: {
+            method: 'post',
+            path: `${path}/create_profile_test`,
+            middleware: [
+                upload.single('file'),
+                multerErrorHandling,
+                tokenValidation(),
+                validationFormData(create_profile),
+            ],
+            handler: createProfileTestHandler,
+        },
         createProfile: {
             method: 'post',
             path: `${path}/create_profile`,

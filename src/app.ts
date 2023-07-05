@@ -49,7 +49,7 @@ class App {
         this.express.use(xss());
         this.express.use(morgan('dev'));
         this.express.use(express.json());
-        this.express.use(express.urlencoded({ extended: true }));
+        this.express.use(express.urlencoded({ extended: false }));
         this.express.set('trust proxy', 1);
         this.express.use(
             rateLimit({
@@ -58,7 +58,8 @@ class App {
             })
         );
         this.express.use(compression()); // makes api request super fast (268.75 faster)
-        this.express.use(fileUpload({ useTempFiles: true }));
+        // for cloudinary use below
+        // this.express.use(fileUpload({ useTempFiles: true }));
     }
 
     private initializeHome(): void {

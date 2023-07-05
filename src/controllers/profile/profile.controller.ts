@@ -17,6 +17,7 @@ class ProfileController implements Controller {
     private initializeRoutes(): void {
         const authRoutes: AuthRoutes = createProfileRoutes(
             this.path,
+            this.createProfileTest,
             this.createProfile,
             this.getProfile,
             this.updateImage,
@@ -25,6 +26,20 @@ class ProfileController implements Controller {
         );
         createRoutes(authRoutes, this.router);
     }
+
+    private createProfileTest = asyncWrapper(
+        async (req: CustomRequest, res) => {
+            const response = customResponse(res);
+            const { auth_id } = req;
+            const req_data = { ...req.body, auth_id };
+            try {
+                const data = await profileService.createProfile(req_data);
+                return response.success({ code: StatusCodes.CREATED, data });
+            } catch (err: any) {
+                response.error(err as ErrorData);
+            }
+        }
+    );
 
     private createProfile = asyncWrapper(async (req: CustomRequest, res) => {
         const response = customResponse(res);
