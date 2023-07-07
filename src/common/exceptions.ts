@@ -34,7 +34,7 @@ export const notFoundError = (message: string) => {
 
 export const DuplicateError = (msg: string) => {
     throw {
-        code: StatusCodes.INTERNAL_SERVER_ERROR,
+        code: StatusCodes.CONFLICT,
         message: msg,
     };
 };

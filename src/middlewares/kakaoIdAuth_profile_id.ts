@@ -1,9 +1,12 @@
 import { Request, Response, NextFunction, RequestHandler } from 'express';
-import { authRepository } from '@/database/repositories/auth.repository';
-import { notFoundAccountException } from '@/common/exceptions';
+import BadRequest from './bad-request';
+import { kakaoId } from '@/apis/kakao/index';
 import { customResponse } from '@/common/response';
+import { authRepository } from '@/database/repositories/auth.repository';
+import { profileRepository } from '@/database/repositories/profile.repository';
+import { notFoundAccountException, DuplicateError } from '@/common/exceptions';
 
-const kakaoIdAuth = (): RequestHandler => {
+const profileIdValidation = (): RequestHandler => {
     return async (
         req: CustomRequest,
         res: Response,
@@ -12,10 +15,15 @@ const kakaoIdAuth = (): RequestHandler => {
         const response = customResponse(res);
         try {
             const { kakao_id } = req.body;
-
             const auth_id = await authRepository.findbyKakaoId(kakao_id);
+            console.log(auth_id);
             if (!auth_id) {
                 return notFoundAccountException(kakao_id);
+            }
+            const profile = await profileRepository.findProfilebyId(auth_id);
+
+            if (profile) {
+                return DuplicateError('profile already exist');
             }
             req.auth_id = auth_id;
             next();
@@ -25,4 +33,4 @@ const kakaoIdAuth = (): RequestHandler => {
     };
 };
 
-export default kakaoIdAuth;
+export default profileIdValidation;

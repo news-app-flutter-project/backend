@@ -16,7 +16,7 @@ declare global {
     type Text_Size = 'small' | 'large';
     interface Profile extends TimeStampModel {
         id: number;
-        profile_img: string;
+        profile_img: string | null;
         name: string;
         email: string | null;
         sex: Sex;
@@ -25,6 +25,7 @@ declare global {
             | [Category, Category]
             | [Category, Category, Category];
         age: Age;
+        birthday: string | null;
         screen_mode: Screen_Mode;
         text_size: Text_Size;
         auth_id: number;
@@ -43,6 +44,7 @@ export class ProfileModel
     public id!: number;
     public profile_img!: string;
     public name!: string;
+    public birthday!: string | null;
     public email!: string | null;
     public sex!: Sex;
     public category!:
@@ -68,15 +70,19 @@ export const ProfileGenerator = (sequelize: Sequelize): typeof ProfileModel => {
             },
             profile_img: {
                 type: DataTypes.STRING,
-                allowNull: false,
+                allowNull: true,
             },
             name: {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
+            birthday: {
+                type: DataTypes.DATE,
+                allowNull: true,
+            },
             email: {
                 type: DataTypes.STRING,
-                allowNull: false,
+                allowNull: true,
                 validate: {
                     isEmail: true,
                 },

@@ -4,6 +4,23 @@ import { ProfileCreateInterface } from '@/database/models/profile.models';
 import { defaultOptions } from '../options';
 import { ProfileModel } from '@/database/models/profile.models';
 
+declare global {
+    interface IProfileUpdate {
+        profile_img?: string | null;
+        name?: string;
+        sex?: Sex;
+        category?:
+            | [Category]
+            | [Category, Category]
+            | [Category, Category, Category];
+        age?: Age;
+        email?: string | null;
+        birthday?: string | null;
+        screen_mode?: Screen_Mode;
+        text_size?: Text_Size;
+    }
+}
+
 export const profileRepository = {
     async createProfile(profileData: ProfileCreateInterface) {
         try {
@@ -22,6 +39,17 @@ export const profileRepository = {
             return profile;
         } catch (err) {
             return notFoundAccountException(auth_id);
+        }
+    },
+
+    async updateProfile(auth_id: number, fieldsToUpdate: IProfileUpdate) {
+        try {
+            await db.Profile.update(fieldsToUpdate, {
+                where: { auth_id: auth_id },
+            });
+            return fieldsToUpdate;
+        } catch (err) {
+            return dbException(err);
         }
     },
 

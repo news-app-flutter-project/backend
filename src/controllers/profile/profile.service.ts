@@ -16,7 +16,7 @@ declare global {
         age: Age;
         auth_id: number;
         email: string | null;
-        birthday: string;
+        birthday: string | null;
     }
 }
 
@@ -26,10 +26,11 @@ export const profileService = {
     async createProfile(profileData: ProfileRegisterData) {
         const { secure_url } = await uploadImageCloud(profileData.profile_img);
         fs.unlinkSync(profileData.profile_img);
-        // const date = toMySQLDate(profileData.birthday);
+        const date = toMySQLDate(profileData.birthday!);
         const newUser = await this.repository.createProfile({
             ...profileData,
             profile_img: secure_url,
+            birthday: date,
         });
         return newUser;
     },
@@ -43,15 +44,15 @@ export const profileService = {
         }
     },
 
-    async updateProfileImg(profile_img: string, auth_id: number) {
-        const { secure_url } = await uploadImageCloud(profile_img);
-        fs.unlinkSync(profile_img);
-        const data = await this.repository.updateProfileImg(
-            secure_url,
-            auth_id
-        );
-        return data;
-    },
+    // async updateProfileImg(profile_img: string, auth_id: number) {
+    //     const { secure_url } = await uploadImageCloud(profile_img);
+    //     fs.unlinkSync(profile_img);
+    //     const data = await this.repository.updateProfileImg(
+    //         secure_url,
+    //         auth_id
+    //     );
+    //     return data;
+    // },
 
     async updateScreenMode(mode: Screen_Mode, auth_id: number) {
         const data = await this.repository.updateScreenMode(mode, auth_id);
