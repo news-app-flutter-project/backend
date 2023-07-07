@@ -20,19 +20,19 @@ const validationFormData = (schema: Joi.Schema): RequestHandler => {
             console.log(req.file);
             console.log(req.body);
             // Checking if content-type is multipart/form-data
-            if (!req.is('multipart/form-data')) {
-                console.log('test2');
-                const badRequest = new BadRequest(
-                    'Must be multipart/form-data format',
-                    []
-                );
-                res.status(badRequest.statusCode).json({
-                    result: false,
-                    code: StatusCodes.BAD_REQUEST,
-                    message: badRequest.message,
-                });
-                return;
-            }
+            // if (!req.is('multipart/form-data')) {
+            //     console.log('test2');
+            //     const badRequest = new BadRequest(
+            //         'Must be multipart/form-data format',
+            //         []
+            //     );
+            //     res.status(badRequest.statusCode).json({
+            //         result: false,
+            //         code: StatusCodes.BAD_REQUEST,
+            //         message: badRequest.message,
+            //     });
+            //     return;
+            // }
             console.log('test3');
 
             const req_data: { [key: string]: any } = { ...req.body };
