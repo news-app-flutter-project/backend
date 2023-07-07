@@ -13,7 +13,7 @@ export function createProfileRoutes(
     path: string,
     createProfileHandler: any,
     getProfileHandler: any,
-    updateImageHandler: any,
+    // updateImageHandler: any,
     updateScreenModeHandler: any,
     updateTextSize: any
 ): AuthRoutes {
@@ -36,12 +36,12 @@ export function createProfileRoutes(
             middleware: [tokenValidation()],
             handler: getProfileHandler,
         },
-        updateImage: {
-            method: 'put',
-            path: `${path}/update_img`,
-            middleware: [tokenValidation()],
-            handler: updateImageHandler,
-        },
+        // updateImage: {
+        //     method: 'put',
+        //     path: `${path}/update_img`,
+        //     middleware: [tokenValidation()],
+        //     handler: updateImageHandler,
+        // },
         updateScreen: {
             method: 'put',
             path: `${path}/update_screen`,

@@ -19,7 +19,7 @@ class ProfileController implements Controller {
             this.path,
             this.createProfile,
             this.getProfile,
-            this.updateImage,
+            // this.updateImage,
             this.updateScreenMode,
             this.updateTextSize
         );
@@ -52,23 +52,23 @@ class ProfileController implements Controller {
         }
     });
 
-    private updateImage = asyncWrapper(async (req: CustomRequest, res) => {
-        const response = customResponse(res);
-        const files: any = req.files;
-        const auth_id = req.auth_id;
-        try {
-            const data = await profileService.updateProfileImg(
-                files.image.tempFilePath,
-                auth_id!
-            );
-            response.success({
-                code: StatusCodes.CREATED,
-                data,
-            });
-        } catch (err: any) {
-            response.error(err as ErrorData);
-        }
-    });
+    // private updateImage = asyncWrapper(async (req: CustomRequest, res) => {
+    //     const response = customResponse(res);
+    //     const files: any = req.files;
+    //     const auth_id = req.auth_id;
+    //     try {
+    //         const data = await profileService.updateProfileImg(
+    //             files.image.tempFilePath,
+    //             auth_id!
+    //         );
+    //         response.success({
+    //             code: StatusCodes.CREATED,
+    //             data,
+    //         });
+    //     } catch (err: any) {
+    //         response.error(err as ErrorData);
+    //     }
+    // });
 
     private updateScreenMode = asyncWrapper(async (req: CustomRequest, res) => {
         const response = customResponse(res);

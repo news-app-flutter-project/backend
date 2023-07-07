@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction, RequestHandler } from 'express';
 import Joi from 'joi';
 import BadRequest from './bad-request';
-import { parse } from 'path';
 
 const validationFormData = (schema: Joi.Schema): RequestHandler => {
     return async (
@@ -14,13 +13,22 @@ const validationFormData = (schema: Joi.Schema): RequestHandler => {
             allowUnknown: true,
             stripUnknown: true,
         };
+
         try {
-            const file: Express.Multer.File = req.file!;
-            console.log(file);
-            const req_data = {
-                profile_img: file.path, // Access the uploaded file via req.file
-                ...req.body,
-            };
+            // Checking if content-type is multipart/form-data
+            if (!req.is('multipart/form-data')) {
+                throw new Error('Invalid Form Data format');
+            }
+
+            const req_data: { [key: string]: any } = { ...req.body };
+
+            if (req.file && req.file.path) {
+                // If file is present, include it
+                req_data.profile_img = req.file.path;
+            } else if (req_data.file === '') {
+                // If file key exists and it's an empty string, delete it
+                delete req_data.file;
+            }
 
             const parsedBody: { [key: string]: any } = {};
 
@@ -44,15 +52,26 @@ const validationFormData = (schema: Joi.Schema): RequestHandler => {
             req.body = { ...parsedBody };
             next();
         } catch (e: any) {
-            const errors: string[] = [];
-            e.details.forEach((error: Joi.ValidationErrorItem) => {
-                errors.push(error.message);
-            });
-            const badRequest = new BadRequest(errors.join(', '), errors);
-            res.status(badRequest.statusCode).json({
-                result: false,
-                message: badRequest.errors,
-            });
+            if (e.message === 'Invalid Form Data format') {
+                const badRequest = new BadRequest('', [
+                    'Invalid Form Data format',
+                ]);
+                res.status(badRequest.statusCode).json({
+                    result: false,
+                    message: badRequest.errors,
+                });
+                return;
+            } else {
+                const errors: string[] = [];
+                e.details.forEach((error: Joi.ValidationErrorItem) => {
+                    errors.push(error.message);
+                });
+                const badRequest = new BadRequest(errors.join(', '), errors);
+                res.status(badRequest.statusCode).json({
+                    result: false,
+                    message: badRequest.errors,
+                });
+            }
         }
     };
 };

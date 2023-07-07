@@ -5,20 +5,17 @@ import {
     multerErrorHandling,
     validationFormData,
     kakaoIdAuth,
+    profileIdValidation,
 } from '@/middlewares/index';
-import {
-    create_profile,
-    kakao_id,
-    screen_mode,
-    text_size,
-} from './profile.validation';
+import { create_profile, kakao_id, update_profile } from './profile.validation';
 
 import { upload } from '@/utils/multerSetup';
 
 export function createProfileMobileRoutes(
     path: string,
     createProfileHandler: any,
-    getProfileHandler: any
+    getProfileHandler: any,
+    updateProfileHandler: any
 ): AuthRoutes {
     return {
         createProfileTest: {
@@ -28,7 +25,7 @@ export function createProfileMobileRoutes(
                 upload.single('file'),
                 multerErrorHandling,
                 validationFormData(create_profile),
-                kakaoIdAuth(),
+                profileIdValidation(),
             ],
             handler: createProfileHandler,
         },
@@ -38,6 +35,18 @@ export function createProfileMobileRoutes(
             path: `${path}`,
             middleware: [bodyValidation(kakao_id), kakaoIdAuth()],
             handler: getProfileHandler,
+        },
+
+        updateProfile: {
+            method: 'put',
+            path: `${path}`,
+            middleware: [
+                upload.single('file'),
+                multerErrorHandling,
+                validationFormData(update_profile),
+                kakaoIdAuth(),
+            ],
+            handler: updateProfileHandler,
         },
     };
 }

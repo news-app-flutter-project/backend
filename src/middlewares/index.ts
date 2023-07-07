@@ -18,6 +18,7 @@ import maxCommentsValidation from './maxComments.validation';
 import validationFormData from './FormDataValidation';
 import kakaoIdAuth from './kakaoIdAuth';
 import { multerErrorHandling } from './multerErrorHandling';
+import profileIdValidation from './kakaoIdAuth_profile_id';
 
 export {
     asyncWrapper,
@@ -40,4 +41,5 @@ export {
     multerErrorHandling,
     validationFormData,
     kakaoIdAuth,
+    profileIdValidation,
 };
