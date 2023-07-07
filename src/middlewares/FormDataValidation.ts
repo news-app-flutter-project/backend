@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction, RequestHandler } from 'express';
 import Joi from 'joi';
 import BadRequest from './bad-request';
+import { StatusCodes } from 'http-status-codes';
 
 const validationFormData = (schema: Joi.Schema): RequestHandler => {
     return async (
@@ -17,7 +18,16 @@ const validationFormData = (schema: Joi.Schema): RequestHandler => {
         try {
             // Checking if content-type is multipart/form-data
             if (!req.is('multipart/form-data')) {
-                throw new Error('Invalid Form Data format');
+                const badRequest = new BadRequest(
+                    'Must be multipart/form-data format',
+                    []
+                );
+                res.status(badRequest.statusCode).json({
+                    result: false,
+                    code: StatusCodes.BAD_REQUEST,
+                    message: badRequest.message,
+                });
+                return;
             }
 
             const req_data: { [key: string]: any } = { ...req.body };

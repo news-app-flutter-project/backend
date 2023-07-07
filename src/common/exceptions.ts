@@ -3,6 +3,7 @@ import { Response } from 'express';
 import { error } from 'console';
 
 /********************* DB related exceptions **********************/
+
 export const dbException = (error: any) => {
     throw {
         code: StatusCodes.INTERNAL_SERVER_ERROR,
