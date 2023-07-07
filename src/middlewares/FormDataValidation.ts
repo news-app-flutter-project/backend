@@ -17,7 +17,7 @@ const validationFormData = (schema: Joi.Schema): RequestHandler => {
 
         try {
             console.log('test');
-
+            console.log(req);
             // Checking if content-type is multipart/form-data
             if (!req.is('multipart/form-data')) {
                 console.log('test2');
@@ -32,6 +32,7 @@ const validationFormData = (schema: Joi.Schema): RequestHandler => {
                 });
                 return;
             }
+            console.log('test3');
 
             const req_data: { [key: string]: any } = { ...req.body };
 
