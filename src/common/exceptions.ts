@@ -13,7 +13,7 @@ export const dbException = (error: any) => {
 
 export const notFoundAccountException = (id?: number) => {
     throw {
-        code: StatusCodes.INTERNAL_SERVER_ERROR,
+        code: StatusCodes.NOT_FOUND,
         message: `user does not exist with id ${id}`,
     };
 };
