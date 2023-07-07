@@ -16,6 +16,7 @@ const validationFormData = (schema: Joi.Schema): RequestHandler => {
         };
 
         try {
+            console.log('test');
             // Checking if content-type is multipart/form-data
             if (!req.is('multipart/form-data')) {
                 const badRequest = new BadRequest(
