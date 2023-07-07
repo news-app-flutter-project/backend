@@ -23,7 +23,7 @@ export function createProfileMobileRoutes(
     return {
         createProfileTest: {
             method: 'post',
-            path: `${path}/profile`,
+            path: `${path}`,
             middleware: [
                 upload.single('file'),
                 multerErrorHandling,
@@ -35,7 +35,7 @@ export function createProfileMobileRoutes(
 
         getProfile: {
             method: 'get',
-            path: `${path}/profile`,
+            path: `${path}`,
             middleware: [bodyValidation(kakao_id), kakaoIdAuth()],
             handler: getProfileHandler,
         },
