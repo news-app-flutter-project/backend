@@ -69,6 +69,8 @@ const validationFormData = (schema: Joi.Schema): RequestHandler => {
             req.body = { ...parsedBody };
             next();
         } catch (e: any) {
+            console.log(e);
+            return;
             const errors: string[] = [];
             e.details.forEach((error: Joi.ValidationErrorItem) => {
                 errors.push(error.message);
