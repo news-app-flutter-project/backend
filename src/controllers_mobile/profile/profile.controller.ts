@@ -44,7 +44,7 @@ class ProfileMobileController implements Controller {
         try {
             const data = await profileService.getProfile(auth_id!);
             response.success({
-                code: StatusCodes.CREATED,
+                code: StatusCodes.OK,
                 data,
             });
         } catch (err: any) {
