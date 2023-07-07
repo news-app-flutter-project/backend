@@ -35,3 +35,7 @@ export const screen_mode = Joi.object({
 export const text_size = Joi.object({
     text_size: Joi.string().valid('small', 'large').required(),
 });
+
+export const kakao_id = Joi.object({
+    kakao_id: Joi.number().integer().min(1000000000).max(9999999999).required(),
+});

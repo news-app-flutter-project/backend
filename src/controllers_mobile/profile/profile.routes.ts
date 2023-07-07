@@ -6,13 +6,19 @@ import {
     validationFormData,
     kakaoIdAuth,
 } from '@/middlewares/index';
-import { create_profile, screen_mode, text_size } from './profile.validation';
+import {
+    create_profile,
+    kakao_id,
+    screen_mode,
+    text_size,
+} from './profile.validation';
 
 import { upload } from '@/utils/multerSetup';
 
 export function createProfileMobileRoutes(
     path: string,
-    createProfileHandler: any
+    createProfileHandler: any,
+    getProfileHandler: any
 ): AuthRoutes {
     return {
         createProfileTest: {
@@ -25,6 +31,13 @@ export function createProfileMobileRoutes(
                 kakaoIdAuth(),
             ],
             handler: createProfileHandler,
+        },
+
+        getProfile: {
+            method: 'get',
+            path: `${path}/get_profile`,
+            middleware: [bodyValidation(kakao_id), kakaoIdAuth()],
+            handler: getProfileHandler,
         },
     };
 }

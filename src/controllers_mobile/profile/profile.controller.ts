@@ -17,7 +17,8 @@ class ProfileMobileController implements Controller {
     private initializeRoutes(): void {
         const authRoutes: AuthRoutes = createProfileMobileRoutes(
             this.path,
-            this.createProfile
+            this.createProfile,
+            this.getProfile
         );
         createRoutes(authRoutes, this.router);
     }
@@ -31,6 +32,21 @@ class ProfileMobileController implements Controller {
         try {
             const data = await profileService.createProfile(req_data);
             return response.success({ code: StatusCodes.CREATED, data });
+        } catch (err: any) {
+            response.error(err as ErrorData);
+        }
+    });
+
+    private getProfile = asyncWrapper(async (req: CustomRequest, res) => {
+        const response = customResponse(res);
+        const auth_id = req.auth_id;
+        console.log(auth_id);
+        try {
+            const data = await profileService.getProfile(auth_id!);
+            response.success({
+                code: StatusCodes.CREATED,
+                data,
+            });
         } catch (err: any) {
             response.error(err as ErrorData);
         }
