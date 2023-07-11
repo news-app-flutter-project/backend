@@ -36,6 +36,7 @@ export const readerService = {
         const profile = await this.profile_repository.findProfilebyId(auth_id);
         if (profile !== null) {
             const { id: profile_id, age, sex } = profile;
+            console.log(age);
             const isExist = await this.reads_repository.checkDuplicateReads(
                 profile_id,
                 news_id

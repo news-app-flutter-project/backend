@@ -57,8 +57,11 @@ export const ReaderGenerator = (sequelize: Sequelize): typeof ReaderModel => {
                 allowNull: false,
             },
             age: {
-                type: DataTypes.ENUM('10', '20', '30', '40', '50', '60', '70'),
+                type: DataTypes.INTEGER,
                 allowNull: false,
+                validate: {
+                    isIn: [[10, 20, 30, 40, 50, 60]],
+                },
             },
             sex: {
                 type: DataTypes.ENUM('male', 'female'),

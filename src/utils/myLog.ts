@@ -1,19 +1,32 @@
-import path from 'path';
+import morgan from 'morgan';
+import { Request, Response } from 'express';
+import clc from 'cli-color';
 
-function myLog(message: string) {
-    const stackTrace = new Error().stack!;
-    const stackLines = stackTrace.split('\n').map((line) => line.trim());
-    const tsLine = stackLines.find(
-        (line) => line.includes('.ts:') && !line.includes('node_modules')
-    );
-    if (tsLine) {
-        const filePath = tsLine.split(' ').slice(-1)[0];
-        const fileName = path.basename(filePath);
-        const lineNumber = tsLine.split(':').slice(-2)[0];
-        console.log(`${fileName}:${lineNumber} - ${message}`);
-    } else {
-        console.log(`[unknown] - ${message}`);
+morgan.format('myformat', (tokens, req: Request, res: Response) => {
+    const date = tokens.date(req, res, 'web');
+
+    let koreanDate = '';
+    if (date) {
+        const dateObject = new Date(date);
+        koreanDate = new Intl.DateTimeFormat('ko-KR', {
+            timeZone: 'Asia/Seoul',
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+        }).format(dateObject);
     }
-}
 
-export default myLog;
+    return [
+        clc.xterm(33)(`[${koreanDate}]`),
+        clc.xterm(214)(`"${tokens.method(req, res)} ${tokens.url(req, res)}"`),
+        clc.white(`${tokens.status(req, res)}`),
+        clc.xterm(40)(`${tokens.res(req, res, 'content-length')}`),
+        '-',
+        clc.xterm(45)(`${tokens['response-time'](req, res)} ms`),
+    ].join(' ');
+});
+
+export const morganMiddleware = morgan('myformat');
