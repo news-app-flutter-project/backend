@@ -48,7 +48,6 @@ export const bookmarkService = {
     },
 
     async listBookmarksFromFolder(folder_id: number, profile_id: number) {
-        console.log('hi');
         await this.folder_repository.findFolder(profile_id, folder_id);
         return await this.repository.listBookmarksFromFolder(folder_id);
     },

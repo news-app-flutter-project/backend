@@ -3,6 +3,7 @@ import Joi from 'joi';
 export const create_profile = Joi.object({
     kakao_id: Joi.number().integer().min(1000000000).max(9999999999).required(),
     name: Joi.string().required(),
+    nickname: Joi.string().required(),
     sex: Joi.string().valid('male', 'female', 'undefined').required(),
     category: Joi.array()
         .items(
@@ -31,6 +32,7 @@ export const create_profile = Joi.object({
 export const update_profile = Joi.object({
     kakao_id: Joi.number().integer().min(1000000000).max(9999999999).required(),
     name: Joi.string(),
+    nickname: Joi.string(),
     sex: Joi.string().valid('male', 'female', 'undefined'),
     category: Joi.array()
         .items(

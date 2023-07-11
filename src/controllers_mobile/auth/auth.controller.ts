@@ -23,7 +23,6 @@ class AuthMobileController implements Controller {
     private login = asyncWrapper(async (req, res) => {
         const response = customResponse(res);
         const { kakao_id } = req.body;
-        console.log('hi', kakao_id);
         try {
             const res = await authService.login(kakao_id);
             if (res.hasOwnProperty('profile')) {

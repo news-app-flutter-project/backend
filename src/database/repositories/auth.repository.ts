@@ -47,7 +47,8 @@ export const authRepository = {
 
     async createUser(kakaoData: UserAuthCreateInterface) {
         try {
-            return await db.Auth.create(kakaoData);
+            await db.Auth.create(kakaoData);
+            return {};
         } catch (err) {
             return dbException(err);
         }

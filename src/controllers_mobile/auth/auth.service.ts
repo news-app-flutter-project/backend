@@ -15,13 +15,11 @@ export const authService = {
         const kakaoData = registerParams({
             kakao_id,
         });
-        console.log(user);
+        console.log('hehe', user);
         if (user) {
             const profile = await this.profile_repository.findProfilebyId(user);
             if (profile) {
-                return {
-                    profile,
-                };
+                return profile;
             }
             return {};
         } else {
