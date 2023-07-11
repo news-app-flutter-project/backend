@@ -6,6 +6,7 @@ import {
     validationFormData,
     kakaoIdAuth,
     profileIdValidation,
+    test,
 } from '@/middlewares/index';
 import { create_profile, kakao_id, update_profile } from './profile.validation';
 
@@ -18,13 +19,24 @@ export function createProfileMobileRoutes(
     updateProfileHandler: any
 ): AuthRoutes {
     return {
+        // createProfileTest: {
+        //     method: 'post',
+        //     path: `${path}`,
+        //     middleware: [
+        //         upload.single('file'),
+        //         multerErrorHandling,
+        //         validationFormData(create_profile),
+        //         profileIdValidation(),
+        //     ],
+        //     handler: createProfileHandler,
+        // },
         createProfileTest: {
             method: 'post',
             path: `${path}`,
             middleware: [
                 upload.single('file'),
                 multerErrorHandling,
-                validationFormData(create_profile),
+                test(create_profile),
                 profileIdValidation(),
             ],
             handler: createProfileHandler,
