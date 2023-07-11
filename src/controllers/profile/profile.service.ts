@@ -16,6 +16,7 @@ declare global {
         age: Age;
         auth_id: number;
         email: string | null;
+        nickname: string;
         birthday: string | null;
     }
 }

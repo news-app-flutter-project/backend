@@ -15,6 +15,7 @@ interface ProfileRegisterDataMobile {
         | [Category, Category, Category];
     age: Age;
     email: string | null;
+    nickname: string;
     birthday: string | null;
     auth_id: number;
 }

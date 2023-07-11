@@ -16,8 +16,7 @@ const profileIdValidation = (): RequestHandler => {
         try {
             const { kakao_id } = req.body;
             const auth_id = await authRepository.findbyKakaoId(kakao_id);
-            console.log(auth_id);
-            if (!auth_id) {
+            if (auth_id === null || auth_id === undefined) {
                 return notFoundAccountException(kakao_id);
             }
             const profile = await profileRepository.findProfilebyId(auth_id);

@@ -16,28 +16,22 @@ const validationFormData = (schema: Joi.Schema): RequestHandler => {
         };
 
         try {
-            // console.log('test');
-            // console.log(req.file);
-            // console.log(req.body);
-
             // Checking if content-type is multipart/form-data
-            // if (!req.is('multipart/form-data')) {
-            //     console.log('test2');
-            //     const badRequest = new BadRequest(
-            //         'Must be multipart/form-data format',
-            //         []
-            //     );
-            //     res.status(badRequest.statusCode).json({
-            //         result: false,
-            //         code: StatusCodes.BAD_REQUEST,
-            //         message: badRequest.message,
-            //     });
-            //     return;
-            // }
+            if (!req.is('multipart/form-data')) {
+                console.log('test2');
+                const badRequest = new BadRequest(
+                    'Must be multipart/form-data format',
+                    []
+                );
+                res.status(badRequest.statusCode).json({
+                    result: false,
+                    code: StatusCodes.BAD_REQUEST,
+                    message: badRequest.message,
+                });
+                return;
+            }
 
             const req_data: { [key: string]: any } = { ...req.body };
-            console.log('test3');
-            console.log(req_data);
 
             if (req.file && req.file.path) {
                 // If file is present, include it
@@ -69,8 +63,6 @@ const validationFormData = (schema: Joi.Schema): RequestHandler => {
             req.body = { ...parsedBody };
             next();
         } catch (e: any) {
-            console.log(e);
-            return;
             const errors: string[] = [];
             e.details.forEach((error: Joi.ValidationErrorItem) => {
                 errors.push(error.message);
@@ -81,26 +73,26 @@ const validationFormData = (schema: Joi.Schema): RequestHandler => {
                 message: badRequest.errors,
             });
 
-            // if (e.message === 'Invalid Form Data format') {
-            //     const badRequest = new BadRequest('', [
-            //         'Invalid Form Data format',
-            //     ]);
-            //     res.status(badRequest.statusCode).json({
-            //         result: false,
-            //         message: badRequest.errors,
-            //     });
-            //     return;
-            // } else {
-            //     const errors: string[] = [];
-            //     e.details.forEach((error: Joi.ValidationErrorItem) => {
-            //         errors.push(error.message);
-            //     });
-            //     const badRequest = new BadRequest(errors.join(', '), errors);
-            //     res.status(badRequest.statusCode).json({
-            //         result: false,
-            //         message: badRequest.errors,
-            //     });
-            // }
+            if (e.message === 'Invalid Form Data format') {
+                const badRequest = new BadRequest('', [
+                    'Invalid Form Data format',
+                ]);
+                res.status(badRequest.statusCode).json({
+                    result: false,
+                    message: badRequest.errors,
+                });
+                return;
+            } else {
+                const errors: string[] = [];
+                e.details.forEach((error: Joi.ValidationErrorItem) => {
+                    errors.push(error.message);
+                });
+                const badRequest = new BadRequest(errors.join(', '), errors);
+                res.status(badRequest.statusCode).json({
+                    result: false,
+                    message: badRequest.errors,
+                });
+            }
         }
     };
 };

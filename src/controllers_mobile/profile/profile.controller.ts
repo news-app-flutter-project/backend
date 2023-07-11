@@ -30,6 +30,7 @@ class ProfileMobileController implements Controller {
         const req_data = { ...req.body, auth_id };
         try {
             const data = await profileService.createProfile(req_data);
+
             return response.success({ code: StatusCodes.OK, data });
         } catch (err: any) {
             response.error(err as ErrorData);
@@ -54,7 +55,6 @@ class ProfileMobileController implements Controller {
         const response = customResponse(res);
         const auth_id = req.auth_id;
         const fieldsToUpdate = req.body;
-        console.log(fieldsToUpdate);
         try {
             const data = await profileService.updateProfile(
                 auth_id!,
