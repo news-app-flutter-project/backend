@@ -13,7 +13,6 @@ const validationMiddleware = (schema: Joi.Schema): RequestHandler => {
             allowUnknown: true,
             stripUnknown: true,
         };
-        console.log('test', req.body);
         try {
             const value = await schema.validateAsync(
                 req.query,

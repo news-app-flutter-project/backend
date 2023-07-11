@@ -35,7 +35,7 @@ const validationFormData = (schema: Joi.Schema): RequestHandler => {
             req_data.profile_img = req.file.path;
         } else if (req_data.file === '') {
             // If file key exists and it's an empty string, delete it
-            req_data.profile_img = null;
+            delete req_data.profile_img;
         }
 
         const parsedBody: { [key: string]: any } = {};

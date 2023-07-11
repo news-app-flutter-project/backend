@@ -52,8 +52,6 @@ export const profileService = {
                 fieldsToUpdate.profile_img
             );
             updatedFields.profile_img = secure_url;
-        } else {
-            updatedFields.profile_img = null;
         }
 
         // fs.unlinkSync(profile_img);

@@ -3,7 +3,6 @@ import {
     tokenValidation,
     bodyValidation,
     multerErrorHandling,
-    validationFormData,
 } from '@/middlewares/index';
 import { create_profile, screen_mode, text_size } from './profile.validation';
 
@@ -25,7 +24,7 @@ export function createProfileRoutes(
                 upload.single('file'),
                 multerErrorHandling,
                 tokenValidation(),
-                validationFormData(create_profile),
+                // validationFormData(create_profile),
             ],
             handler: createProfileHandler,
         },

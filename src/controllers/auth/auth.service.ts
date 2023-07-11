@@ -27,7 +27,6 @@ export const authService = {
                 kakaoData
             );
             const profile = await this.profile_repository.findProfilebyId(user);
-            console.log(profile);
             if (profile) {
                 return {
                     profile,
