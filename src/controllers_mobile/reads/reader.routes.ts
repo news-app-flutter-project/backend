@@ -4,6 +4,7 @@ import {
     bodyValidation,
     newsIdValidation,
     kakaoIdAuth,
+    queryValidation,
 } from '@/middlewares/index';
 import { read_news, add_keywords } from './reader.validation';
 
@@ -14,10 +15,10 @@ export function createReadsRoutes(
 ): AuthRoutes {
     return {
         readNews: {
-            method: 'post',
+            method: 'get',
             path: `${path}`,
             middleware: [
-                bodyValidation(read_news),
+                queryValidation(read_news),
                 kakaoIdAuth(),
                 newsIdValidation(),
             ],
