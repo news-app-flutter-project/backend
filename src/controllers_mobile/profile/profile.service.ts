@@ -47,16 +47,18 @@ export const profileService = {
     async updateProfile(auth_id: number, fieldsToUpdate: IProfileUpdate) {
         const updatedFields = { ...fieldsToUpdate };
 
-        if (fieldsToUpdate.profile_img !== undefined) {
+        if (fieldsToUpdate.profile_img) {
             const { secure_url } = await uploadImageCloud(
                 fieldsToUpdate.profile_img
             );
             updatedFields.profile_img = secure_url;
+        } else {
+            updatedFields.profile_img = null;
         }
 
         // fs.unlinkSync(profile_img);
 
-        if (fieldsToUpdate.birthday !== undefined) {
+        if (fieldsToUpdate.birthday) {
             const date = toMySQLDate(fieldsToUpdate.birthday);
             updatedFields.birthday = date;
         }
