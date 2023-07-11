@@ -19,17 +19,6 @@ export function createProfileMobileRoutes(
     updateProfileHandler: any
 ): AuthRoutes {
     return {
-        // createProfileTest: {
-        //     method: 'post',
-        //     path: `${path}`,
-        //     middleware: [
-        //         upload.single('file'),
-        //         multerErrorHandling,
-        //         validationFormData(create_profile),
-        //         profileIdValidation(),
-        //     ],
-        //     handler: createProfileHandler,
-        // },
         createProfileTest: {
             method: 'post',
             path: `${path}`,
@@ -55,7 +44,7 @@ export function createProfileMobileRoutes(
             middleware: [
                 upload.single('file'),
                 multerErrorHandling,
-                validationFormData(update_profile),
+                test(update_profile),
                 kakaoIdAuth(),
             ],
             handler: updateProfileHandler,

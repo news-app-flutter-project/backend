@@ -26,7 +26,7 @@ export const create_profile = Joi.object({
         .required(),
     age: Joi.number().valid(10, 20, 30, 40, 50, 60).required(),
     email: Joi.string().email().required(),
-});
+}).unknown(false);
 
 export const update_profile = Joi.object({
     kakao_id: Joi.number().integer().min(1000000000).max(9999999999).required(),
@@ -54,7 +54,7 @@ export const update_profile = Joi.object({
     email: Joi.string().allow(null).email(),
     screen_mode: Joi.string().valid('light', 'dark'),
     text_size: Joi.string().valid('small', 'large'),
-});
+}).unknown(false);
 
 export const kakao_id = Joi.object({
     kakao_id: Joi.number().integer().min(1000000000).max(9999999999).required(),

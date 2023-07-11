@@ -55,7 +55,6 @@ class ProfileMobileController implements Controller {
         const response = customResponse(res);
         const auth_id = req.auth_id;
         const fieldsToUpdate = req.body;
-        console.log(fieldsToUpdate);
         try {
             const data = await profileService.updateProfile(
                 auth_id!,
