@@ -6,6 +6,7 @@ import {
     validationFormData,
     kakaoIdAuth,
     profileIdValidation,
+    queryValidation,
     test,
 } from '@/middlewares/index';
 import { create_profile, kakao_id, update_profile } from './profile.validation';
@@ -34,7 +35,7 @@ export function createProfileMobileRoutes(
         getProfile: {
             method: 'get',
             path: `${path}`,
-            middleware: [bodyValidation(kakao_id), kakaoIdAuth()],
+            middleware: [queryValidation(kakao_id), kakaoIdAuth()],
             handler: getProfileHandler,
         },
 

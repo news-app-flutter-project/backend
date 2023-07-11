@@ -16,7 +16,7 @@ const validationMiddleware = (schema: Joi.Schema): RequestHandler => {
         console.log('test', req.body);
         try {
             const value = await schema.validateAsync(
-                req.body,
+                req.query,
                 validationOptions
             );
             req.body = value;
