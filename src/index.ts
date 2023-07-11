@@ -16,6 +16,7 @@ import {
 import {
     AuthMobileController,
     ProfileMobileController,
+    NewsMobileController,
 } from '@/controllers_mobile/index';
 
 validateEnv();
@@ -33,6 +34,7 @@ const app = new App({
     mobile_controllers: [
         new AuthMobileController(),
         new ProfileMobileController(),
+        new NewsMobileController(),
     ],
     port: Number(process.env.PORT),
 });
