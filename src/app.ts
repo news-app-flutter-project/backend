@@ -1,7 +1,6 @@
 import express, { Application, Router } from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
-import morgan from 'morgan';
 import db from '@/database/db';
 import cron from 'node-cron';
 const xss = require('xss-clean');
@@ -18,6 +17,7 @@ import swaggerUI from 'swagger-ui-express';
 import YAML from 'yamljs';
 import * as path from 'path';
 const swaggerDoc = YAML.load(path.join(__dirname, '../build/swagger.yaml'));
+import { morganMiddleware } from './utils/myLog';
 
 interface Paramters {
     port: number;
@@ -47,7 +47,7 @@ class App {
         this.express.use(helmet());
         this.express.use(cors());
         this.express.use(xss());
-        this.express.use(morgan('dev'));
+        this.express.use(morganMiddleware);
         this.express.use(express.json());
         this.express.use(express.urlencoded({ extended: false }));
         this.express.set('trust proxy', 1);

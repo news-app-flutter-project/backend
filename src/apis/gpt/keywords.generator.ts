@@ -21,7 +21,7 @@ class UseChatGPT {
 
     async getKeywords({ title, desc }: useChatGPTParam) {
         let prompt;
-        prompt = `generate list of 5 korean keywords which summarized the following texts: ${title}, ${desc}`;
+        prompt = `generate list of 5 (2 broad thema and 3 news specific topics) korean keywords which summarize the following texts: ${title}, ${desc}`;
         if (!title && !desc) {
             throw new Error('No input provided');
         }

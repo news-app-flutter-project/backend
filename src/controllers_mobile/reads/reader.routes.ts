@@ -3,13 +3,9 @@ import {
     tokenValidation,
     bodyValidation,
     newsIdValidation,
+    kakaoIdAuth,
 } from '@/middlewares/index';
-import {
-    category,
-    category_and_age,
-    read_news,
-    add_keywords,
-} from './reader.validation';
+import { read_news, add_keywords } from './reader.validation';
 
 export function createReadsRoutes(
     path: string,
@@ -21,8 +17,8 @@ export function createReadsRoutes(
             method: 'post',
             path: `${path}`,
             middleware: [
-                tokenValidation(),
                 bodyValidation(read_news),
+                kakaoIdAuth(),
                 newsIdValidation(),
             ],
             handler: readNewsHandler,
@@ -32,8 +28,8 @@ export function createReadsRoutes(
             method: 'put',
             path: `${path}/addKeywords`,
             middleware: [
-                tokenValidation(),
                 bodyValidation(add_keywords),
+                kakaoIdAuth(),
                 newsIdValidation(),
             ],
             handler: addKeywordsHandler,
