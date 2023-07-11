@@ -2,6 +2,7 @@ import asyncWrapper from './async';
 import tokenValidation from './tokenAuth';
 import tokenValidationProfile from './tokenAuth.profile_id';
 import bodyValidation from './bodyValidation';
+import queryValidation from './queryValidation';
 import payloadValidation from './payloadValidation';
 import headersValidation from './headersValidation';
 import newsIdValidation from './newsIdValidation';
@@ -26,6 +27,7 @@ export {
     HttpException,
     errorMiddleware,
     bodyValidation,
+    queryValidation,
     payloadValidation,
     headersValidation,
     tokenValidation,
