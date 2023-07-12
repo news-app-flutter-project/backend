@@ -33,6 +33,8 @@ const validationFormData = (schema: Joi.Schema): RequestHandler => {
         // null 로 주나, undefined 이거나 multer는 무조건 undefined을 반환...
         // if undefined => db profile_img 건들지 말기
 
+        console.log(req.file);
+
         if (req.file !== undefined) {
             // If file is present, include it
             req_data.profile_img = req.file.path;

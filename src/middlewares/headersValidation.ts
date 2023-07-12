@@ -10,6 +10,7 @@ declare global {
         category?: Category[];
         age?: Age;
         profile_create_data?: ProfileRegisterData;
+        profile?: Profile;
     }
 }
 

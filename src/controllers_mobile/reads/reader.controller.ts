@@ -6,7 +6,7 @@ import { createRoutes } from '@/common/createRouter';
 import { createReadsRoutes } from './reader.routes';
 import { readerService } from './reader.service';
 
-class ReaderController implements Controller {
+class ReaderMobileController implements Controller {
     public path = '/read/mobile';
     public router = Router();
 
@@ -25,13 +25,11 @@ class ReaderController implements Controller {
 
     private readNews = asyncWrapper(async (req: CustomRequest, res) => {
         const response = customResponse(res);
-        const auth_id = req.auth_id;
         const news = req.news;
+        const profile = req.profile;
         try {
-            await readerService.readNews(auth_id!, news!);
-            return res
-                .status(StatusCodes.OK)
-                .json({ result: true, data: news });
+            const data = await readerService.readNews(news!, profile!);
+            return res.status(StatusCodes.OK).json({ result: true, data });
         } catch (err) {
             response.error(err as ErrorData);
         }
@@ -49,4 +47,4 @@ class ReaderController implements Controller {
     });
 }
 
-export default ReaderController;
+export default ReaderMobileController;

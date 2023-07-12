@@ -11,7 +11,7 @@ const maxCommentsValidation = (): RequestHandler => {
     ): Promise<void> => {
         const response = customResponse(res);
         const { news_id } = req.body;
-        const profile_id = req.profile_id!;
+        const { id: profile_id } = req.profile!;
         try {
             const count = await commentRepository.checkMaxCommentsPerNews({
                 profile_id,

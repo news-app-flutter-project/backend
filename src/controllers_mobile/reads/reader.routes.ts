@@ -5,6 +5,7 @@ import {
     newsIdValidation,
     kakaoIdAuth,
     queryValidation,
+    profileValidation,
 } from '@/middlewares/index';
 import { read_news, add_keywords } from './reader.validation';
 
@@ -20,6 +21,7 @@ export function createReadsRoutes(
             middleware: [
                 queryValidation(read_news),
                 kakaoIdAuth(),
+                profileValidation(),
                 newsIdValidation(),
             ],
             handler: readNewsHandler,
