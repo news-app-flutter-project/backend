@@ -6,6 +6,7 @@ import {
     DuplicateError,
     LimitError,
 } from '@/common/exceptions';
+import { defaultOptions } from '../options';
 
 interface dataHandler {
     profile_id?: number | undefined;
@@ -18,6 +19,20 @@ export const commentRepository = {
     async writeComment(data: CommentCreateInterface): Promise<Comments> {
         try {
             return await db.Comments.create(data);
+        } catch (err) {
+            return dbException(err);
+        }
+    },
+
+    async getCommentsByNewsId(news_id: number): Promise<Comments[]> {
+        try {
+            return await db.Comments.findAll({
+                ...defaultOptions,
+                where: {
+                    news_id: news_id,
+                },
+                raw: true,
+            });
         } catch (err) {
             return dbException(err);
         }

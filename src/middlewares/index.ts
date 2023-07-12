@@ -20,6 +20,7 @@ import formValidation from './FormDataTesting';
 import kakaoIdAuth from './kakaoIdAuth';
 import { multerErrorHandling } from './multerErrorHandling';
 import profileIdValidation from './kakaoIdAuth_profile_id';
+import profileValidation from './profileValidation';
 
 export {
     asyncWrapper,
@@ -44,4 +45,5 @@ export {
     formValidation,
     kakaoIdAuth,
     profileIdValidation,
+    profileValidation,
 };

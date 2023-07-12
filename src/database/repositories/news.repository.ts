@@ -8,6 +8,7 @@ export const newsRepository = {
     async findNewsbyId(news_id: number): Promise<NewsModel> {
         try {
             const news = await db.News.findOne({
+                ...defaultOptions,
                 where: {
                     id: news_id,
                 },
