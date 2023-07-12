@@ -25,7 +25,7 @@ class AuthMobileController implements Controller {
         const { kakao_id } = req.body;
         try {
             const res = await authService.login(kakao_id);
-            if (res.hasOwnProperty('profile')) {
+            if (res.hasOwnProperty('id')) {
                 response.success({ code: StatusCodes.OK, data: res });
             }
             response.success({ code: StatusCodes.CREATED, data: res });
