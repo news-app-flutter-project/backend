@@ -22,6 +22,7 @@ import { multerErrorHandling } from './multerErrorHandling';
 import profileIdValidation from './kakaoIdAuth_profile_id';
 import profileValidation from './profileValidation';
 import commentValidation from './commentValidation';
+import maxSubCommentsValidation from './maxSubComments.validation';
 
 export {
     asyncWrapper,
@@ -48,4 +49,5 @@ export {
     profileIdValidation,
     profileValidation,
     commentValidation,
+    maxSubCommentsValidation,
 };

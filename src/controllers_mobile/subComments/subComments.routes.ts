@@ -2,23 +2,25 @@ import {
     bodyValidation,
     tokenValidationProfile,
     badWordsValidation,
-    maxCommentsValidation,
     profileValidation,
+    maxSubCommentsValidation,
+    commentValidation,
 } from '@/middlewares/index';
-import { writeComment_validation } from './subComments.validation';
+import { writeSubComment_validation } from './subComments.validation';
 
-export function createCommentRoutes(
+export function createSubCommentRoutes(
     path: string,
     writeComment: any
 ): AuthRoutes {
     return {
-        writeComment: {
+        writeSubComment: {
             method: 'post',
             path: `${path}`,
             middleware: [
-                bodyValidation(writeComment_validation),
+                bodyValidation(writeSubComment_validation),
                 profileValidation(),
-                maxCommentsValidation(),
+                commentValidation(),
+                maxSubCommentsValidation(),
                 badWordsValidation(),
             ],
             handler: writeComment,

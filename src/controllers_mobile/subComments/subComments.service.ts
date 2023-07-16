@@ -1,16 +1,9 @@
-import { commentRepository } from '@/database/repositories/comment.repository';
+import { subCommentRepository } from '@/database/repositories/subComment.repository';
 
-interface dataHandler {
-    profile_id?: number | undefined;
-    news_id?: number | undefined;
-    content?: string | undefined;
-    id?: number | undefined;
-}
+export const SubCommentService = {
+    repository: subCommentRepository,
 
-export const CommentService = {
-    repository: commentRepository,
-
-    async writeComment(data: CommentCreateInterface) {
-        return await this.repository.writeComment(data);
+    async writeComment(data: SubCommentCreateInterface) {
+        return await this.repository.writeSubComment(data);
     },
 };

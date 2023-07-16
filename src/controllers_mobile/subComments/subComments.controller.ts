@@ -3,11 +3,11 @@ import { asyncWrapper } from '@/middlewares/index';
 import { StatusCodes } from 'http-status-codes';
 import { customResponse } from '@/common/response';
 import { createRoutes } from '@/common/createRouter';
-import { createCommentRoutes } from './subComments.routes';
-import { CommentService } from './subComments.service';
+import { createSubCommentRoutes } from './subComments.routes';
+import { SubCommentService } from './subComments.service';
 
-class CommentsMobileController implements Controller {
-    public path = '/subcomments/mobile';
+class SubCommentsMobileController implements Controller {
+    public path = '/subcomment/mobile';
     public router = Router();
 
     constructor() {
@@ -15,7 +15,7 @@ class CommentsMobileController implements Controller {
     }
 
     private initializeRoutes(): void {
-        const newRoutes: AuthRoutes = createCommentRoutes(
+        const newRoutes: AuthRoutes = createSubCommentRoutes(
             this.path,
             this.writeComment
         );
@@ -25,12 +25,11 @@ class CommentsMobileController implements Controller {
     private writeComment = asyncWrapper(async (req: CustomRequest, res) => {
         const response = customResponse(res);
         const { id: profile_id } = req.profile!;
-        const { news_id, content } = req.body;
-        console.log('hi');
+        const { comment_id, content } = req.body;
         try {
-            const data = await CommentService.writeComment({
+            const data = await SubCommentService.writeComment({
+                comment_id,
                 profile_id,
-                news_id,
                 content,
             });
             response.success({ code: StatusCodes.CREATED, data });
@@ -40,4 +39,4 @@ class CommentsMobileController implements Controller {
     });
 }
 
-export default CommentsMobileController;
+export default SubCommentsMobileController;
