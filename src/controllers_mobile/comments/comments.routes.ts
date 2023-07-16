@@ -4,12 +4,17 @@ import {
     badWordsValidation,
     maxCommentsValidation,
     profileValidation,
+    commentValidation,
 } from '@/middlewares/index';
-import { writeComment_validation } from './comments.validation';
+import {
+    writeComment_validation,
+    likeComment_validation,
+} from './comments.validation';
 
 export function createCommentRoutes(
     path: string,
-    writeComment: any
+    writeComment: any,
+    likeComment: any
 ): AuthRoutes {
     return {
         writeComment: {
@@ -22,6 +27,16 @@ export function createCommentRoutes(
                 badWordsValidation(),
             ],
             handler: writeComment,
+        },
+        likeComment: {
+            method: 'post',
+            path: `${path}/like`,
+            middleware: [
+                bodyValidation(likeComment_validation),
+                profileValidation(),
+                commentValidation(),
+            ],
+            handler: likeComment,
         },
     };
 }

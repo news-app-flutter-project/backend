@@ -17,7 +17,8 @@ class CommentsMobileController implements Controller {
     private initializeRoutes(): void {
         const newRoutes: AuthRoutes = createCommentRoutes(
             this.path,
-            this.writeComment
+            this.writeComment,
+            this.likeComment
         );
         createRoutes(newRoutes, this.router);
     }
@@ -26,12 +27,27 @@ class CommentsMobileController implements Controller {
         const response = customResponse(res);
         const { id: profile_id } = req.profile!;
         const { news_id, content } = req.body;
-        console.log('hi');
         try {
             const data = await CommentService.writeComment({
                 profile_id,
                 news_id,
                 content,
+            });
+            response.success({ code: StatusCodes.CREATED, data });
+        } catch (err) {
+            response.error(err as ErrorData);
+        }
+    });
+
+    private likeComment = asyncWrapper(async (req: CustomRequest, res) => {
+        const response = customResponse(res);
+        const { id } = req.profile!;
+        const { comment_id } = req.body;
+
+        try {
+            const data = await CommentService.handleLike({
+                profile_id: id,
+                comment_id: comment_id,
             });
             response.success({ code: StatusCodes.CREATED, data });
         } catch (err) {

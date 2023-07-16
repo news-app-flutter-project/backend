@@ -19,6 +19,7 @@ import {
     NewsMobileController,
     ReaderMobileController,
     CommentsMobileController,
+    SubCommentsMobileController,
 } from '@/controllers_mobile/index';
 
 validateEnv();
@@ -39,6 +40,7 @@ const app = new App({
         new NewsMobileController(),
         new ReaderMobileController(),
         new CommentsMobileController(),
+        new SubCommentsMobileController(),
     ],
     port: Number(process.env.PORT),
 });

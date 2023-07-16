@@ -3,6 +3,8 @@ import { newsRepository } from '@/database/repositories/news.repository';
 import { profileRepository } from '@/database/repositories/profile.repository';
 import { commentRepository } from '@/database/repositories/comment.repository';
 import { subCommentRepository } from '@/database/repositories/subComment.repository';
+import { commentLikeRepository } from '@/database/repositories/comment_like.repository';
+import { subCommentLikeRepository } from '@/database/repositories/subComment_like.repository';
 import { lifeStyleConvert } from '@/utils/index';
 import useChatGPT from '@/apis/gpt/keywords.generator';
 import { removeBrackets } from '@/utils/removeBrackets';
@@ -16,6 +18,8 @@ export const readerService = {
     news_repository: newsRepository,
     comment_repository: commentRepository,
     subComment_repository: subCommentRepository,
+    commentLike_repository: commentLikeRepository,
+    subCommentLike_repository: subCommentLikeRepository,
 
     async addKeywords(news: News) {
         const { id: news_id, gpt_keywords, description, title } = news;
@@ -64,15 +68,56 @@ export const readerService = {
 
         // Fetch subcomments
         for (let i = 0; i < comments.length; i++) {
+            const comment_id = comments[i].id;
+
+            // Fetch subcomments for this comment
             const subComments =
                 await this.subComment_repository.getSubCommentsByCommentId(
-                    comments[i].id
+                    comment_id
+                );
+
+            let subCommentsWithLikeData = [];
+            for (let subComment of subComments) {
+                const subComment_id = subComment.id;
+                // Check if the profile has liked this subComment
+                const isSubCommentLiked =
+                    (await this.subCommentLike_repository.checkLikeExists(
+                        subComment_id,
+                        profile_id
+                    )) != null;
+
+                // Count the likes for this subComment
+                const subCommentLikeCount =
+                    await this.subCommentLike_repository.countLikesForSubComment(
+                        subComment_id
+                    );
+
+                // Add isLike and likeCount to this subComment
+                subComment.isLike = isSubCommentLiked;
+                subComment.likeCount = subCommentLikeCount;
+
+                subCommentsWithLikeData.push(subComment);
+            }
+
+            // Check if the profile has liked this comment
+            const isCommentLiked =
+                (await this.commentLike_repository.checkLikeExists(
+                    comment_id,
+                    profile_id
+                )) != null;
+
+            // Count the likes for this comment
+            const commentLikeCount =
+                await this.commentLike_repository.countLikesForComment(
+                    comment_id
                 );
 
             // Create a new object that satisfies CommentWithSubComments interface
             let commentWithSubComments = {
                 ...comments[i],
-                subComments: subComments,
+                isLike: isCommentLiked,
+                likeCount: commentLikeCount,
+                subComments: subCommentsWithLikeData,
             };
 
             // Add this new object to the array

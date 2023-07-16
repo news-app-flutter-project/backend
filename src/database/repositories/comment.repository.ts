@@ -16,6 +16,20 @@ interface dataHandler {
 }
 
 export const commentRepository = {
+    async findCommentById(id: number): Promise<Comments> {
+        try {
+            const comment = await db.Comments.findOne({
+                ...defaultOptions,
+                where: {
+                    id: id,
+                },
+            });
+            return comment!;
+        } catch (err) {
+            return dbException(err);
+        }
+    },
+
     async writeComment(data: CommentCreateInterface): Promise<Comments> {
         try {
             return await db.Comments.create(data);

@@ -22,9 +22,8 @@ const profileValidation = (): RequestHandler => {
             const profile = await profileRepository.findProfilebyId(auth_id);
 
             if (!profile) {
-                return notFoundAccountException(auth_id);
+                return notFoundAccountException('user', kakao_id);
             }
-            console.log(profile);
             req.auth_id = auth_id;
             req.profile = profile;
             next();

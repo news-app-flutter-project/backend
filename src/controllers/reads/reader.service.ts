@@ -51,7 +51,7 @@ export const readerService = {
             }
             return news;
         } else {
-            return notFoundAccountException(auth_id);
+            return notFoundAccountException('user', auth_id);
         }
     },
 };
