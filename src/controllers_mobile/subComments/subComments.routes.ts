@@ -5,12 +5,17 @@ import {
     profileValidation,
     maxSubCommentsValidation,
     commentValidation,
+    subCommentValidation,
 } from '@/middlewares/index';
-import { writeSubComment_validation } from './subComments.validation';
+import {
+    writeSubComment_validation,
+    likeSubComment_validation,
+} from './subComments.validation';
 
 export function createSubCommentRoutes(
     path: string,
-    writeComment: any
+    writeSubComment: any,
+    likeSubComment: any
 ): AuthRoutes {
     return {
         writeSubComment: {
@@ -23,7 +28,17 @@ export function createSubCommentRoutes(
                 maxSubCommentsValidation(),
                 badWordsValidation(),
             ],
-            handler: writeComment,
+            handler: writeSubComment,
+        },
+        likeSubComment: {
+            method: 'post',
+            path: `${path}/like`,
+            middleware: [
+                bodyValidation(likeSubComment_validation),
+                profileValidation(),
+                subCommentValidation(),
+            ],
+            handler: likeSubComment,
         },
     };
 }

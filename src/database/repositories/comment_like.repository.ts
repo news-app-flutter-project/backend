@@ -52,4 +52,17 @@ export const commentLikeRepository = {
             throw dbException(err);
         }
     },
+
+    async countLikesForComment(comment_id: number) {
+        try {
+            const likeCount = await db.CommentsLike.count({
+                where: {
+                    comment_id: comment_id,
+                },
+            });
+            return likeCount;
+        } catch (err) {
+            throw dbException(err);
+        }
+    },
 };

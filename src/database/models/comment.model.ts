@@ -6,6 +6,8 @@ declare global {
         profile_id: number;
         news_id: number;
         content: string;
+        isLike?: boolean;
+        likeCount?: number;
     }
     type CommentCreateInterface = Omit<
         Comments,

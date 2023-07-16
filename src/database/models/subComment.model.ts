@@ -6,6 +6,8 @@ declare global {
         comment_id: number;
         profile_id: number;
         content: string;
+        isLike?: boolean;
+        likeCount?: number;
     }
     type SubCommentCreateInterface = Omit<
         SubComment,

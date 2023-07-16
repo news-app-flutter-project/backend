@@ -9,6 +9,20 @@ import {
 import { defaultOptions } from '../options';
 
 export const subCommentRepository = {
+    async findSubCommentById(id: number): Promise<SubComment> {
+        try {
+            const subComment = await db.SubComment.findOne({
+                ...defaultOptions,
+                where: {
+                    id: id,
+                },
+            });
+            return subComment!;
+        } catch (err) {
+            return dbException(err);
+        }
+    },
+
     async getSubCommentsByCommentId(comment_id: number): Promise<SubComment[]> {
         try {
             return await db.SubComment.findAll({
