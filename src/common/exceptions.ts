@@ -12,10 +12,10 @@ export const dbException = (error: any) => {
     };
 };
 
-export const notFoundAccountException = (id?: number) => {
+export const notFoundAccountException = (type: string, id?: number) => {
     throw {
         code: StatusCodes.NOT_FOUND,
-        message: `user does not exist with id ${id}`,
+        message: `${type} does not exist with id ${id}`,
     };
 };
 

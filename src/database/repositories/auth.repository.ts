@@ -22,7 +22,7 @@ export const authRepository = {
                 where: { id: id },
             });
             if (!user) {
-                return notFoundAccountException(id);
+                return notFoundAccountException('user', id);
             }
             return user?.id;
         } catch (err) {
@@ -37,7 +37,10 @@ export const authRepository = {
                 where: { kakao_refresh_token: refresh_token },
             });
             if (!user) {
-                return notFoundAccountException();
+                return notFoundAccountException(
+                    'refresh_token',
+                    Number(refresh_token)
+                );
             }
             return user?.kakao_id;
         } catch (err) {

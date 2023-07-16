@@ -38,7 +38,7 @@ export const profileRepository = {
             });
             return profile;
         } catch (err) {
-            return notFoundAccountException(auth_id);
+            return notFoundAccountException('user', auth_id);
         }
     },
 

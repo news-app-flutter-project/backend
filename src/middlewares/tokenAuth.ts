@@ -38,7 +38,7 @@ const tokenValidation = (): RequestHandler => {
                 const { id } = await kakaoId(access_token);
                 const auth_id = await authRepository.findbyKakaoId(id);
                 if (!auth_id) {
-                    return notFoundAccountException();
+                    return notFoundAccountException('user', id);
                 }
                 req.auth_id = auth_id;
                 req.token = access_token;

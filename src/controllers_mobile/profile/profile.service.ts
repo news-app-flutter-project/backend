@@ -38,7 +38,7 @@ export const profileService = {
     async getProfile(auth_id: number) {
         const profile = await this.repository.findProfilebyId(auth_id);
         if (!profile) {
-            return notFoundAccountException(auth_id);
+            return notFoundAccountException('user', auth_id);
         } else {
             return profile;
         }

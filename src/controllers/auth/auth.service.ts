@@ -48,7 +48,7 @@ export const authService = {
     async token_login(id: number) {
         const user = await this.repository.findByUserId(id);
         if (!user) {
-            return notFoundAccountException();
+            return notFoundAccountException('user', id);
         }
         return { id: user };
     },
