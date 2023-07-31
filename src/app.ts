@@ -111,24 +111,23 @@ class App {
             await schedule.insertNewsData(newsArr);
         }
 
-        // cron.schedule("0 12 * * *", async () => {
-        //   const schedule = new ScheduleNewsUpdate();
-        //   const lastNewsItem = await schedule.findLastNewsItem();
-        //   console.log("Last news item:", lastNewsItem?.dataValues);
+        cron.schedule('0 12 * * *', async () => {
+            const schedule = new ScheduleNewsUpdate();
+            const lastNewsItem = await schedule.findLastNewsItem();
+            console.log('Last news item:', lastNewsItem?.dataValues);
 
-        //   const lastNewsItemDate = moment(lastNewsItem?.dataValues.createdAt);
-        //   const currentDate = moment();
-        //   const isLastNewsItemDateBeforeCurrentDate = lastNewsItemDate.isBefore(
-        //     currentDate.subtract(1, "day")
-        //   );
-        //   if (isLastNewsItemDateBeforeCurrentDate) {
-        //     for (const param of paramsArr) {
-        //       const { results: newsArr } = await useNewsApi(param);
+            const lastNewsItemDate = moment(lastNewsItem?.dataValues.createdAt);
+            const currentDate = moment();
+            const isLastNewsItemDateBeforeCurrentDate =
+                lastNewsItemDate.isBefore(currentDate.subtract(1, 'day'));
+            if (isLastNewsItemDateBeforeCurrentDate) {
+                for (const param of paramsArr) {
+                    const { results: newsArr } = await useNewsApi(param);
 
-        //       await schedule.insertNewsData(newsArr);
-        //     }
-        //   }
-        // });
+                    await schedule.insertNewsData(newsArr);
+                }
+            }
+        });
     }
 
     public listen(): void {

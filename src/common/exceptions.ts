@@ -26,6 +26,13 @@ export const notFoundNews = (news_id?: number) => {
     };
 };
 
+export const notFoundSentence = (sentence_id?: number) => {
+    throw {
+        code: StatusCodes.INTERNAL_SERVER_ERROR,
+        message: `news sentence does not exist with id ${sentence_id}`,
+    };
+};
+
 export const notFoundError = (message: string) => {
     throw {
         code: StatusCodes.INTERNAL_SERVER_ERROR,

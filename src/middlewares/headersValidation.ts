@@ -11,6 +11,7 @@ declare global {
         age?: Age;
         profile_create_data?: ProfileRegisterData;
         profile?: Profile;
+        sentence_no?: number;
     }
 }
 

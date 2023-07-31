@@ -35,6 +35,21 @@ export const newsRepository = {
         }
     },
 
+    async updateParagraph(news_id: number, content: string) {
+        try {
+            await db.News.update(
+                {
+                    content,
+                },
+                {
+                    where: { id: news_id },
+                }
+            );
+        } catch (err) {
+            return dbException(err);
+        }
+    },
+
     async mostReadNews(mostReadNewsIds: number[]) {
         try {
             const mostReadNews = await db.News.findAll({

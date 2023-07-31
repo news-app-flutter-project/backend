@@ -1,5 +1,5 @@
 import axios from 'axios';
-import convertKorean from '@/utils/convertUtf';
+import { sanitizeContent } from '@/utils/index';
 
 interface NewsApi {
     country?: string;
@@ -29,14 +29,19 @@ const useNewsApi = async ({
         const { data } = response;
 
         if (data.results.length !== 0) {
-            const convertedData = data.results.map((newsItem: any) => {
-                if (newsItem.content !== null) {
-                    const convertedContent = convertKorean(newsItem.content);
-                    return { ...newsItem, content: convertedContent };
-                } else {
-                    return { ...newsItem };
-                }
-            });
+            const convertedData = data.results
+                .map((newsItem: any) => {
+                    if (
+                        newsItem.content !== null &&
+                        newsItem.image_url !== null
+                    ) {
+                        const sanitizedContent = sanitizeContent(
+                            newsItem.content
+                        );
+                        return { ...newsItem, content: sanitizedContent };
+                    }
+                })
+                .filter(Boolean); // filter out undefined items
             return { ...data, results: convertedData };
         } else {
             return data;
