@@ -24,6 +24,7 @@ import profileValidation from './profileValidation';
 import commentValidation from './commentValidation';
 import maxSubCommentsValidation from './maxSubComments.validation';
 import subCommentValidation from './subCommentValidation';
+import newsSentenceNoValidation from './newsSentenceNoValidation';
 
 export {
     asyncWrapper,
@@ -52,4 +53,5 @@ export {
     commentValidation,
     maxSubCommentsValidation,
     subCommentValidation,
+    newsSentenceNoValidation,
 };

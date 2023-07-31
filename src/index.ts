@@ -20,6 +20,7 @@ import {
     ReaderMobileController,
     CommentsMobileController,
     SubCommentsMobileController,
+    HighlightMobileController,
 } from '@/controllers_mobile/index';
 
 validateEnv();
@@ -41,6 +42,7 @@ const app = new App({
         new ReaderMobileController(),
         new CommentsMobileController(),
         new SubCommentsMobileController(),
+        new HighlightMobileController(),
     ],
     port: Number(process.env.PORT),
 });
