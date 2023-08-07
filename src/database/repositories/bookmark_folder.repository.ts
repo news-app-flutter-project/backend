@@ -16,6 +16,13 @@ export const bookmark_folderRepository = {
         }
     },
 
+    async findMaxOrder(profile_id: number) {
+        const maxOrder = await db.BookMarkFolder.max('order', {
+            where: { profile_id: profile_id },
+        });
+        return (maxOrder as number) || 0;
+    },
+
     async checkDuplicate(profile_id: number, name: string) {
         try {
             return await db.BookMarkFolder.findOne({
@@ -26,11 +33,12 @@ export const bookmark_folderRepository = {
         }
     },
 
-    async createFolder(profile_id: number, name: string) {
+    async createFolder(profile_id: number, name: string, order: number) {
         try {
             return await db.BookMarkFolder.create({
                 profile_id: profile_id,
                 name: name,
+                order,
             });
         } catch (err) {
             return dbException(err);

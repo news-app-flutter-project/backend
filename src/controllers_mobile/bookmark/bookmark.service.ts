@@ -17,10 +17,13 @@ export const bookmarkService = {
     },
 
     async createFolder(profile_id: number, name: string) {
-        await this.folder_repository.countFolders(profile_id);
+        const maxCount = await this.folder_repository.findMaxOrder(profile_id);
+        const order = maxCount + 1;
+
         const folder = await this.folder_repository.createFolder(
             profile_id,
-            name
+            name,
+            order
         );
         return folder;
     },
@@ -48,8 +51,12 @@ export const bookmarkService = {
     },
 
     async listBookmarksFromFolder(folder_id: number, profile_id: number) {
-        await this.folder_repository.findFolder(profile_id, folder_id);
-        return await this.repository.listBookmarksFromFolder(folder_id);
+        if (folder_id) {
+            await this.folder_repository.findFolder(profile_id, folder_id);
+            return await this.repository.listBookmarksFromFolder(folder_id);
+        } else {
+            return await this.repository.listAllBookMarks(profile_id);
+        }
     },
 
     async removeBookmarkFromFolder(bookmark_id: number) {

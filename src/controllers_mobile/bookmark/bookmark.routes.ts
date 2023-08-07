@@ -25,7 +25,6 @@ import {
 export function createSearchRoutes(
     path: string,
     bookmark: any,
-    listAllBookmarks: any,
     createFolder: any,
     listAllFolders: any,
     allocate: any,
@@ -48,22 +47,12 @@ export function createSearchRoutes(
             handler: bookmark,
         },
 
-        listAllBookmarks: {
-            method: 'post',
-            path: `${path}/listAllBookmarks`,
-            middleware: [
-                bodyValidation(bookmark_list_validation),
-                profileValidation(),
-            ],
-            handler: listAllBookmarks,
-        },
-
         createFolder: {
             method: 'post',
             path: `${path}/createFolder`,
             middleware: [
                 bodyValidation(createFolder_validation),
-                tokenValidationProfile(),
+                profileValidation(),
                 bookmarkFolderNameValidation(),
             ],
             handler: createFolder,
@@ -99,11 +88,11 @@ export function createSearchRoutes(
         },
 
         listBookmarksFromFolder: {
-            method: 'get',
+            method: 'post',
             path: `${path}/listBookmarksFromFolder`,
             middleware: [
                 bodyValidation(listBookmarksFromFolder_validation),
-                tokenValidationProfile(),
+                profileValidation(),
             ],
             handler: listBookmarksFromFolder,
         },

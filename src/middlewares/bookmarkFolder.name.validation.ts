@@ -11,7 +11,7 @@ const bookmarkFolderNameValidation = (): RequestHandler => {
         next: NextFunction
     ): Promise<void> => {
         const response = customResponse(res);
-        const profile_id = req.profile_id;
+        const profile_id = req.profile?.id;
         const { name } = req.body;
         try {
             const isFolderNameExist =

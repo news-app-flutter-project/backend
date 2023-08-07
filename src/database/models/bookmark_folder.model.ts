@@ -5,6 +5,7 @@ declare global {
         id: number;
         profile_id: number;
         name: string;
+        order: number; // New field for order
     }
 }
 
@@ -20,6 +21,7 @@ export class Bookmark_FolderModel
     public id!: number;
     public profile_id!: number;
     public name!: string;
+    public order!: number; // New field for order
 }
 
 export const Bookmark_FolderGenerator = (
@@ -42,6 +44,11 @@ export const Bookmark_FolderGenerator = (
             },
             name: {
                 type: DataTypes.STRING(255),
+                allowNull: false,
+            },
+            order: {
+                // New field for order
+                type: DataTypes.INTEGER,
                 allowNull: false,
             },
         },
