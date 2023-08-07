@@ -16,11 +16,12 @@ export const bookmarkService = {
         return res;
     },
 
-    async createFolder(profile_id: number, name: string) {
+    async createFolder(profile_id: number, name: string, order: number) {
         await this.folder_repository.countFolders(profile_id);
         const folder = await this.folder_repository.createFolder(
             profile_id,
-            name
+            name,
+            order
         );
         return folder;
     },

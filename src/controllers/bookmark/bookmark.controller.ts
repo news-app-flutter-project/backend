@@ -61,9 +61,13 @@ class BookmarkController implements Controller {
     private createFolder = asyncWrapper(async (req: CustomRequest, res) => {
         const response = customResponse(res);
         const profile_id = req.profile_id;
-        const { name } = req.body;
+        const { name, order } = req.body;
         try {
-            const data = await bookmarkService.createFolder(profile_id!, name);
+            const data = await bookmarkService.createFolder(
+                profile_id!,
+                name,
+                order
+            );
             response.success({ code: StatusCodes.CREATED, data });
         } catch (err) {
             response.error(err as ErrorData);

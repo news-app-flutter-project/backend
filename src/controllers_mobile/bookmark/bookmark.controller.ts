@@ -18,7 +18,6 @@ class BookmarkController implements Controller {
         const newsRoutes: AuthRoutes = createSearchRoutes(
             this.path,
             this.bookmark,
-            this.listAllBookmarks,
             this.createFolder,
             this.listAllFolders,
             this.allocate,
@@ -46,22 +45,11 @@ class BookmarkController implements Controller {
         }
     });
 
-    private listAllBookmarks = asyncWrapper(async (req: CustomRequest, res) => {
-        const response = customResponse(res);
-        const profile_id = req.profile?.id;
-
-        try {
-            const data = await bookmarkService.listAllBookmarks(profile_id!);
-            response.success({ code: StatusCodes.CREATED, data });
-        } catch (err) {
-            response.error(err as ErrorData);
-        }
-    });
-
     private createFolder = asyncWrapper(async (req: CustomRequest, res) => {
         const response = customResponse(res);
-        const profile_id = req.profile_id;
+        const profile_id = req.profile?.id;
         const { name } = req.body;
+        console.log(name, profile_id);
         try {
             const data = await bookmarkService.createFolder(profile_id!, name);
             response.success({ code: StatusCodes.CREATED, data });
@@ -116,8 +104,9 @@ class BookmarkController implements Controller {
     private listBookmarksFromFolder = asyncWrapper(
         async (req: CustomRequest, res) => {
             const response = customResponse(res);
-            const profile_id = req.profile_id;
+            const profile_id = req.profile?.id;
             const { folder_id } = req.body;
+            console.log(folder_id);
             try {
                 const data = await bookmarkService.listBookmarksFromFolder(
                     folder_id,
