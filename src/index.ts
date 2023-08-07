@@ -21,6 +21,7 @@ import {
     CommentsMobileController,
     SubCommentsMobileController,
     HighlightMobileController,
+    BookmarkMobileController,
 } from '@/controllers_mobile/index';
 
 validateEnv();
@@ -43,6 +44,7 @@ const app = new App({
         new CommentsMobileController(),
         new SubCommentsMobileController(),
         new HighlightMobileController(),
+        new BookmarkMobileController(),
     ],
     port: Number(process.env.PORT),
 });

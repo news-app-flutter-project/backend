@@ -5,6 +5,7 @@ import ReaderMobileController from './reads/reader.controller';
 import CommentsMobileController from './comments/comments.controller';
 import SubCommentsMobileController from './subComments/subComments.controller';
 import HighlightMobileController from './highlight/highlight.controller';
+import BookmarkMobileController from './bookmark/bookmark.controller';
 
 export {
     AuthMobileController,
@@ -14,4 +15,5 @@ export {
     CommentsMobileController,
     SubCommentsMobileController,
     HighlightMobileController,
+    BookmarkMobileController,
 };
