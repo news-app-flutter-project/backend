@@ -12,8 +12,8 @@ import {
 } from '@/middlewares/index';
 import {
     bookmark_validation,
-    bookmark_list_validation,
     createFolder_validation,
+    listAllFolders_validation,
     allocate_validation,
     updateFolderName_validation,
     listBookmarksFromFolder_validation,
@@ -59,9 +59,12 @@ export function createSearchRoutes(
         },
 
         listAllFolders: {
-            method: 'get',
+            method: 'post',
             path: `${path}/listAllFolders`,
-            middleware: [tokenValidationProfile()],
+            middleware: [
+                bodyValidation(listAllFolders_validation),
+                profileValidation(),
+            ],
             handler: listAllFolders,
         },
 

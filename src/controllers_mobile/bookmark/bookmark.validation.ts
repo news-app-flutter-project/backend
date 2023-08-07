@@ -5,13 +5,18 @@ export const bookmark_validation = Joi.object({
     kakao_id: Joi.number().integer().min(1000000000).max(9999999999).required(),
 });
 
-export const bookmark_list_validation = Joi.object({
-    kakao_id: Joi.number().integer().min(1000000000).max(9999999999).required(),
-});
-
 export const createFolder_validation = Joi.object({
     kakao_id: Joi.number().integer().min(1000000000).max(9999999999).required(),
     name: Joi.string().required(),
+});
+
+export const listBookmarksFromFolder_validation = Joi.object({
+    folder_id: Joi.number().allow(null).required(),
+    kakao_id: Joi.number().integer().min(1000000000).max(9999999999).required(),
+});
+
+export const listAllFolders_validation = Joi.object({
+    kakao_id: Joi.number().integer().min(1000000000).max(9999999999).required(),
 });
 
 export const allocate_validation = Joi.object({
@@ -22,11 +27,6 @@ export const allocate_validation = Joi.object({
 export const updateFolderName_validation = Joi.object({
     folder_id: Joi.number().required(),
     name: Joi.string().required(),
-});
-
-export const listBookmarksFromFolder_validation = Joi.object({
-    folder_id: Joi.number().allow(null).required(),
-    kakao_id: Joi.number().integer().min(1000000000).max(9999999999).required(),
 });
 
 export const removeBookmarkFromFolder_validation = Joi.object({

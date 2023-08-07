@@ -60,7 +60,7 @@ class BookmarkController implements Controller {
 
     private listAllFolders = asyncWrapper(async (req: CustomRequest, res) => {
         const response = customResponse(res);
-        const profile_id = req.profile_id;
+        const profile_id = req.profile?.id;
         try {
             const data = await bookmarkService.listAllFolders(profile_id!);
             response.success({ code: StatusCodes.CREATED, data });
