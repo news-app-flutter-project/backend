@@ -14,7 +14,7 @@ export const dbException = (error: any) => {
 
 export const notFoundAccountException = (type: string, id?: number) => {
     throw {
-        code: StatusCodes.NOT_FOUND,
+        code: StatusCodes.UNAUTHORIZED,
         message: `${type} does not exist with id ${id}`,
     };
 };
