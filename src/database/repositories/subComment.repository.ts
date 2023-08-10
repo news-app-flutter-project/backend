@@ -47,6 +47,23 @@ export const subCommentRepository = {
         }
     },
 
+    async updateSubComment(data: SubCommentUpdateInterface) {
+        try {
+            await db.SubComment.update(
+                { content: data.content },
+                { where: { id: data.id } }
+            );
+            // Fetch and return the updated comment
+            const updatedComment = await db.SubComment.findOne({
+                where: { id: data.id },
+            });
+
+            return updatedComment;
+        } catch (err) {
+            throw dbException(err);
+        }
+    },
+
     async checkMaxCommentsPerNews(profile_id: number, comment_id: number) {
         try {
             const count = await db.SubComment.count({

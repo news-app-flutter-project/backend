@@ -10,13 +10,15 @@ import {
 import {
     writeSubComment_validation,
     likeSubComment_validation,
+    updateSubComment_validation,
 } from './subComments.validation';
 
 export function createSubCommentRoutes(
     path: string,
     writeSubComment: any,
     likeSubComment: any,
-    dislikeSubComment: any
+    dislikeSubComment: any,
+    updateSubComment: any
 ): AuthRoutes {
     return {
         writeSubComment: {
@@ -50,6 +52,17 @@ export function createSubCommentRoutes(
                 subCommentValidation(),
             ],
             handler: dislikeSubComment,
+        },
+        updateSubComment: {
+            method: 'put',
+            path: `${path}`,
+            middleware: [
+                bodyValidation(updateSubComment_validation),
+                profileValidation(),
+                subCommentValidation(),
+                badWordsValidation(),
+            ],
+            handler: updateSubComment,
         },
     };
 }

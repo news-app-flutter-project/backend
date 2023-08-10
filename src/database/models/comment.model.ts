@@ -13,6 +13,11 @@ declare global {
         Comments,
         'id' | 'createdAt' | 'updatedAt' | 'deletedAt'
     >;
+
+    type CommentUpdateInterface = Omit<
+        Comments,
+        'createdAt' | 'updatedAt' | 'deletedAt' | 'profile_id' | 'news_id'
+    >;
 }
 
 export class CommentModel

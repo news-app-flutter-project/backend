@@ -11,6 +11,11 @@ export const CommentService = {
         return await this.repository.writeComment(data);
     },
 
+    async editComment(data: CommentUpdateInterface) {
+        console.log(data);
+        return await this.repository.updateComment(data);
+    },
+
     async handleLike(data: CommentLikeCreateInterface) {
         const { profile_id, comment_id } = data;
 

@@ -13,6 +13,11 @@ declare global {
         SubComment,
         'id' | 'createdAt' | 'updatedAt' | 'deletedAt'
     >;
+
+    type SubCommentUpdateInterface = Omit<
+        SubComment,
+        'createdAt' | 'updatedAt' | 'deletedAt' | 'profile_id' | 'comment_id'
+    >;
 }
 
 export class SubCommentModel
