@@ -34,6 +34,14 @@ import {
     NewsContentGenerator,
 } from './models/news_content.model';
 import { HighlightModel, HighlightGenerator } from './models/highlight.model';
+import {
+    CommentDislikeModel,
+    CommentDislikeGenerator,
+} from './models/comment_dislike.model';
+import {
+    SubCommentDislikeModel,
+    SubCommentDislikeGenerator,
+} from './models/subComment_dislike.model';
 
 import { relations } from './relations';
 const sequelize = new Sequelize(SEQUELIZE_CONFIGS);
@@ -64,6 +72,8 @@ declare global {
         SubCommentLike: typeof SubCommentLikeModel;
         NewsContent: typeof NewsContentModel;
         Highlight: typeof HighlightModel;
+        CommentDislike: typeof CommentDislikeModel;
+        SubCommentDislike: typeof SubCommentDislikeModel;
     }
 }
 
@@ -86,6 +96,8 @@ const db: DB = {
     SubCommentLike: SubCommentLikeGenerator(sequelize),
     NewsContent: NewsContentGenerator(sequelize),
     Highlight: HighlightGenerator(sequelize),
+    CommentDislike: CommentDislikeGenerator(sequelize),
+    SubCommentDislike: SubCommentDislikeGenerator(sequelize),
 };
 
 relations(db);

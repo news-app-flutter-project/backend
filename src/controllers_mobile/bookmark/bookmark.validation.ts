@@ -22,6 +22,7 @@ export const listAllFolders_validation = Joi.object({
 export const allocate_validation = Joi.object({
     folder_id: Joi.number().required(),
     bookmark_id: Joi.number().required(),
+    kakao_id: Joi.number().integer().min(1000000000).max(9999999999).required(),
 });
 
 export const updateFolderName_validation = Joi.object({

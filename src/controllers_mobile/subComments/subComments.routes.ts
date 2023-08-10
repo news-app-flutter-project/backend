@@ -15,7 +15,8 @@ import {
 export function createSubCommentRoutes(
     path: string,
     writeSubComment: any,
-    likeSubComment: any
+    likeSubComment: any,
+    dislikeSubComment: any
 ): AuthRoutes {
     return {
         writeSubComment: {
@@ -39,6 +40,16 @@ export function createSubCommentRoutes(
                 subCommentValidation(),
             ],
             handler: likeSubComment,
+        },
+        dislikeSubComment: {
+            method: 'post',
+            path: `${path}/dislike`,
+            middleware: [
+                bodyValidation(likeSubComment_validation),
+                profileValidation(),
+                subCommentValidation(),
+            ],
+            handler: dislikeSubComment,
         },
     };
 }
