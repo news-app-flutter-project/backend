@@ -14,7 +14,8 @@ import {
 export function createCommentRoutes(
     path: string,
     writeComment: any,
-    likeComment: any
+    likeComment: any,
+    dislikeComment: any
 ): AuthRoutes {
     return {
         writeComment: {
@@ -37,6 +38,16 @@ export function createCommentRoutes(
                 commentValidation(),
             ],
             handler: likeComment,
+        },
+        dislikeComment: {
+            method: 'post',
+            path: `${path}/dislike`,
+            middleware: [
+                bodyValidation(likeComment_validation),
+                profileValidation(),
+                commentValidation(),
+            ],
+            handler: dislikeComment,
         },
     };
 }

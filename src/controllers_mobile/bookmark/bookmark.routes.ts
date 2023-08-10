@@ -68,12 +68,22 @@ export function createSearchRoutes(
             handler: listAllFolders,
         },
 
+        listBookmarksFromFolder: {
+            method: 'post',
+            path: `${path}/listBookmarksFromFolder`,
+            middleware: [
+                bodyValidation(listBookmarksFromFolder_validation),
+                profileValidation(),
+            ],
+            handler: listBookmarksFromFolder,
+        },
+
         allocate: {
             method: 'post',
             path: `${path}/allocate`,
             middleware: [
                 bodyValidation(allocate_validation),
-                tokenValidationProfile(),
+                profileValidation(),
                 bookmarkAllocationValidation(),
             ],
             handler: allocate,
@@ -88,16 +98,6 @@ export function createSearchRoutes(
                 bookmarkFolderNameValidation(),
             ],
             handler: updateFolderName,
-        },
-
-        listBookmarksFromFolder: {
-            method: 'post',
-            path: `${path}/listBookmarksFromFolder`,
-            middleware: [
-                bodyValidation(listBookmarksFromFolder_validation),
-                profileValidation(),
-            ],
-            handler: listBookmarksFromFolder,
         },
 
         removeBookmarkFromFolder: {

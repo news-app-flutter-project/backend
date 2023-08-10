@@ -69,9 +69,27 @@ class BookmarkController implements Controller {
         }
     });
 
+    private listBookmarksFromFolder = asyncWrapper(
+        async (req: CustomRequest, res) => {
+            const response = customResponse(res);
+            const profile_id = req.profile?.id;
+            const { folder_id } = req.body;
+            console.log(folder_id);
+            try {
+                const data = await bookmarkService.listBookmarksFromFolder(
+                    folder_id,
+                    profile_id!
+                );
+                response.success({ code: StatusCodes.CREATED, data });
+            } catch (err) {
+                response.error(err as ErrorData);
+            }
+        }
+    );
+
     private allocate = asyncWrapper(async (req: CustomRequest, res) => {
         const response = customResponse(res);
-        const profile_id = req.profile_id;
+        const profile_id = req.profile?.id;
         const { folder_id, bookmark_id } = req.body;
         try {
             const data = await bookmarkService.allocate(
@@ -100,24 +118,6 @@ class BookmarkController implements Controller {
             response.error(err as ErrorData);
         }
     });
-
-    private listBookmarksFromFolder = asyncWrapper(
-        async (req: CustomRequest, res) => {
-            const response = customResponse(res);
-            const profile_id = req.profile?.id;
-            const { folder_id } = req.body;
-            console.log(folder_id);
-            try {
-                const data = await bookmarkService.listBookmarksFromFolder(
-                    folder_id,
-                    profile_id!
-                );
-                response.success({ code: StatusCodes.CREATED, data });
-            } catch (err) {
-                response.error(err as ErrorData);
-            }
-        }
-    );
 
     private removeBookmarkFromFolder = asyncWrapper(
         async (req: CustomRequest, res) => {

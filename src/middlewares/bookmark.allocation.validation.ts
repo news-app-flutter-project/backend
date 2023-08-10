@@ -11,7 +11,7 @@ const bookmarkAllocationValidation = (): RequestHandler => {
         next: NextFunction
     ): Promise<void> => {
         const response = customResponse(res);
-        const profile_id = req.profile_id;
+        const profile_id = req.profile?.id;
         const { folder_id } = req.body;
         try {
             const isAlreadyAllocated =

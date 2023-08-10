@@ -18,7 +18,8 @@ class SubCommentsMobileController implements Controller {
         const newRoutes: AuthRoutes = createSubCommentRoutes(
             this.path,
             this.writeSubComment,
-            this.likeSubComment
+            this.likeSubComment,
+            this.dislikeSubComment
         );
         createRoutes(newRoutes, this.router);
     }
@@ -54,6 +55,24 @@ class SubCommentsMobileController implements Controller {
             response.error(err as ErrorData);
         }
     });
+
+    private dislikeSubComment = asyncWrapper(
+        async (req: CustomRequest, res) => {
+            const response = customResponse(res);
+            const { id } = req.profile!;
+            const { sub_comment_id } = req.body;
+            console.log(id, sub_comment_id);
+            try {
+                const data = await SubCommentService.handleDislike({
+                    profile_id: id,
+                    sub_comment_id,
+                });
+                response.success({ code: StatusCodes.CREATED, data });
+            } catch (err) {
+                response.error(err as ErrorData);
+            }
+        }
+    );
 }
 
 export default SubCommentsMobileController;
