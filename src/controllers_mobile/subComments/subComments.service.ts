@@ -11,6 +11,11 @@ export const SubCommentService = {
         return await this.repository.writeSubComment(data);
     },
 
+    async editSubComment(data: SubCommentUpdateInterface) {
+        console.log(data);
+        return await this.repository.updateSubComment(data);
+    },
+
     async handleLike(data: SubCommentLikeCreateInterface) {
         const { profile_id, sub_comment_id } = data;
 

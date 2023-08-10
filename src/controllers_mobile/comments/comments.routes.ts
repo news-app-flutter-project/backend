@@ -9,13 +9,15 @@ import {
 import {
     writeComment_validation,
     likeComment_validation,
+    updateComment_validation,
 } from './comments.validation';
 
 export function createCommentRoutes(
     path: string,
     writeComment: any,
     likeComment: any,
-    dislikeComment: any
+    dislikeComment: any,
+    updateComment: any
 ): AuthRoutes {
     return {
         writeComment: {
@@ -48,6 +50,17 @@ export function createCommentRoutes(
                 commentValidation(),
             ],
             handler: dislikeComment,
+        },
+        updateComment: {
+            method: 'put',
+            path: `${path}`,
+            middleware: [
+                bodyValidation(updateComment_validation),
+                profileValidation(),
+                commentValidation(),
+                badWordsValidation(),
+            ],
+            handler: updateComment,
         },
     };
 }

@@ -19,7 +19,8 @@ class SubCommentsMobileController implements Controller {
             this.path,
             this.writeSubComment,
             this.likeSubComment,
-            this.dislikeSubComment
+            this.dislikeSubComment,
+            this.updateComment
         );
         createRoutes(newRoutes, this.router);
     }
@@ -73,6 +74,20 @@ class SubCommentsMobileController implements Controller {
             }
         }
     );
+
+    private updateComment = asyncWrapper(async (req: CustomRequest, res) => {
+        const response = customResponse(res);
+        const { sub_comment_id, content } = req.body;
+        try {
+            const data = await SubCommentService.editSubComment({
+                id: sub_comment_id,
+                content: content,
+            });
+            response.success({ code: StatusCodes.CREATED, data });
+        } catch (err) {
+            response.error(err as ErrorData);
+        }
+    });
 }
 
 export default SubCommentsMobileController;

@@ -38,6 +38,23 @@ export const commentRepository = {
         }
     },
 
+    async updateComment(data: CommentUpdateInterface) {
+        try {
+            await db.Comments.update(
+                { content: data.content },
+                { where: { id: data.id } }
+            );
+            // Fetch and return the updated comment
+            const updatedComment = await db.Comments.findOne({
+                where: { id: data.id },
+            });
+
+            return updatedComment;
+        } catch (err) {
+            throw dbException(err);
+        }
+    },
+
     async getCommentsByNewsId(news_id: number): Promise<Comments[]> {
         try {
             return await db.Comments.findAll({
