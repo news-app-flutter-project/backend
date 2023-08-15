@@ -102,12 +102,18 @@ export const bookmarkRepository = {
         }
     },
 
-    async allocateDupCheck(profile_id: number, folder_id: number) {
+    async allocateDupCheck(profile_id: number, bookmark_id: number) {
         try {
             const bookmark = await db.BookMark.findOne({
-                where: { profile_id, folder_id },
+                where: { profile_id, id: bookmark_id },
+                attributes: ['folder_id'],
             });
-            return bookmark;
+            // Check if the folder_id is null or not
+            if (bookmark && bookmark.folder_id === null) {
+                return null; // This means the bookmark does not have a folder_id allocated
+            } else {
+                return bookmark?.folder_id; // This will return the folder_id if allocated or undefined if the bookmark doesn't exist
+            }
         } catch (err) {
             return dbException(err);
         }

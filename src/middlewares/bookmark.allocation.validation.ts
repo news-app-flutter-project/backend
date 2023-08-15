@@ -12,12 +12,12 @@ const bookmarkAllocationValidation = (): RequestHandler => {
     ): Promise<void> => {
         const response = customResponse(res);
         const profile_id = req.profile?.id;
-        const { folder_id } = req.body;
+        const { bookmark_id } = req.body;
         try {
             const isAlreadyAllocated =
                 await bookmarkRepository.allocateDupCheck(
                     profile_id!,
-                    folder_id
+                    bookmark_id
                 );
             if (isAlreadyAllocated) {
                 return DuplicateError('bookmark is already allocated');
