@@ -4,9 +4,9 @@ import {
     bodyValidation,
     newsIdValidation,
     tokenValidationProfile,
-    bookmarkValidation,
+    bookmarkNewsValidation,
     bookmarkFolderNameValidation,
-    bookmarkAllocationValidation,
+    bookmarkValidation,
 } from '@/middlewares/index';
 import {
     bookmark_validation,
@@ -40,7 +40,7 @@ export function createSearchRoutes(
                 bodyValidation(bookmark_validation),
                 tokenValidationProfile(),
                 newsIdValidation(),
-                bookmarkValidation(),
+                bookmarkNewsValidation(),
             ],
             handler: bookmark,
         },
@@ -76,7 +76,7 @@ export function createSearchRoutes(
             middleware: [
                 bodyValidation(allocate_validation),
                 tokenValidationProfile(),
-                bookmarkAllocationValidation(),
+                bookmarkValidation(),
             ],
             handler: allocate,
         },

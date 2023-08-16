@@ -8,8 +8,11 @@ import headersValidation from './headersValidation';
 import newsIdValidation from './newsIdValidation';
 import HttpException from './http-exception';
 import errorMiddleware from './error-middleware';
-import bookmarkValidation from './bookmarkValidation';
+import bookmarkNewsValidation from './bookmarkValidation';
 import bookmarkFolderNameValidation from './bookmarkFolder.name.validation';
+import bookmarkValidation from './bookmark.allocation.validation';
+import bookmarkExistValidation from './bookmarkNotExist.validation';
+import bookmarkFolderExistValidation from './bookmarkFolderExist.validation';
 import bookmarkAllocationValidation from './bookmark.allocation.validation';
 import memoValidation from './memoValidation';
 import memoFolderNameValidation from './memoFolder.name.validation';
@@ -37,9 +40,12 @@ export {
     tokenValidation,
     newsIdValidation,
     tokenValidationProfile,
-    bookmarkValidation,
+    bookmarkNewsValidation,
     bookmarkFolderNameValidation,
+    bookmarkValidation,
     bookmarkAllocationValidation,
+    bookmarkFolderExistValidation,
+    bookmarkExistValidation,
     memoValidation,
     memoFolderNameValidation,
     memoAllocationValidation,

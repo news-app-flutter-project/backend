@@ -105,8 +105,9 @@ class BookmarkController implements Controller {
 
     private updateFolderName = asyncWrapper(async (req: CustomRequest, res) => {
         const response = customResponse(res);
-        const profile_id = req.profile_id;
+        const profile_id = req.profile?.id;
         const { name: new_name, folder_id } = req.body;
+
         try {
             const data = await bookmarkService.updateFolderName(
                 profile_id!,
@@ -123,9 +124,10 @@ class BookmarkController implements Controller {
         async (req: CustomRequest, res) => {
             const response = customResponse(res);
             const { bookmark_id } = req.body;
-
             try {
-                await bookmarkService.removeBookmarkFromFolder(bookmark_id);
+                await bookmarkService.removeBookmarkFromFolder(
+                    Number(bookmark_id)
+                );
                 response.success({
                     code: StatusCodes.CREATED,
                 });
@@ -152,9 +154,8 @@ class BookmarkController implements Controller {
     private deleteBookmarkFolder = asyncWrapper(
         async (req: CustomRequest, res) => {
             const response = customResponse(res);
-            const profile_id = req.profile_id;
+            const profile_id = req.profile?.id;
             const { folder_id } = req.body;
-
             try {
                 await bookmarkService.deleteBookmarkFolder(
                     profile_id!,
@@ -162,7 +163,6 @@ class BookmarkController implements Controller {
                 );
                 response.success({
                     code: StatusCodes.CREATED,
-                    data: `folder : ${folder_id} is deleted`,
                 });
             } catch (err) {
                 response.error(err as ErrorData);

@@ -4,7 +4,7 @@ import { customResponse } from '@/common/response';
 import { bookmarkRepository } from '@/database/repositories/bookmark.repository';
 import { DuplicateError } from '@/common/exceptions';
 
-const bookmarkValidation = (): RequestHandler => {
+const bookmarkNewsValidation = (): RequestHandler => {
     return async (
         req: CustomRequest,
         res: Response,
@@ -29,4 +29,4 @@ const bookmarkValidation = (): RequestHandler => {
     };
 };
 
-export default bookmarkValidation;
+export default bookmarkNewsValidation;
