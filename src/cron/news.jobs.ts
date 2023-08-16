@@ -56,7 +56,11 @@ export class ScheduleNewsUpdate {
                 // Check if news was successfully created
                 if (createdNews) {
                     // Split the news content into sentences
-                    const sentences = news.content.split('.');
+                    // const sentences = news.content.split('.');
+                    const sentences = news.content
+                        .split('.')
+                        .filter(Boolean)
+                        .map((sentence: string) => sentence.trim() + '.');
 
                     // Store each sentence in the NewsContent table
                     for (let i = 0; i < sentences.length; i++) {

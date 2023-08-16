@@ -28,16 +28,20 @@ export const allocate_validation = Joi.object({
 export const updateFolderName_validation = Joi.object({
     folder_id: Joi.number().required(),
     name: Joi.string().required(),
+    kakao_id: Joi.number().integer().min(1000000000).max(9999999999).required(),
 });
 
 export const removeBookmarkFromFolder_validation = Joi.object({
     bookmark_id: Joi.number().required(),
+    kakao_id: Joi.number().integer().min(1000000000).max(9999999999).required(),
 });
 
 export const deleteBookmark_validation = Joi.object({
     bookmark_id: Joi.number().required(),
+    kakao_id: Joi.number().integer().min(1000000000).max(9999999999).required(),
 });
 
 export const deleteBookmarkFolder_validation = Joi.object({
     folder_id: Joi.number().required(),
+    kakao_id: Joi.number().integer().min(1000000000).max(9999999999).required(),
 });

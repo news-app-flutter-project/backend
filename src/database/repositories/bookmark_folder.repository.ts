@@ -33,6 +33,22 @@ export const bookmark_folderRepository = {
         }
     },
 
+    async doesBookmarkFolderExist(
+        bookmarkfolder_id: number,
+        profile_id: number
+    ) {
+        try {
+            const bookmarkFolder = await db.BookMarkFolder.findOne({
+                where: { id: bookmarkfolder_id, profile_id },
+            });
+
+            // If the result is not null, the folder exists.
+            return bookmarkFolder !== null;
+        } catch (err) {
+            return dbException(err);
+        }
+    },
+
     async createFolder(profile_id: number, name: string, order: number) {
         try {
             return await db.BookMarkFolder.create({

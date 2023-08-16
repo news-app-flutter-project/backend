@@ -2,7 +2,7 @@ import { Request, Response, NextFunction, RequestHandler } from 'express';
 import Joi from 'joi';
 import BadRequest from './bad-request';
 
-const validationMiddleware = (schema: Joi.Schema): RequestHandler => {
+const queryValidation = (schema: Joi.Schema): RequestHandler => {
     return async (
         req: Request,
         res: Response,
@@ -34,4 +34,4 @@ const validationMiddleware = (schema: Joi.Schema): RequestHandler => {
     };
 };
 
-export default validationMiddleware;
+export default queryValidation;

@@ -19,6 +19,7 @@ const bookmarkFolderNameValidation = (): RequestHandler => {
                     profile_id!,
                     name
                 );
+
             if (isFolderNameExist) {
                 return DuplicateError('folder name already in use');
             }
